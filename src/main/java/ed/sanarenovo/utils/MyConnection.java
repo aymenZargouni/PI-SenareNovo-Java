@@ -22,7 +22,7 @@ public class MyConnection {
 
         try {
             cnx = DriverManager.getConnection(url, login, pwd);
-            cnx.setAutoCommit(true); // Active la reconnexion automatique
+            cnx.setAutoCommit(true);
             System.out.println("Connexion established...");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
