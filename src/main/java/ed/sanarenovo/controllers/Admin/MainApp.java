@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/takoua_views/main_view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Youssef_views/cons.fxml"));
         primaryStage.setTitle("Medecin List");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
