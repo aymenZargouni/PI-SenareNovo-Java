@@ -6,19 +6,19 @@ import java.sql.SQLException;
 
 public class MyConnection {
 
-    private String url="jdbc:mysql://localhost:3306/senarenovo";
-    private String login="root";
-    private String pwd="";
+    private String url = "jdbc:mysql://localhost:3306/senarenovojavapi";
+    private String login = "root";
+    private String password = "";
 
     private Connection cnx;
     private static MyConnection instance;
 
-    private MyConnection(){
+    private MyConnection() {
         try {
-            cnx =  DriverManager.getConnection(url,login,pwd);
-            System.out.println("Connexion established...");
+            cnx = DriverManager.getConnection(url, login, password);
+            System.out.println("Connection successful");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Connection failed: " + e.getMessage());
         }
     }
 
@@ -26,8 +26,8 @@ public class MyConnection {
         return cnx;
     }
 
-    public static MyConnection getInstance(){
-        if(instance == null){
+    public static MyConnection getInstance() {
+        if (instance == null) {
             instance = new MyConnection();
         }
         return instance;
