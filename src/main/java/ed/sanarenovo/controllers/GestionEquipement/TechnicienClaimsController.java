@@ -2,7 +2,9 @@ package ed.sanarenovo.controllers.GestionEquipement;
 
 import ed.sanarenovo.entities.Claim;
 import ed.sanarenovo.services.ClaimService;
+import ed.sanarenovo.services.TechnicienService;
 import ed.sanarenovo.utils.ReclamationIA;
+import ed.sanarenovo.utils.UserSession;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -34,9 +36,15 @@ public class TechnicienClaimsController {
     private final ClaimService claimService = new ClaimService();
     private ObservableList<Claim> observableClaims;
     private int technicienId = 4;
-
+    private TechnicienService technicienService = new TechnicienService();
     @FXML
     public void initialize() {
+
+        // Get authenticated user's ID
+        int userId = UserSession.getInstance().getUser().getId();
+
+        // Find Technicien by user ID
+        technicienId = technicienService.getTechnicienIdByUserId(userId);
 
         reportTypeGroup = new ToggleGroup();
         radioAuto.setToggleGroup(reportTypeGroup);

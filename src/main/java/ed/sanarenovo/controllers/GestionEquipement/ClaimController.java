@@ -168,7 +168,7 @@ public class ClaimController {
     @FXML
     private void handleOpenClaimsManagement() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/claims_management.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Sabrineviews/claims_management.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
