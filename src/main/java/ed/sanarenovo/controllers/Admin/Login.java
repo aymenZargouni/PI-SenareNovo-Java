@@ -1,4 +1,4 @@
-package ed.sanarenovo.controllers;
+package ed.sanarenovo.controllers.Admin;
 
 import java.io.IOException;
 import java.net.URL;

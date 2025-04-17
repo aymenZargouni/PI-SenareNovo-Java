@@ -1,4 +1,4 @@
-package ed.sanarenovo.controllers;
+package ed.sanarenovo.controllers.Admin;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

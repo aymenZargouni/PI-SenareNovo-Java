@@ -7,7 +7,7 @@
       styleClass="sidebar-container"
       xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ed.sanarenovo.controllers.AdminSideBarController">
+      fx:controller="ed.sanarenovo.controllers.Admin.AdminSideBarController">
 
     <Button text="Gestion Users" fx:id="btnUsers" styleClass="sidebar-btn" />
     <Button text="Gestion Médecins" fx:id="btnMedecins" styleClass="sidebar-btn" />

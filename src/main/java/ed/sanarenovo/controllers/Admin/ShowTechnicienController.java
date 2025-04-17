@@ -1,4 +1,4 @@
-package ed.sanarenovo.controllers;
+package ed.sanarenovo.controllers.Admin;
 
 import java.io.IOException;
 import java.net.URL;
@@ -6,11 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import ed.sanarenovo.entities.Medecin;
 import ed.sanarenovo.entities.Technicien;
-import ed.sanarenovo.entities.User;
 import ed.sanarenovo.services.TechnicienService;
-import ed.sanarenovo.services.UserService;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;

@@ -1,4 +1,4 @@
-package ed.sanarenovo.controllers;
+package ed.sanarenovo.controllers.Admin;
 
 import java.net.URL;
 import java.util.ResourceBundle;

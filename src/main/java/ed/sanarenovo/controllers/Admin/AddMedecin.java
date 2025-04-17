@@ -1,4 +1,4 @@
-package ed.sanarenovo.controllers;
+package ed.sanarenovo.controllers.Admin;
 
 import java.net.URL;
 import java.sql.Date;
@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import ed.sanarenovo.entities.Medecin;
 import ed.sanarenovo.entities.User;
 import ed.sanarenovo.services.MedecinService;
-import ed.sanarenovo.services.UserService;
 import ed.sanarenovo.utils.PasswordHasher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

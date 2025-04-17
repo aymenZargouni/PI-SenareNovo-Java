@@ -1,4 +1,4 @@
-package ed.sanarenovo.controllers;
+package ed.sanarenovo.controllers.Admin;
 
 import ed.sanarenovo.utils.UserSession;
 import javafx.event.ActionEvent;

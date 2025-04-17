@@ -1,4 +1,4 @@
-package ed.sanarenovo.controllers;
+package ed.sanarenovo.controllers.Admin;
 
 import java.net.URL;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import ed.sanarenovo.entities.Patient;
 import ed.sanarenovo.services.PatientService;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

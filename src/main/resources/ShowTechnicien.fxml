@@ -11,7 +11,7 @@
 <BorderPane prefHeight="600.0" prefWidth="1000.0"
             xmlns="http://javafx.com/javafx/19"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ed.sanarenovo.controllers.ShowTechnicienController"
+            fx:controller="ed.sanarenovo.controllers.Admin.ShowTechnicienController"
             stylesheets="@style.css"
             styleClass="main-container">
 
