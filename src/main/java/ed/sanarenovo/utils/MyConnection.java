@@ -23,6 +23,13 @@ public class MyConnection {
     }
 
     public Connection getCnx() {
+        try {
+            if (cnx == null || cnx.isClosed()) {
+                cnx = DriverManager.getConnection(url, login, pwd);
+            }
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la reconnexion : " + e.getMessage());
+        }
         return cnx;
     }
 
