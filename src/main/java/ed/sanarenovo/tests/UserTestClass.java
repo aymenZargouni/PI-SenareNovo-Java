@@ -6,15 +6,14 @@ import ed.sanarenovo.utils.MyConnection;
 
 import java.util.List;
 
-public class AymenTestClass {
+public class UserTestClass {
     public static void main(String[] args) {
-
 
         UserService userService = new UserService();
 
         MyConnection.getInstance();
 
-        List<User> users = userService.getAllUsers();
+        List<User> users = userService.getAll();
         for (User u : users) {
             System.out.println("ID: " + u.getId());
             System.out.println("Email: " + u.getEmail());
@@ -27,6 +26,7 @@ public class AymenTestClass {
 
 
 
+        /*
         // ✅ Add new user
         User newUser = new User();
         newUser.setEmail("test@example.com");
@@ -36,7 +36,25 @@ public class AymenTestClass {
         newUser.setResetToken(null);
         newUser.setResetTokenExpiresAt(null);
 
-        userService.addUser(newUser);
+        userService.add(newUser);
+
+
+        // ✅ update user
+        if (!users.isEmpty()) {
+            User firstUser = users.get(0);
+            firstUser.setBlocked(true);
+            firstUser.setEmail("admin@gmail.com");
+            userService.updateUser(firstUser, firstUser.getId());
+        }
+
+         */
+
+        // ✅ Delete user (optional)
+
+        if (!users.isEmpty()) {
+            userService.delete(55);
+        }
+
 
     }
 }
