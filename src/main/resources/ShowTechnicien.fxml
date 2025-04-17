@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.layout.HBox?>
+<BorderPane prefHeight="600.0" prefWidth="1000.0"
+            xmlns="http://javafx.com/javafx/19"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ed.sanarenovo.controllers.ShowTechnicienController"
+            stylesheets="@style.css"
+            styleClass="main-container">
+
+    <left>
+        <fx:include source="AdminSidebar.fxml" />
+    </left>
+
+    <center>
+        <VBox fx:id="rootContainer"
+              spacing="15"
+              styleClass="content-container">
+
+            <fx:include source="TopBar.fxml" />
+
+            <Label text="Liste des Techniciens"
+                   styleClass="section-title" />
+
+            <TableView fx:id="techTable"
+                       prefHeight="350.0"
+                       styleClass="styled-table">
+                <columns>
+                    <TableColumn fx:id="fullname" text="Nom complet" prefWidth="150.0" />
+                    <TableColumn fx:id="email" text="Email" prefWidth="200.0" />
+                    <TableColumn fx:id="tel" text="Numéro Telephone" prefWidth="180.0" />
+                    <TableColumn fx:id="status" text="Statut" prefWidth="150.0" />
+                </columns>
+            </TableView>
+
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button fx:id="modifbtn" text="Modifier" onAction="#modifTech" styleClass="action-button" />
+                <Button fx:id="deletebtn" text="Supprimer" onAction="#deleteTech" styleClass="danger-button" />
+                <Button fx:id="addMedbtn" text="Ajouter Technicien" onAction="#addTech" styleClass="add-button" />
+            </HBox>
+
+        </VBox>
+    </center>
+</BorderPane>
