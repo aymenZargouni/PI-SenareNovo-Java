@@ -1,0 +1,69 @@
+.root {
+    -fx-background-color: #f4f4f4;
+    -fx-padding: 15;
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.label-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2E2E2E;
+    -fx-padding: 0 0 10 0;
+}
+
+.table-view {
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+    -fx-table-cell-border-color: #dddddd;
+}
+
+.button-add, .button-update, .button-delete, .button-refresh {
+    -fx-text-fill: white;
+    -fx-padding: 8 15 8 15;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+}
+
+.button-add {
+    -fx-background-color: #2E8B57;
+}
+
+.button-update {
+    -fx-background-color: #4682B4;
+}
+
+.button-delete {
+    -fx-background-color: #B22222;
+}
+
+.button-refresh {
+    -fx-background-color: #6A5ACD;
+}
+
+.grid-pane {
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-padding: 10;
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1;
+}
+
+.label-bold {
+    -fx-font-weight: bold;
+    -fx-text-fill: #555555;
+}
+
+.text-field, .date-picker {
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+}
