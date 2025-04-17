@@ -19,7 +19,15 @@ public class User {
 
     public User() {}
 
-    // Getters and Setters
+    public User(int id,String email, String password, String roles, boolean isBlocked) {
+        this.email = email;
+        this.id = id;
+        this.isBlocked = isBlocked;
+        this.password = password;
+        this.roles = roles;
+    }
+
+// Getters and Setters
 
     public Integer getId() {
         return id;

@@ -6,22 +6,34 @@ import javafx.beans.property.StringProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Technicien extends User {
-
+public class Technicien {
     private int id;
     private String nom;
-    private User user;
     private String phoneNumber;
+    private User user;
     private List<Claim> claims;
 
-
+    public Technicien() {}
+  
     public Technicien() {
         this.claims = new ArrayList<>();
     }
 
-    // Getters & Setters
+    public Technicien(String nom, String phoneNumber, User user) {
+        this.nom = nom;
+        this.phoneNumber = phoneNumber;
+        this.user = user;
+    }
 
-    public Integer getId() {
+    public Technicien(int id, String nom, String phoneNumber, User user) {
+        this.id = id;
+        this.nom = nom;
+        this.phoneNumber = phoneNumber;
+        this.user = user;
+    }
+
+
+    public int getId() {
         return id;
     }
 
@@ -37,20 +49,20 @@ public class Technicien extends User {
         this.nom = nom;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public StringProperty nomProperty() {
