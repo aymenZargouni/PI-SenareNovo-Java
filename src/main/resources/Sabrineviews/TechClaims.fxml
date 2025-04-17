@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ed.sanarenovo.controllers.GestionEquipement.TechnicienClaimsController"
+      spacing="20"
+      style="-fx-padding: 25; -fx-background-color: #f4f4f4;"
+      stylesheets="@/styles/technicien.css">
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <ImageView fitWidth="32" fitHeight="32">
+            <image>
+                <Image url="@icons/TechClaim.png"/>
+            </image>
+        </ImageView>
+        <Label text="Gestion des Réclamations " style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    </HBox>
+
+    <TitledPane text="Options de Rapport" animated="false">
+        <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 10;">
+            <RadioButton fx:id="radioAuto" text="Génération Automatique (IA)"
+                         styleClass="radio-button"/>
+            <RadioButton fx:id="radioManual" text="Saisie Manuel"
+                         styleClass="radio-button"/>
+        </HBox>
+    </TitledPane>
+
+    <TitledPane text="Réclamations Assignées" animated="false" VBox.vgrow="ALWAYS">
+        <TableView fx:id="claimTable" styleClass="custom-table">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" style="-fx-alignment: CENTER;" minWidth="60"/>
+                <TableColumn fx:id="colReclamation" text="Description" minWidth="250"/>
+                <TableColumn fx:id="colEquipment" text="Équipement" minWidth="150"/>
+                <TableColumn fx:id="colStatus" text="Statut" minWidth="120" style="-fx-alignment: CENTER;"/>
+                <TableColumn fx:id="colDate" text="Date" minWidth="140" style="-fx-alignment: CENTER;"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </TitledPane>
+
+    <GridPane hgap="15" vgap="15" style="-fx-padding: 15; -fx-background-color: white; -fx-background-radius: 5;">
+        <Label text="Mise à jour du Statut"
+               GridPane.columnSpan="2"
+               style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
+
+        <Label text="Date de Réparation:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="repairDatePicker" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                    promptText="Sélectionner une date"/>
+
+        <Label text="Nouveau Statut:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="statusComboBox" GridPane.rowIndex="2" GridPane.columnIndex="1"
+                  prefWidth="200" promptText="Sélectionner un statut"/>
+
+        <Button onAction="#onUpdateStatus"
+                GridPane.rowIndex="3" GridPane.columnIndex="1"
+                styleClass="primary-button">
+            <graphic>
+                <ImageView fitHeight="16" fitWidth="16">
+                    <image>
+                        <Image url="@icons/update.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+            <text>Valider la Mise à Jour</text>
+        </Button>
+    </GridPane>
+</VBox>
