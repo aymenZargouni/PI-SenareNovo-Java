@@ -1,9 +1,5 @@
 package ed.sanarenovo.entities;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 public class User {
 
     private int id;
@@ -33,7 +29,7 @@ public class User {
 
 // Getters and Setters
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

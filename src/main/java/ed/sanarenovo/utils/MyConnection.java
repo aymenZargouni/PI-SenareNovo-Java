@@ -13,9 +13,14 @@ public class MyConnection {
     private Connection cnx;
     private static MyConnection instance;
 
-    private MyConnection(){
+    private MyConnection() {
+        createConnection();
+    }
+
+    private void createConnection() {
         try {
-            cnx =  DriverManager.getConnection(url,login,pwd);
+            cnx = DriverManager.getConnection(url, login, pwd);
+            cnx.setAutoCommit(true); // Active la reconnexion automatique
             System.out.println("Connexion established...");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -23,12 +28,23 @@ public class MyConnection {
     }
 
     public Connection getCnx() {
+        try {
+            if (cnx == null || cnx.isClosed()) {
+                createConnection();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error checking connection: " + e.getMessage());
+        }
         return cnx;
     }
 
-    public static MyConnection getInstance(){
-        if(instance == null){
-            instance = new MyConnection();
+    public static MyConnection getInstance() {
+        if (instance == null) {
+            synchronized (MyConnection.class) {
+                if (instance == null) {
+                    instance = new MyConnection();
+                }
+            }
         }
         return instance;
     }

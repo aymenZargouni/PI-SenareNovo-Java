@@ -1,12 +1,23 @@
 package ed.sanarenovo.entities;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Technicien {
     private int id;
     private String nom;
     private String phoneNumber;
     private User user;
+    private List<Claim> claims;
 
     public Technicien() {}
+  
+    public Technicien() {
+        this.claims = new ArrayList<>();
+    }
 
     public Technicien(String nom, String phoneNumber, User user) {
         this.nom = nom;
@@ -53,5 +64,8 @@ public class Technicien {
     public void setUser(User user) {
         this.user = user;
     }
-}
 
+    public StringProperty nomProperty() {
+        return new SimpleStringProperty(this.nom);
+    }
+}
