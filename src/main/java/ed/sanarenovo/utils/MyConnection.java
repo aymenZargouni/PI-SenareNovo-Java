@@ -13,15 +13,13 @@ public class MyConnection {
     private Connection cnx;
     public static MyConnection instance;
 
-<<<<<<< HEAD
+
     private MyConnection() {
         createConnection();
     }
 
     private void createConnection() {
-=======
-    public MyConnection(){
->>>>>>> origin/Offre.candidat
+
         try {
             cnx = DriverManager.getConnection(url, login, pwd);
             cnx.setAutoCommit(true); // Active la reconnexion automatique

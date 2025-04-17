@@ -3,11 +3,8 @@ package ed.sanarenovo.services;
 import ed.sanarenovo.entities.Technicien;
 import ed.sanarenovo.utils.MyConnection;
 
-import ed.sanarenovo.entities.Medecin;
-import ed.sanarenovo.entities.Technicien;
 import ed.sanarenovo.entities.User;
 import ed.sanarenovo.interfaces.IUserService;
-import ed.sanarenovo.utils.MyConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

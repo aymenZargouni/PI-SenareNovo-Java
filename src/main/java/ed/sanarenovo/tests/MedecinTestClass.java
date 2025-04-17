@@ -1,11 +1,8 @@
 package ed.sanarenovo.tests;
 
 import ed.sanarenovo.entities.Medecin;
-import ed.sanarenovo.entities.User;
 import ed.sanarenovo.services.MedecinService;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class MedecinTestClass {

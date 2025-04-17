@@ -1,7 +1,5 @@
 package ed.sanarenovo.interfaces;
 
-import ed.sanarenovo.entities.User;
-
 import java.util.List;
 
 public interface IUserService<T> {

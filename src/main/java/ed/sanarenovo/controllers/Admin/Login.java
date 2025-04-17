@@ -60,6 +60,9 @@ public class Login {
             case "ROLE_TECHNICIEN":
                 loadFXML("/Sabrineviews/TechClaims.fxml");
                 break;
+            case "ROLE_RH":
+                loadFXML("/takoua_views/main_view.fxml");
+                break;
         }
     }
     private void loadFXML(String path) {
