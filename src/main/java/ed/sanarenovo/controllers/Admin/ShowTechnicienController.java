@@ -62,7 +62,7 @@ public class ShowTechnicienController {
     @FXML
     void addTech(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddTechnicien.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AymenViews/AddTechnicien.fxml"));
             Parent root = loader.load();
             AddTechnicienController controller = loader.getController();
             controller.setControllerRef(this);
@@ -114,7 +114,7 @@ public class ShowTechnicienController {
 
         if (selectedTechnicien != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditTechnicien.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AymenViews/EditTechnicien.fxml"));
                 Parent root = loader.load();
 
                 EditTechnicienController controller = loader.getController();

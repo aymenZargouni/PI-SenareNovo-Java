@@ -27,7 +27,7 @@ public class TopBarController {
         UserSession.logout();
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/AymenViews/Login.fxml"));
             Stage stage = (Stage) userEmailLabel.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {

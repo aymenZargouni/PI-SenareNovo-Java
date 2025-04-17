@@ -46,10 +46,10 @@ public class Login {
 
         switch (cleanedRole) {
             case "ROLE_ADMIN":
-                loadFXML("/ShowMedecin.fxml");
+                loadFXML("/AymenViews/ShowMedecin.fxml");
                 break;
             case "ROLE_MEDECIN":
-                loadFXML("/AddMedecin.fxml");
+                loadFXML("/AymenViews/AddMedecin.fxml");
                 break;
             case "ROLE_PATIENT":
                 loadFXML("/patient/PatientDashboard.fxml");

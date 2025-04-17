@@ -78,7 +78,7 @@ public class ShowMedecinController {
     @FXML
     void addMed(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddMedecin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AymenViews/AddMedecin.fxml"));
             Parent root = loader.load();
             AddMedecin addController = loader.getController();
             addController.setControllerRef(this);
@@ -138,7 +138,7 @@ public class ShowMedecinController {
 
         if (selectedMedecin != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditMedecin.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AymenViews/EditMedecin.fxml"));
                 Parent root = loader.load();
 
                 EditMedecinController controller = loader.getController();

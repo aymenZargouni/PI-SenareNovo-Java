@@ -21,10 +21,10 @@ public class AdminSideBarController {
 
     @FXML
     void initialize() {
-        btnUsers.setOnAction(e -> openView("/ShowUsers.fxml"));
-        btnMedecins.setOnAction(e -> openView("/ShowMedecin.fxml"));
-        btnTechniciens.setOnAction(e -> openView("/ShowTechnicien.fxml"));
-        btnPatients.setOnAction(e -> openView("/ShowPatients.fxml"));
+        btnUsers.setOnAction(e -> openView("/AymenViews/ShowUsers.fxml"));
+        btnMedecins.setOnAction(e -> openView("/AymenViews/ShowMedecin.fxml"));
+        btnTechniciens.setOnAction(e -> openView("/AymenViews/ShowTechnicien.fxml"));
+        btnPatients.setOnAction(e -> openView("/AymenViews/ShowPatients.fxml"));
     }
 
     private void openView(String fxmlPath) {

@@ -61,7 +61,7 @@ public class ShowUsers {
     @FXML
     void addUser(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AymenViews/AddUser.fxml"));
             Parent root = loader.load();
 
             AddUserController controller = loader.getController();
@@ -116,7 +116,7 @@ public class ShowUsers {
 
         if (selectedUser != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditUser.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AymenViews/EditUser.fxml"));
                 Parent root = loader.load();
 
                 EditUserController controller = loader.getController();
