@@ -13,7 +13,6 @@ public class Technicien {
     private User user;
     private List<Claim> claims;
 
-    public Technicien() {}
   
     public Technicien() {
         this.claims = new ArrayList<>();

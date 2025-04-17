@@ -54,8 +54,11 @@ public class Login {
             case "ROLE_PATIENT":
                 loadFXML("/patient/PatientDashboard.fxml");
                 break;
+            case "ROLE_COORDINATEUR":
+                loadFXML("/Sabrineviews/equipment.fxml");
+                break;
             case "ROLE_TECHNICIEN":
-                loadFXML("/technicien/TechnicienDashboard.fxml");
+                loadFXML("/Sabrineviews/TechClaims.fxml");
                 break;
         }
     }

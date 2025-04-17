@@ -13,7 +13,7 @@
       spacing="20"
       style="-fx-padding: 25; -fx-background-color: #f4f4f4;"
       stylesheets="@/styles/management.css">
-
+    <fx:include source="/AymenViews/TopBar.fxml" />
     <!-- En-tête -->
 
     <HBox alignment="CENTER_LEFT" spacing="10">

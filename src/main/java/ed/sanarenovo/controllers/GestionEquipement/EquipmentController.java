@@ -141,7 +141,7 @@ public class EquipmentController {
         Equipment selected = equipmentTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/claim.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/Sabrineviews/claim.fxml"));
                 Parent root = loader.load();
 
                 ClaimController claimController = loader.getController();

@@ -9,10 +9,7 @@ import ed.sanarenovo.entities.User;
 import ed.sanarenovo.interfaces.IUserService;
 import ed.sanarenovo.utils.MyConnection;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,5 +172,22 @@ public class TechnicienService implements IUserService<Technicien> {
             throw new RuntimeException("Erreur DB: " + e.getMessage());
         }
         return techniciens;
+    }
+
+    public int getTechnicienIdByUserId(int userId) {
+        int technicienId = -1;
+        try {
+            Connection cnx = MyConnection.getInstance().getCnx();
+            String query = "SELECT id FROM technicien WHERE user_id = ?";
+            PreparedStatement ps = cnx.prepareStatement(query);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                technicienId = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return technicienId;
     }
 }
