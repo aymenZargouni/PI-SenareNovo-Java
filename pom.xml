@@ -13,6 +13,7 @@
         <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>mysql</groupId>
@@ -80,6 +81,16 @@
             <artifactId>commons-email</artifactId>
             <version>1.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>22.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>22.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -94,5 +105,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
