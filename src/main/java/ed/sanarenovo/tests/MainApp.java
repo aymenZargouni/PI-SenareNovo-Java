@@ -14,7 +14,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
             MyConnection.getInstance();
-            Parent root = FXMLLoader.load(getClass().getResource("/Blog/Category.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Blog/BLog.fxml"));
             Scene scene = new Scene(root);
             //scene.getStylesheets().add(getClass().getResource("/Youssef_views/design.css").toExternalForm());
             primaryStage.setScene(scene);

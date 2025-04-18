@@ -41,7 +41,7 @@ public class AddMedecin {
     private PasswordField tfmdp;
 
     @FXML
-    private TextField tfspecialite;
+    private ChoiceBox<String> tfspecialite;
 
     private ShowMedecinController controllerRef;
 
@@ -54,7 +54,7 @@ public class AddMedecin {
         String fullname = tffullname.getText().trim();
         String email = tfemail.getText().trim();
         String password = tfmdp.getText().trim();
-        String specialite = tfspecialite.getText().trim();
+        String specialite = tfspecialite.getValue().trim();
         LocalDate localDate = tfdateembauche.getValue();
 
         // Validation
@@ -137,6 +137,20 @@ public class AddMedecin {
         assert tfmdp != null : "fx:id=\"tfmdp\" was not injected: check your FXML file 'AddMedecin.fxml'.";
         assert tfspecialite != null : "fx:id=\"tfspecialite\" was not injected: check your FXML file 'AddMedecin.fxml'.";
 
+        // ADD THIS PART 👇
+        tfspecialite.getItems().addAll(
+                "Cardiologue",
+                "Dermatologie",
+                "Gastronentérologie",
+                "Neurologie",
+                "Pédiatrie",
+                "Psychiatrie",
+                "Chirurgie",
+                "Ophtalmologie",
+                "Néphrologie"
+        );
+
+        tfspecialite.getSelectionModel().selectFirst(); // optional: pre-select first specialty
     }
 
 }
