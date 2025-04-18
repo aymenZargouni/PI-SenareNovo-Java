@@ -1,9 +1,5 @@
 package ed.sanarenovo.entities;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 public class User {
 
     private int id;
@@ -23,9 +19,17 @@ public class User {
 
     public User() {}
 
-    // Getters and Setters
+    public User(int id,String email, String password, String roles, boolean isBlocked) {
+        this.email = email;
+        this.id = id;
+        this.isBlocked = isBlocked;
+        this.password = password;
+        this.roles = roles;
+    }
 
-    public int getId() {
+// Getters and Setters
+
+    public Integer getId() {
         return id;
     }
 
