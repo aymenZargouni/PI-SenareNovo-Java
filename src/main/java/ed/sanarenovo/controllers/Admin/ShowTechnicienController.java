@@ -98,7 +98,7 @@ public class ShowTechnicienController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             technicienService.delete(selected.getId());
 
-            loadTechniciens(); // Refresh table if you have this method
+            loadTechniciens();
 
             Alert success = new Alert(Alert.AlertType.INFORMATION);
             success.setTitle("Succès");

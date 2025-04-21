@@ -1,16 +1,22 @@
 package ed.sanarenovo.controllers.Admin;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import ed.sanarenovo.entities.Patient;
 import ed.sanarenovo.entities.User;
 import ed.sanarenovo.services.PatientService;
+import ed.sanarenovo.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 public class PatientController {
 
@@ -36,18 +42,39 @@ public class PatientController {
     private TextField tffullname;
 
     @FXML
-    private TextField tfpwd;
+    private PasswordField tfpwd;
 
     @FXML
     private ChoiceBox<String> tfsexe;
 
     @FXML
     void AddPatient(ActionEvent event) {
-        String email = tfemail.getText();
+        String email = tfemail.getText().trim();
         String password = tfpwd.getText();
-        String fullname = tffullname.getText();
+        String fullname = tffullname.getText().trim();
         String gender = tfsexe.getValue();
-        String address = tfaddress.getText();
+        String address = tfaddress.getText().trim();
+
+        if (fullname.isEmpty() || email.isEmpty() || password.isEmpty() || address.isEmpty() || gender == null) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs !");
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            showAlert(Alert.AlertType.ERROR, "Email invalide", "Veuillez entrer une adresse email valide !");
+            return;
+        }
+
+        if (password.length() < 6) {
+            showAlert(Alert.AlertType.ERROR, "Mot de passe trop court", "Le mot de passe doit contenir au moins 6 caractères !");
+            return;
+        }
+
+        UserService userService = new UserService();
+        if (userService.emailExists(email)) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email est déjà utilisé !");
+            return;
+        }
 
         User user = new User();
         user.setEmail(email);
@@ -63,15 +90,14 @@ public class PatientController {
 
         PatientService patientService = new PatientService();
         patientService.register(patient);
+
+        showAlert(Alert.AlertType.INFORMATION, "Succès", "Compte patient créé avec succès !");
+        redirectToLogin(event);
     }
 
     @FXML
     void cancelAdd(ActionEvent event) {
-        tfemail.clear();
-        tfpwd.clear();
-        tffullname.clear();
-        tfaddress.clear();
-        tfsexe.setValue(null);
+        clearFields();
     }
 
     @FXML
@@ -89,5 +115,37 @@ public class PatientController {
 
     }
 
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return Pattern.matches(emailRegex, email);
+    }
+
+    private void clearFields() {
+        tfemail.clear();
+        tfpwd.clear();
+        tffullname.clear();
+        tfaddress.clear();
+        tfsexe.setValue("Homme");
+    }
+
+    private void redirectToLogin(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/AymenViews/Login.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

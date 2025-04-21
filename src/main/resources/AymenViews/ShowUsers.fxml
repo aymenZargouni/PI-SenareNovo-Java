@@ -4,44 +4,37 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.BorderPane?>
-
 <?import javafx.scene.layout.HBox?>
-<BorderPane fx:id="mainContainer" prefHeight="600.0" prefWidth="1000.0"
-            xmlns="http://javafx.com/javafx/19"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ed.sanarenovo.controllers.Admin.ShowUsers"
-            stylesheets="@style.css">
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainContainer" prefHeight="600.0" prefWidth="1000.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.ShowUsers">
 
     <left>
         <fx:include source="AdminSidebar.fxml" />
     </left>
 
     <center>
-        <VBox fx:id="rootContainer" spacing="15"
-              styleClass="content-container">
+        <VBox fx:id="rootContainer" spacing="15" styleClass="content-container">
 
             <fx:include source="TopBar.fxml" />
 
-            <Label text="Liste des utilisateurs"
-                   styleClass="section-title" />
+            <Label styleClass="section-title" text="Liste des utilisateurs" />
 
             <TableView fx:id="userTable" prefHeight="400.0" styleClass="custom-table">
                 <columns>
-                    <TableColumn fx:id="id" text="ID" />
-                    <TableColumn fx:id="email" text="Email" />
-                    <TableColumn fx:id="password" text="Password" />
-                    <TableColumn fx:id="roles" text="Roles" />
-                    <TableColumn fx:id="isblocked" text="État" />
+                    <TableColumn fx:id="id" prefWidth="41.5999755859375" text="ID" />
+                    <TableColumn fx:id="email" prefWidth="167.2000274658203" text="Email" />
+                    <TableColumn fx:id="password" prefWidth="103.20001220703125" text="Password" />
+                    <TableColumn fx:id="roles" prefWidth="120.00006103515625" text="Roles" />
+                    <TableColumn fx:id="isblocked" minWidth="0.0" prefWidth="123.199951171875" text="État" />
                 </columns>
             </TableView>
 
             <HBox spacing="10">
-                <Button fx:id="addMedbtn" text="Ajouter utilisateur" styleClass="primary-button" onAction="#addUser" />
-                <Button fx:id="modifbtn" text="Modifier" styleClass="secondary-button" onAction="#modifUser" />
-                <Button fx:id="deletebtn" text="Supprimer" styleClass="danger-button" onAction="#deleteUser" />
+                <Button fx:id="addMedbtn" onAction="#addUser" styleClass="primary-button" text="Ajouter utilisateur" />
+                <Button fx:id="modifbtn" onAction="#modifUser" styleClass="secondary-button" text="Modifier" />
+                <Button fx:id="deletebtn" onAction="#deleteUser" styleClass="danger-button" text="Supprimer" />
             </HBox>
         </VBox>
     </center>

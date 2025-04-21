@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import ed.sanarenovo.entities.Technicien;
 import ed.sanarenovo.entities.User;
 import ed.sanarenovo.services.TechnicienService;
+import ed.sanarenovo.services.UserService;
 import ed.sanarenovo.utils.PasswordHasher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,11 +66,21 @@ public class AddTechnicienController {
             return;
         }
 
+        if (!nom.matches("^[\\p{L} ]{1,15}$")) {
+            showAlert(Alert.AlertType.ERROR, "Nom invalide", "Le nom complet doit contenir uniquement des lettres et être de 15 caractères maximum.");
+            return;
+        }
+
         if (password.length() < 6) {
             showAlert(Alert.AlertType.ERROR, "Mot de passe trop court", "Le mot de passe doit contenir au moins 6 caractères.");
             return;
         }
 
+        UserService userService = new UserService();
+        if (userService.emailExists(email)) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email est déjà utilisé !");
+            return;
+        }
 
         User user = new User();
         user.setEmail(email);

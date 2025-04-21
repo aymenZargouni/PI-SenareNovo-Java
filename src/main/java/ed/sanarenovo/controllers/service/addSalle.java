@@ -1,4 +1,4 @@
-package ed.sanarenovo.controlles.service;
+package ed.sanarenovo.controllers.service;
 
 import javafx.event.ActionEvent;
 import ed.sanarenovo.entities.Salle;

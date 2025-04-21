@@ -5,15 +5,35 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.Login">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="main-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.Login"
+stylesheets="style.css">
    <children>
-      <Label layoutX="252.0" layoutY="83.0" text="S'authentifier" />
-      <Label layoutX="144.0" layoutY="157.0" text="Email" />
-      <PasswordField fx:id="tfpwd" layoutX="206.0" layoutY="200.0" prefHeight="26.0" prefWidth="198.0" />
-      <Label layoutX="133.0" layoutY="204.0" text="Password" />
-      <Button layoutX="249.0" layoutY="274.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="101.0" text="Login" />
-      <TextField fx:id="tfemail" layoutX="206.0" layoutY="153.0" prefHeight="26.0" prefWidth="198.0" />
+      <VBox alignment="CENTER" layoutX="150.0" layoutY="80.0" prefHeight="300.0" prefWidth="300.0" spacing="20" styleClass="content-container">
+         <children>
+
+            <Label styleClass="section-title" text="S'authentifier" />
+
+            <VBox spacing="10">
+               <children>
+                  <Label text="Email" />
+                  <TextField fx:id="tfemail" prefHeight="30.0" />
+               </children>
+            </VBox>
+
+            <VBox spacing="10">
+               <children>
+                  <Label text="Mot de passe" />
+                  <PasswordField fx:id="tfpwd" prefHeight="30.0" />
+               </children>
+            </VBox>
+
+            <Button onAction="#login" prefWidth="120.0" styleClass="primary-button" text="Login" />
+
+            <Label layoutX="235.0" layoutY="237.0" text="Créer un compte patient" onMouseClicked="#redirectToRegister" styleClass="hyperlink-label" />
+
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

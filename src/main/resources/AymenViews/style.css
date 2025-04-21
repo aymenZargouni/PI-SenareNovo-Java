@@ -94,4 +94,11 @@
     -fx-text-fill: #ffffff;
 }
 
+.hyperlink-label {
+    -fx-text-fill: #1d4ed8;
+    -fx-underline: true;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
 

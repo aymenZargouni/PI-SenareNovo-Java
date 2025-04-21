@@ -1,4 +1,4 @@
-package ed.sanarenovo.controlles.service;
+package ed.sanarenovo.controllers.service;
 
 import javafx.application.Application;
 import javafx.scene.Parent;

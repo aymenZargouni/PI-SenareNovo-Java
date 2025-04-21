@@ -13,11 +13,20 @@ public class AuthService {
 
 
     public User login(String email, String password) {
+        if (email == null || email.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            return null;
+        }
+
         String req = "SELECT * FROM user WHERE email = ?";
         try (PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(req)) {
             pst.setString(1, email);
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
+                if (rs.getBoolean("is_blocked")) {
+                    System.out.println("blocked");
+                    return null;
+                }
+
                 String storedPass = rs.getString("password");
                 if (PasswordHasher.checkPassword(password, storedPass)) {
                     User u = new User();

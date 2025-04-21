@@ -65,6 +65,12 @@ public class AddUserController {
             return;
         }
 
+        UserService userService = new UserService();
+        if (userService.emailExists(email)) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email est déjà utilisé !");
+            return;
+        }
+
         // === Create User ===
         User newUser = new User();
         newUser.setEmail(email);
@@ -72,7 +78,7 @@ public class AddUserController {
         newUser.setRoles(role);
         newUser.setBlocked(isBlocked);
 
-        UserService userService = new UserService();
+
         userService.add(newUser);
 
         showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur ajouté avec succès !");

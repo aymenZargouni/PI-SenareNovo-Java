@@ -93,6 +93,14 @@ public class EditUserController {
             return;
         }
 
+        String oldEmail = selectedUser.getEmail();
+        UserService userService = new UserService();
+        if (!email.equalsIgnoreCase(oldEmail) && userService.emailExists(email)) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email est déjà utilisé !");
+            return;
+        }
+
+
 
         selectedUser.setEmail(email);
         selectedUser.setRoles(role);
@@ -103,7 +111,6 @@ public class EditUserController {
             selectedUser.setPassword(passwordInputHashed);
         }
 
-        UserService userService = new UserService();
         userService.update(selectedUser, selectedUser.getId());
 
         showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur modifié avec succès !");

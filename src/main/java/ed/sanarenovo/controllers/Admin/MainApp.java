@@ -10,8 +10,13 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/AymenViews/ShowUsers.fxml"));
-        primaryStage.setTitle("Medecin List");
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+
+
+        scene.getStylesheets().add(getClass().getResource("/AymenViews/style.css").toExternalForm());
+
+        primaryStage.setTitle("Authentification");
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

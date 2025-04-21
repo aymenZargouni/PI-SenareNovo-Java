@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="490.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controlles.service.servicecontroller">
+<AnchorPane prefHeight="490.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.service.servicecontroller">
    <children>
       <Button fx:id="enregist" layoutX="85.0" layoutY="383.0" mnemonicParsing="false" onAction="#addService" prefHeight="29.0" prefWidth="75.0" text="enregistrer" />
       <Label layoutX="55.0" layoutY="63.0" prefHeight="17.0" prefWidth="108.0" text="Nom service" />

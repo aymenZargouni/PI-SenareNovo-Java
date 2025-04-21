@@ -42,7 +42,7 @@ public class EditMedecinController {
     private PasswordField tfmdp;
 
     @FXML
-    private TextField tfspecialite;
+    private ChoiceBox<String> tfspecialite;
 
     private Medecin medecinToEdit;
 
@@ -59,7 +59,7 @@ public class EditMedecinController {
         tffullname.setText(medecin.getFullname());
         tfemail.setText(medecin.getUser().getEmail());
         tfmdp.setText(medecin.getUser().getPassword());
-        tfspecialite.setText(medecin.getSpecilite());
+        tfspecialite.setValue(medecin.getSpecilite());
         tfdateembauche.setValue(Date.valueOf(String.valueOf(medecin.getDateEmbauche())).toLocalDate());
 
     }
@@ -69,12 +69,17 @@ public class EditMedecinController {
         String fullname = tffullname.getText().trim();
         String email = tfemail.getText().trim();
         String password = tfmdp.getText().trim();
-        String specialite = tfspecialite.getText().trim();
+        String specialite = tfspecialite.getValue().trim();
         LocalDate localDate = tfdateembauche.getValue();
 
         // === Validation ===
         if (fullname.isEmpty() || email.isEmpty() || password.isEmpty() || specialite.isEmpty() || localDate == null) {
             showAlert(Alert.AlertType.ERROR, "Champs manquants", "Veuillez remplir tous les champs.");
+            return;
+        }
+
+        if (!fullname.matches("^[\\p{L} ]{1,15}$")) {
+            showAlert(Alert.AlertType.ERROR, "Nom invalide", "Le nom complet doit contenir uniquement des lettres et être de 15 caractères maximum.");
             return;
         }
 
@@ -88,7 +93,20 @@ public class EditMedecinController {
             return;
         }
 
-        // === Updating Medecin and User ===
+        if (localDate.isBefore(LocalDate.now())) {
+            showAlert(Alert.AlertType.ERROR, "Date invalide", "La date d'embauche doit être aujourd'hui ou dans le futur.");
+            return;
+        }
+
+        String oldEmail = medecinToEdit.getUser().getEmail();
+        UserService userService = new UserService();
+        if (!email.equalsIgnoreCase(oldEmail) && userService.emailExists(email)) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email est déjà utilisé !");
+            return;
+        }
+
+
+
         medecinToEdit.setFullname(fullname);
         medecinToEdit.setSpecilite(specialite);
         medecinToEdit.setDateEmbauche(Date.valueOf(localDate));
@@ -104,7 +122,6 @@ public class EditMedecinController {
             user.setPassword(originalPassword);
         }
 
-        UserService userService = new UserService();
         MedecinService medecinService = new MedecinService();
         userService.update(user, user.getId());
         medecinService.update(medecinToEdit, medecinToEdit.getId());
@@ -136,6 +153,19 @@ public class EditMedecinController {
         assert tffullname != null : "fx:id=\"tffullname\" was not injected: check your FXML file 'EditMedecin.fxml'.";
         assert tfmdp != null : "fx:id=\"tfmdp\" was not injected: check your FXML file 'EditMedecin.fxml'.";
         assert tfspecialite != null : "fx:id=\"tfspecialite\" was not injected: check your FXML file 'EditMedecin.fxml'.";
+
+
+        tfspecialite.getItems().addAll(
+                "Cardiologue",
+                "Dermatologie",
+                "Gastronentérologie",
+                "Neurologie",
+                "Pédiatrie",
+                "Psychiatrie",
+                "Chirurgie",
+                "Ophtalmologie",
+                "Néphrologie"
+        );
 
     }
 

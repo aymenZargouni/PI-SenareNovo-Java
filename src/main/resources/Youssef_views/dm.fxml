@@ -17,6 +17,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.dossiermedicaleController">
 
     <children>
+
         <Pane layoutY="-4.0" prefHeight="580.0" prefWidth="191.0" style="-fx-background-color: #d5f5e3; -fx-background-radius: 10;">
 
         <children>

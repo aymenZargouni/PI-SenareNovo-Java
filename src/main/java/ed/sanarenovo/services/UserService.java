@@ -88,5 +88,33 @@ public class UserService implements IUserService<User> {
         }
         return users;
     }
+
+    public boolean emailExists(String email) {
+        String query = "SELECT COUNT(*) FROM user WHERE email = ?";
+        try (PreparedStatement ps = MyConnection.getInstance().getCnx().prepareStatement(query)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isBlocked(String email) {
+        String query = "SELECT is_blocked FROM user WHERE email = ?";
+        try (PreparedStatement ps = MyConnection.getInstance().getCnx().prepareStatement(query)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean("is_blocked");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
 

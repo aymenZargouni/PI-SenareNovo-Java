@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 import ed.sanarenovo.entities.Medecin;
 import ed.sanarenovo.entities.User;
 import ed.sanarenovo.services.MedecinService;
+import ed.sanarenovo.services.UserService;
 import ed.sanarenovo.utils.PasswordHasher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,6 +68,12 @@ public class AddMedecin {
             return;
         }
 
+        if (!fullname.matches("^[\\p{L} ]{1,15}$")) {
+            showAlert(Alert.AlertType.ERROR, "Nom invalide", "Le nom complet doit contenir uniquement des lettres et être de 15 caractères maximum.");
+            return;
+        }
+
+
         if (!email.matches("^\\S+@\\S+\\.\\S+$")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Email invalide");
@@ -85,39 +92,49 @@ public class AddMedecin {
             return;
         }
 
+        if (localDate.isBefore(LocalDate.now())) {
+            showAlert(Alert.AlertType.ERROR, "Date invalide", "La date d'embauche doit être aujourd'hui ou dans le futur.");
+            return;
+        }
+
+        UserService userService = new UserService();
+        if (userService.emailExists(email)) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email est déjà utilisé !");
+            return;
+        }
         Date dateEmbauche = Date.valueOf(localDate);
 
-        // 1. Create User
+
         User user = new User();
         user.setEmail(email);
-        user.setPassword(PasswordHasher.hashPassword(password)); // ⚠️ Add hashing later if needed
+        user.setPassword(PasswordHasher.hashPassword(password));
         user.setRoles("[\"ROLE_MEDECIN\"]");
         user.setBlocked(false);
 
-        // 2. Create Medecin
+
         Medecin medecin = new Medecin();
         medecin.setFullname(fullname);
         medecin.setSpecilite(specialite);
         medecin.setDateEmbauche(dateEmbauche);
         medecin.setUser(user);
 
-        // 3. Save Medecin
+
         MedecinService medecinService = new MedecinService();
         medecinService.add(medecin);
 
-        // 4. Success alert
+
         Alert success = new Alert(Alert.AlertType.INFORMATION);
         success.setTitle("Succès");
         success.setHeaderText(null);
         success.setContentText("Médecin ajouté avec succès !");
         success.showAndWait();
 
-        // 5. Refresh the table on the previous screen
+
         if (controllerRef != null) {
             controllerRef.loadMedecins();
         }
 
-        // 6. Close the add window
+
         Stage stage = (Stage) addbtn.getScene().getWindow();
         stage.close();
     }
@@ -150,7 +167,15 @@ public class AddMedecin {
                 "Néphrologie"
         );
 
-        tfspecialite.getSelectionModel().selectFirst(); // optional: pre-select first specialty
+        tfspecialite.getSelectionModel().selectFirst();
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import ed.sanarenovo.entities.Technicien;
 import ed.sanarenovo.services.TechnicienService;
+import ed.sanarenovo.services.UserService;
 import ed.sanarenovo.utils.PasswordHasher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -87,6 +88,14 @@ public class EditTechnicienController {
             showAlert(Alert.AlertType.ERROR, "Mot de passe trop court", "Le mot de passe doit contenir au moins 6 caractères.");
             return;
         }
+
+        String oldEmail = selectedTechnicien.getUser().getEmail();
+        UserService userService = new UserService();
+        if (!newEmail.equalsIgnoreCase(oldEmail) && userService.emailExists(newEmail)) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email est déjà utilisé !");
+            return;
+        }
+
 
         // === Update Entities ===
         selectedTechnicien.setNom(newNom);

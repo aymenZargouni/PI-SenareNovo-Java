@@ -1,4 +1,4 @@
-package ed.sanarenovo.controlles.service;
+package ed.sanarenovo.controllers.service;
 
 import ed.sanarenovo.entities.Service;
 import ed.sanarenovo.services.Serviceserv;

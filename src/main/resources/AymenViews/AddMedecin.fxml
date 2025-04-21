@@ -5,24 +5,64 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
-
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.PasswordField?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.AddMedecin">
+<?import javafx.scene.control.ChoiceBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.AddMedecin" stylesheets="style.css">
     <children>
-        <fx:include source="TopBar.fxml" />
-        <Label layoutX="229.0" layoutY="46.0" text="Modifier Medecin" />
-        <Label layoutX="104.0" layoutY="115.0" text="Nom Complet" />
-        <Label layoutX="104.0" layoutY="148.0" text="Email" />
-        <Label layoutX="104.0" layoutY="182.0" text="Mot de passe" />
-        <Label layoutX="104.0" layoutY="223.0" text="Specialité" />
-        <Label layoutX="104.0" layoutY="260.0" text="Date Embauche" />
-        <TextField fx:id="tffullname" layoutX="202.0" layoutY="111.0" prefHeight="26.0" prefWidth="241.0" />
-        <TextField fx:id="tfemail" layoutX="202.0" layoutY="144.0" prefHeight="26.0" prefWidth="242.0" />
-        <PasswordField fx:id="tfmdp" layoutX="202.0" layoutY="178.0" prefHeight="26.0" prefWidth="242.0" />
-        <TextField fx:id="tfspecialite" layoutX="202.0" layoutY="219.0" prefHeight="26.0" prefWidth="242.0" />
-        <DatePicker fx:id="tfdateembauche" layoutX="205.0" layoutY="256.0" prefHeight="26.0" prefWidth="242.0" />
-        <Button fx:id="addbtn" layoutX="220.0" layoutY="314.0" mnemonicParsing="false" onAction="#addMed" text="Ajouter" />
-        <Button fx:id="cancelbtn" layoutX="293.0" layoutY="314.0" mnemonicParsing="false" onAction="#cancelAdd" text="Annuler" />
+        <VBox layoutX="50" layoutY="80" prefWidth="500" spacing="20" styleClass="content-container">
+            <children>
+                <Label text="Ajouter Medecin" styleClass="section-title" />
+
+                <VBox spacing="10">
+                    <children>
+                        <HBox spacing="10">
+                            <children>
+                                <Label text="Nom Complet" prefWidth="100" />
+                                <TextField fx:id="tffullname" prefWidth="300" />
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <children>
+                                <Label text="Email" prefWidth="100" />
+                                <TextField fx:id="tfemail" prefWidth="300" />
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <children>
+                                <Label text="Mot de passe" prefWidth="100" />
+                                <PasswordField fx:id="tfmdp" prefWidth="300" />
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <children>
+                                <Label text="Specialité" prefWidth="100" />
+                                <ChoiceBox fx:id="tfspecialite" prefWidth="300" />
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="10">
+                            <children>
+                                <Label text="Date Embauche" prefWidth="100" />
+                                <DatePicker fx:id="tfdateembauche" prefWidth="300" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                <HBox spacing="20" alignment="CENTER">
+                    <children>
+                        <Button fx:id="addbtn" text="Ajouter" onAction="#addMed" styleClass="primary-button" />
+                        <Button fx:id="cancelbtn" text="Annuler" onAction="#cancelAdd" styleClass="secondary-button" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
     </children>
 </AnchorPane>
