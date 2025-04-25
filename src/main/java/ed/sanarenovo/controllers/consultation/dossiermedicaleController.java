@@ -315,6 +315,20 @@ public class dossiermedicaleController implements Initializable {
         }
     }
 
+    @FXML
+    private void redirectTostat() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Youssef_views/Statistiques.fxml"));
+            Scene scene = new Scene(root);
+
+            // Récupère la fenêtre actuelle
+            Stage currentStage = (Stage) tableView.getScene().getWindow();
+            currentStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 

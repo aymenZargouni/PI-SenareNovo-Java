@@ -1,24 +1,47 @@
 package ed.sanarenovo.controllers.consultation;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ed.sanarenovo.entities.consultation;
 import ed.sanarenovo.utils.MyConnection;
+import javafx.application.Platform;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Map;
 import java.util.ResourceBundle;
+
+import javafx.scene.web.WebView;
+import javafx.scene.web.WebEngine;
+import javafx.scene.layout.StackPane;
+import org.json.JSONObject;
 
 public class ConsultationController implements Initializable {
 
@@ -41,8 +64,59 @@ public class ConsultationController implements Initializable {
     @FXML private TableColumn<consultation, String> colTypeConsultation;
     @FXML private TableColumn<consultation, String> colStatus;
     @FXML private TableColumn<consultation, Integer> colDossierId;
+    @FXML private WebView webView;
 
+    private static final String apiKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmFwcGVhci5pbiIsImF1ZCI6Imh0dHBzOi8vYXBpLmFwcGVhci5pbi92MSIsImV4cCI6OTAwNzE5OTI1NDc0MDk5MSwiaWF0IjoxNzQ1NDQzNTA1LCJvcmdhbml6YXRpb25JZCI6MzE0NzI3LCJqdGkiOiJjMGMwYjRmOC1hYzYzLTQxNWQtYmNjZS1lYTI2NTkwMDVkMGQifQ.N5aBKxCNxZr2OGMYTGUD7qMwO_Nxkk9NmoZ6zewT3cc"; // Ta clé API directe
     private final ObservableList<consultation> data = FXCollections.observableArrayList();
+    private void showErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    @FXML
+    public void sessionOnline() {
+        try {
+            if (apiKey == null || apiKey.isEmpty()) {
+                showErrorDialog("Clé API introuvable. Veuillez la définir dans le code.");
+                return;
+            }
+
+            var data = Map.of(
+                    "endDate", "2026-04-18T14:23:00.000Z",
+                    "fields", Collections.singletonList("hostRoomUrl")
+            );
+
+            var request = HttpRequest.newBuilder(URI.create("https://api.whereby.dev/v1/meetings"))
+                    .header("Authorization", "Bearer " + apiKey)
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(new ObjectMapper().writeValueAsString(data)))
+                    .build();
+
+            var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+
+            int statusCode = response.statusCode();
+            String responseBody = response.body();
+
+            if (statusCode == 200 || statusCode == 201) {
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonNode = mapper.readTree(responseBody);
+                String meetingUrl = jsonNode.get("hostRoomUrl").asText();
+
+                // Open in default system browser:
+                java.awt.Desktop.getDesktop().browse(new URI(meetingUrl));
+            } else if (statusCode == 403) {
+                showErrorDialog("Erreur 403 : Clé API invalide ou sans permissions.");
+            } else {
+                showErrorDialog("Erreur " + statusCode + ": " + responseBody);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showErrorDialog("Une erreur est survenue : " + e.getMessage());
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,7 +135,7 @@ public class ConsultationController implements Initializable {
         typeConsultationComboBox.setItems(FXCollections.observableArrayList("En ligne", "Presentiel"));
         statusComboBox.setItems(FXCollections.observableArrayList("En attente", "En cours", "Terminée"));
 
-        // Désactiver le statut à l'ajout
+
         statusComboBox.setDisable(true);
     }
 
@@ -117,7 +191,7 @@ public class ConsultationController implements Initializable {
             statusComboBox.setValue(selected.getStatus());
             dossierComboBox.setValue(selected.getDossiermedicaleId());
 
-            // Activer le champ statut pour update
+
             statusComboBox.setDisable(false);
         }
     }
@@ -274,6 +348,20 @@ public class ConsultationController implements Initializable {
             } else {
                 System.out.println("⚠️ CSS file not found: /design.css");
             }
+
+            // Récupère la fenêtre actuelle
+            Stage currentStage = (Stage) tableView.getScene().getWindow();
+            currentStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void redirectTostat() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Youssef_views/Statistiques.fxml"));
+            Scene scene = new Scene(root);
 
             // Récupère la fenêtre actuelle
             Stage currentStage = (Stage) tableView.getScene().getWindow();

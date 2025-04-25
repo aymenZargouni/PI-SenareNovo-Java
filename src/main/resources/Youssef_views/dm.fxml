@@ -32,6 +32,7 @@
               <!-- Navigation -->
               <Button layoutX="14.0" layoutY="178.0" onAction="#redirectTocons" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Gestion Consultation" />
               <Button layoutX="14.0" layoutY="290.0" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Gestion DossierMed" />
+            <Button layoutX="14.0" layoutY="350.0"   onAction="#redirectTostat"  prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Statistiques" />
          </children></Pane>
 
         <!-- Title -->

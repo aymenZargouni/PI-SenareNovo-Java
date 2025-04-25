@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ed.sanarenovo.controllers.consultation.StatistiqueController"
+            prefWidth="600" prefHeight="500">
+
+    <Label fx:id="labelTotalDossiers" layoutX="20" layoutY="20" text="Total Dossiers: " />
+    <Label fx:id="labelTotalConsultations" layoutX="20" layoutY="60" text="Total Consultations: " />
+    <Label fx:id="labelMoyenneConsultations" layoutX="20" layoutY="100" text="Moyenne Consultations/Dossier: " />
+
+    <PieChart fx:id="pieChartConsultations" layoutX="200" layoutY="150" prefWidth="380" prefHeight="300"/>
+
+</AnchorPane>
