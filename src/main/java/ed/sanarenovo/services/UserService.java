@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserService implements IUserService<User> {
+    public UserService() {
+
+    }
+
     @Override
     public void add(User user) {
         String query = "INSERT INTO user (email, password, roles, is_blocked, reset_token, reset_token_expires_at) VALUES (?, ?, ?, ?, ?, ?)";
@@ -27,7 +31,7 @@ public class UserService implements IUserService<User> {
 
     @Override
     public void update(User user,int id) {
-        String sql = "UPDATE user SET email = ?, password = ?, roles = ?, is_blocked = ?, reset_token = ?, reset_token_expires_at = ? WHERE id = ?";
+        String sql = "UPDATE user SET email = ?, password = ?, roles = ?, is_blocked = ?, reset_token = ?, reset_token_expires_at = ?, infraction_count = ?, blocked_until = ? WHERE id = ?";
         try {
             PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(sql);
             pst.setString(1, user.getEmail());
@@ -36,7 +40,9 @@ public class UserService implements IUserService<User> {
             pst.setBoolean(4, user.isBlocked());
             pst.setString(5, user.getResetToken());
             pst.setObject(6, user.getResetTokenExpiresAt());
-            pst.setInt(7,id);
+            pst.setInt(7,user.getInfractionCount());//hichem
+            pst.setObject(8, user.getBlockedUntil());//hichem
+            pst.setInt(9,id);
             pst.executeUpdate();
             System.out.println("User mis à jour");
         } catch (SQLException e) {

@@ -16,7 +16,7 @@ public class ChatbotController {
     @FXML private TextField userInput;
     @FXML private Button sendButton;
 
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
 
     @FXML
     private void sendMessage() {

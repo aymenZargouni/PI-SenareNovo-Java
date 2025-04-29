@@ -7,6 +7,7 @@ public class Comment {
     private int id;
     private String content;
     private Blog blog;
+    private User user;
     public Comment() {}
 
     public Comment(int id, String content) {
@@ -26,6 +27,11 @@ public class Comment {
         this.id = id;
         this.content = content;
         this.blog = blog;
+    }
+    public Comment(String content, Blog blog, User user) {
+        this.content = content;
+        this.blog = blog;
+        this.user = user;
     }
 
     public int getId() {
@@ -49,6 +55,16 @@ public class Comment {
     public void setBlog(Blog blog) {
         this.blog = blog;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,12 +77,12 @@ public class Comment {
     public int hashCode() {
         return Objects.hash(id, content);
     }
-
     @Override
     public String toString() {
         return "Comment{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
+                ", user=" + (user != null ? user.getEmail() : "null") +
                 '}';
     }
 

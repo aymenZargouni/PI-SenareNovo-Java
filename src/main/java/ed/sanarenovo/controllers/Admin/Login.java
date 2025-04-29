@@ -75,6 +75,7 @@ public class Login {
         switch (cleanedRole) {
             case "ROLE_ADMIN":
                 loadFXML("/AymenViews/ShowMedecin.fxml");
+                //loadFXML("/Blog/Blog.fxml");
                 break;
             case "ROLE_MEDECIN":
                 loadFXML("/Youssef_views/dm.fxml");
@@ -90,6 +91,9 @@ public class Login {
                 break;
             case "ROLE_RH":
                 loadFXML("/takoua_views/main_view.fxml");
+                break;
+            default:
+                loadFXML("/Blog/BlogClient.fxml");
                 break;
         }
     }

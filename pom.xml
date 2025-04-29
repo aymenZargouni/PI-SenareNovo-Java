@@ -88,6 +88,42 @@
             <version>22.0.1</version>
         </dependency>
         <dependency>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>1.3.30</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>freetts</artifactId>
+            <version>1.2.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/freetts.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>freetts-voice-kevin16</artifactId>
+            <version>1.2.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/cmu_us_kal.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>freetts-cmulex</artifactId>
+            <version>1.2.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/cmulex.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>freetts-cmulex</artifactId>
+            <version>1.2.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/en_us.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>org.opencv</groupId>
             <artifactId>opencv</artifactId>
             <version>4.1.1</version>
