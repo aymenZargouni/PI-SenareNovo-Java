@@ -1,0 +1,306 @@
+/* Import du style commun */
+@import "CommonStyle.css";
+
+/* Variables globales */
+* {
+    -fx-primary-color: #673AB7;
+    -fx-secondary-color: #FF5722;
+    -fx-grey-color: #b9b9b9;
+    -fx-focus-color: -fx-primary-color;
+}
+
+.main-container {
+    -fx-background-color: #f5f5f5;
+}
+
+.content-container {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+/* Titres */
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+.section-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.blog-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #666666;
+}
+
+/* TableView personnalisé */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -fx-primary-color;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-padding: 10 5;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-view .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f8f9fa;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: derive(-fx-primary-color, 90%);
+}
+
+/* Champ de commentaire */
+.comment-input {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+}
+
+.comment-input:focused {
+    -fx-border-color: -fx-primary-color;
+    -fx-background-color: white;
+}
+
+/* Boutons */
+.button {
+    -fx-background-radius: 20;
+    -fx-padding: 8 15;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.button-primary {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
+}
+
+.button-primary:hover {
+    -fx-background-color: derive(-fx-primary-color, -10%);
+}
+
+.button-secondary {
+    -fx-background-color: -fx-secondary-color;
+    -fx-text-fill: white;
+}
+
+.button-secondary:hover {
+    -fx-background-color: derive(-fx-secondary-color, -10%);
+}
+
+.button-danger {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+}
+
+.button-danger:hover {
+    -fx-background-color: derive(#dc3545, -10%);
+}
+
+.button-info {
+    -fx-background-color: #17a2b8;
+    -fx-text-fill: white;
+}
+
+.button-info:hover {
+    -fx-background-color: derive(#17a2b8, -10%);
+}
+
+/* Messages d'état */
+.status-message {
+    -fx-padding: 10;
+    -fx-background-radius: 5;
+    -fx-font-size: 14px;
+}
+
+.success-message {
+    -fx-text-fill: #28a745;
+    -fx-background-color: derive(#28a745, 90%);
+}
+
+.error-message {
+    -fx-text-fill: #dc3545;
+    -fx-background-color: derive(#dc3545, 90%);
+}
+
+/* Header styles */
+.header-container {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-background-radius: 5;
+    -fx-spacing: 10;
+}
+
+.header-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+.blog-info {
+    -fx-font-size: 16px;
+    -fx-text-fill: #666;
+}
+
+/* Comment List */
+.comment-list {
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
+
+.comment-card {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-spacing: 10;
+}
+
+.comment-header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+.user-name {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.comment-date {
+    -fx-text-fill: #666;
+    -fx-font-size: 12px;
+}
+
+.comment-content {
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+}
+
+/* Comment Form */
+.comment-form {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-spacing: 15;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.comment-text-area {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size: 14px;
+    -fx-padding: 10;
+}
+
+.comment-text-area:focused {
+    -fx-border-color: -fx-primary-color;
+    -fx-background-color: white;
+}
+
+.comment-text-area .content {
+    -fx-background-color: transparent;
+}
+
+/* Action buttons container */
+.comment-actions {
+    -fx-spacing: 10;
+    -fx-padding: 10 0;
+}
+
+/* Scroll customization */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-grey-color;
+    -fx-background-radius: 5;
+}
+
+/* Styles spécifiques aux commentaires */
+.comment-container {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.comment-table {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.comment-table .column-header-background {
+    -fx-background-color: -fx-primary-color;
+}
+
+.comment-table .column-header {
+    -fx-background-color: transparent;
+    -fx-padding: 10 5;
+}
+
+.comment-table .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.comment-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent #e9ecef transparent transparent;
+}
+
+.comment-table .table-row-cell:odd {
+    -fx-background-color: #f8f9fa;
+}
+
+.comment-table .table-row-cell:selected {
+    -fx-background-color: derive(-fx-primary-color, 90%);
+}
+
+.comment-info {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666;
+} 

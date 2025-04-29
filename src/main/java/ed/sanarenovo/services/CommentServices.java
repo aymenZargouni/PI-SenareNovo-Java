@@ -2,6 +2,7 @@ package ed.sanarenovo.services;
 
 import ed.sanarenovo.entities.Blog;
 import ed.sanarenovo.entities.Comment;
+import ed.sanarenovo.entities.User;
 import ed.sanarenovo.interfaces.IComment;
 import ed.sanarenovo.utils.MyConnection;
 import javafx.collections.ObservableList;
@@ -20,18 +21,19 @@ public class CommentServices implements IComment<Comment> {
 
     @Override
     public void addComment(Comment comment) {
-        String sql = "INSERT INTO comment (content, blog_id) VALUES (?, ?)";
+        String sql = "INSERT INTO comment (content, blog_id, user_id) VALUES (?, ?, ?)";
 
-        // Utilise la connexion partagée via le singleton MyConnection
         try (PreparedStatement stmt = cnx.prepareStatement(sql)) {
             stmt.setString(1, comment.getContent());
             stmt.setInt(2, comment.getBlog().getId());
+            stmt.setInt(3, comment.getUser().getId()); // 👈 ajout important
             stmt.executeUpdate();
             System.out.println("Commentaire ajouté avec succès.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
 
 
@@ -105,22 +107,45 @@ public class CommentServices implements IComment<Comment> {
 
     public List<Comment> getCommentsByBlogId(int blogId) {
         List<Comment> comments = new ArrayList<>();
-        String query = "SELECT * FROM comment WHERE blog_id = ?";
+        String query = "SELECT c.*, u.id as user_id, u.email, u.password, u.roles, u.is_blocked, " +
+                      "u.reset_token, u.reset_token_expires_at, u.blocked_until, u.infraction_count " +
+                      "FROM comment c " +
+                      "LEFT JOIN user u ON c.user_id = u.id " +
+                      "WHERE c.blog_id = ? " +
+                      "ORDER BY c.id DESC";
 
         try (PreparedStatement pst = cnx.prepareStatement(query)) {
             pst.setInt(1, blogId);
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                // On construit le blog lié à ce commentaire
+                // Construire le blog lié à ce commentaire
                 Blog blog = new Blog();
                 blog.setId(blogId);
+                
+                // Construire l'utilisateur lié à ce commentaire
+                User user = new User();
+                user.setId(rs.getInt("user_id"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setRoles(rs.getString("roles"));
+                user.setBlocked(rs.getBoolean("is_blocked"));
+                user.setResetToken(rs.getString("reset_token"));
+                user.setResetTokenExpiresAt(rs.getString("reset_token_expires_at"));
+                
+                Timestamp blockedUntil = rs.getTimestamp("blocked_until");
+                if (blockedUntil != null) {
+                    user.setBlockedUntil(blockedUntil.toLocalDateTime());
+                }
+                user.setInfractionCount(rs.getInt("infraction_count"));
 
+                // Construire le commentaire
                 Comment comment = new Comment(
-                        rs.getInt("id"),
-                        rs.getString("content"),
-                        blog
+                    rs.getInt("id"),
+                    rs.getString("content"),
+                    blog
                 );
+                comment.setUser(user);
                 comments.add(comment);
             }
         } catch (SQLException e) {

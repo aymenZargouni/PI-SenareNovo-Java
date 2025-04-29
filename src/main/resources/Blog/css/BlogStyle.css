@@ -1,0 +1,141 @@
+/* Variables Globales */
+* {
+    -fx-primary-color: #5A9BD5;
+    -fx-secondary-color: #6C63FF;
+    -fx-danger-color: #FF6B6B;
+    -fx-warning-color: #FFA726;
+    -fx-grey-color: #D9D9D9;
+}
+
+/* Background Général */
+.root {
+    -fx-background-color: #F2F2F2;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Card Style */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 2);
+}
+
+/* Titre des sections */
+.section-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+/* TableView */
+.custom-table {
+    -fx-background-color: transparent;
+}
+
+.custom-table .column-header-background {
+    -fx-background-color: -fx-primary-color;
+}
+
+.custom-table .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.custom-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+}
+
+.custom-table .table-row-cell:odd {
+    -fx-background-color: #F9F9F9;
+}
+
+.custom-table .table-row-cell:selected {
+    -fx-background-color: derive(-fx-primary-color, 80%);
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: derive(-fx-primary-color, -10%);
+}
+
+.primary-button {
+    -fx-background-color: -fx-primary-color;
+}
+
+.secondary-button {
+    -fx-background-color: -fx-secondary-color;
+}
+
+.warning-button {
+    -fx-background-color: -fx-warning-color;
+}
+
+.danger-button {
+    -fx-background-color: -fx-danger-color;
+}
+
+/* Filter Section */
+.filter-section {
+    -fx-background-color: #F9F9F9;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}
+
+/* Navigation Bar */
+.navigation-bar {
+    -fx-padding: 15;
+}
+
+/* ListView Style */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-background-radius: 5;
+}
+
+.list-view .list-cell {
+    -fx-padding: 8;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: derive(-fx-primary-color, 90%);
+}
+
+/* TextField, TextArea */
+.text-field, .text-area {
+    -fx-background-color: #F9F9F9;
+    -fx-border-color: #e0e0e0;
+    -fx-background-radius: 5;
+}
+
+.text-field:focused, .text-area:focused {
+    -fx-border-color: -fx-primary-color;
+    -fx-background-color: white;
+}
+
+/* Label */
+.label {
+    -fx-font-size: 14px;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-grey-color;
+}

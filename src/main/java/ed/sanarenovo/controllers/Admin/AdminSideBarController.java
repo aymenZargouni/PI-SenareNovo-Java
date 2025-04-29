@@ -18,6 +18,7 @@ public class AdminSideBarController {
     private Button btnTechniciens;
     @FXML
     private Button btnPatients;
+    @FXML private Button btnBlogs;
 
     @FXML
     void initialize() {
@@ -25,6 +26,7 @@ public class AdminSideBarController {
         btnMedecins.setOnAction(e -> openView("/AymenViews/ShowMedecin.fxml"));
         btnTechniciens.setOnAction(e -> openView("/AymenViews/ShowTechnicien.fxml"));
         btnPatients.setOnAction(e -> openView("/AymenViews/ShowPatients.fxml"));
+        btnBlogs.setOnAction(e -> openView("/Blog/Blog.fxml"));
     }
 
     private void openView(String fxmlPath) {
