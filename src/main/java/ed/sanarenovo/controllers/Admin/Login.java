@@ -1,5 +1,6 @@
 package ed.sanarenovo.controllers.Admin;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -7,6 +8,7 @@ import java.util.regex.Pattern;
 
 import ed.sanarenovo.entities.User;
 import ed.sanarenovo.services.AuthService;
+import ed.sanarenovo.utils.MailSender;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.videoio.VideoCapture;
 
 public class Login {
 
@@ -32,6 +37,8 @@ public class Login {
 
     @FXML
     private PasswordField tfpwd;
+
+    private int loginAttempts = 0;
 
     @FXML
     void login(ActionEvent event) {
@@ -53,7 +60,12 @@ public class Login {
         if (user != null) {
             redirectBasedOnRole(user.getRoles());
         } else {
+            loginAttempts++;
             showAlert(Alert.AlertType.ERROR, "Erreur", "Email ou mot de passe incorrect, ou compte bloqué !");
+
+            if (loginAttempts >= 3) {
+                takePhotoWithWebcam();
+            }
         }
     }
 
@@ -122,6 +134,34 @@ public class Login {
     private boolean isValidEmail(String email) {
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
         return Pattern.matches(emailRegex, email);
+    }
+
+    private void takePhotoWithWebcam() {
+        System.load("C:\\Cycle3A\\PI-Java\\opencv\\build\\java\\x64\\opencv_java4110.dll");
+
+        VideoCapture camera = new VideoCapture(0);
+
+        if (!camera.isOpened()) {
+            System.out.println("Error: Camera not accessible.");
+            return;
+        }
+
+        Mat frame = new Mat();
+        if (camera.read(frame)) {
+            String filePath = "snapshot.png";
+            Imgcodecs.imwrite(filePath, frame);
+            System.out.println("Photo saved to " + filePath);
+
+
+            MailSender.sendEmailWithAttachment(
+                    "aymen.zargouni@gmail.com",
+                    "Security Alert - 3 Failed Login Attempts",
+                    "this user : "+ tfemail.getText()+" has failed to log in 3 times. See attached photo.",
+                    new File(filePath)
+            );
+        }
+
+        camera.release();
     }
 
 }

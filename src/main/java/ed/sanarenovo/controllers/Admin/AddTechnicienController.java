@@ -5,15 +5,16 @@ import java.util.ResourceBundle;
 
 import ed.sanarenovo.entities.Technicien;
 import ed.sanarenovo.entities.User;
+import ed.sanarenovo.services.CountryDialCode;
 import ed.sanarenovo.services.TechnicienService;
 import ed.sanarenovo.services.UserService;
+import ed.sanarenovo.utils.LocationService;
 import ed.sanarenovo.utils.PasswordHasher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class AddTechnicienController {
@@ -41,6 +42,12 @@ public class AddTechnicienController {
 
     @FXML
     private PasswordField tfpwd;
+
+    @FXML
+    private ImageView flagImage;
+
+    @FXML
+    private Label dialCodeLabel;
 
     private ShowTechnicienController controllerRef;
 
@@ -90,7 +97,7 @@ public class AddTechnicienController {
 
         Technicien tech = new Technicien();
         tech.setNom(nom);
-        tech.setPhoneNumber(phone);
+        tech.setPhoneNumber(dialCodeLabel.getText()+phone);
         tech.setUser(user);
 
         TechnicienService technicienService = new TechnicienService();
@@ -99,7 +106,7 @@ public class AddTechnicienController {
         showAlert(Alert.AlertType.INFORMATION, "Succès", "Technicien ajouté avec succès !");
 
         if (controllerRef != null) {
-            controllerRef.loadTechniciens(); // Refresh the table if the method exists
+            controllerRef.loadTechniciens();
         }
 
         // Close the window
@@ -120,6 +127,12 @@ public class AddTechnicienController {
         assert tfnom != null : "fx:id=\"tfnom\" was not injected: check your FXML file 'AddTechnicien.fxml'.";
         assert tfnumtel != null : "fx:id=\"tfnumtel\" was not injected: check your FXML file 'AddTechnicien.fxml'.";
         assert tfpwd != null : "fx:id=\"tfpwd\" was not injected: check your FXML file 'AddTechnicien.fxml'.";
+
+        String countryCode = LocationService.getCountryCode();
+        String dialCode = CountryDialCode.getDialCode(countryCode);
+        dialCodeLabel.setText(dialCode);
+        String flagUrl = "https://flagcdn.com/w40/" + countryCode.toLowerCase() + ".png";
+        flagImage.setImage(new Image(flagUrl));
 
     }
 

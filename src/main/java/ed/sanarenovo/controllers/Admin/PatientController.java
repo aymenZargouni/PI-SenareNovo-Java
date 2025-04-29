@@ -9,6 +9,8 @@ import ed.sanarenovo.entities.Patient;
 import ed.sanarenovo.entities.User;
 import ed.sanarenovo.services.PatientService;
 import ed.sanarenovo.services.UserService;
+import ed.sanarenovo.utils.CaptchaVerifier;
+import ed.sanarenovo.utils.JavaConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.concurrent.Worker;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import netscape.javascript.JSObject;
 
 public class PatientController {
 
@@ -48,12 +54,24 @@ public class PatientController {
     private ChoiceBox<String> tfsexe;
 
     @FXML
+    private ProgressBar strengthBar;
+
+    @FXML
+    private Label strengthLabel;
+
+    @FXML
+    private WebView captchaWebView;
+
+    private String captchaToken;
+
+    @FXML
     void AddPatient(ActionEvent event) {
         String email = tfemail.getText().trim();
         String password = tfpwd.getText();
         String fullname = tffullname.getText().trim();
         String gender = tfsexe.getValue();
         String address = tfaddress.getText().trim();
+        String strength = evaluatePasswordStrength(password);
 
         if (fullname.isEmpty() || email.isEmpty() || password.isEmpty() || address.isEmpty() || gender == null) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs !");
@@ -65,14 +83,21 @@ public class PatientController {
             return;
         }
 
-        if (password.length() < 6) {
-            showAlert(Alert.AlertType.ERROR, "Mot de passe trop court", "Le mot de passe doit contenir au moins 6 caractères !");
+        if (strength.equals("Weak")) {
+            showAlert(Alert.AlertType.ERROR, "Mot de passe faible", "Veuillez choisir un mot de passe plus fort !");
             return;
         }
 
         UserService userService = new UserService();
         if (userService.emailExists(email)) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email est déjà utilisé !");
+            return;
+        }
+
+        String recaptchaToken = fetchRecaptchaToken();
+
+        if (!CaptchaVerifier.verify(recaptchaToken)) {
+            showAlert(Alert.AlertType.ERROR, "Erreur CAPTCHA", "La vérification reCAPTCHA a échoué. Veuillez réessayer !");
             return;
         }
 
@@ -111,7 +136,10 @@ public class PatientController {
         assert tfsexe != null : "fx:id=\"tfsexe\" was not injected: check your FXML file 'RegisterPatient.fxml'.";
 
         tfsexe.getItems().addAll("Homme","Femme");
-        tfsexe.setValue("Homme"); // default
+        tfsexe.setValue("Homme");
+
+        setupCaptcha();
+
 
     }
 
@@ -147,5 +175,114 @@ public class PatientController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void checkPasswordStrength() {
+        String password = tfpwd.getText();
+        String result = evaluatePasswordStrength(password);
+
+        switch (result) {
+            case "Weak":
+                strengthBar.setProgress(0.2);
+                strengthBar.setStyle("-fx-accent: red;");
+                strengthLabel.setText("Weak");
+                break;
+            case "Okay":
+                strengthBar.setProgress(0.6);
+                strengthBar.setStyle("-fx-accent: orange;");
+                strengthLabel.setText("Okay");
+                break;
+            case "Strong":
+                strengthBar.setProgress(1.0);
+                strengthBar.setStyle("-fx-accent: green;");
+                strengthLabel.setText("Strong");
+                break;
+        }
+    }
+
+    private String evaluatePasswordStrength(String password) {
+        int strength = 0;
+
+        if (password.length() >= 8) strength++;
+        if (password.matches(".*[a-z].*")) strength++;
+        if (password.matches(".*[A-Z].*")) strength++;
+        if (password.matches(".*[0-9].*")) strength++;
+        if (password.matches(".*[!@#$%^&*()-_+=<>?].*")) strength++;
+
+        double score = strength / 5.0;
+
+        if (score < 0.4) return "Weak";
+        else if (score < 0.8) return "Okay";
+        else return "Strong";
+    }
+
+    private String fetchRecaptchaToken() {
+        final String[] tokenHolder = new String[1];
+
+        WebView webView = new WebView();
+        WebEngine webEngine = webView.getEngine();
+        webEngine.load(getClass().getResource("/AymenViews/recaptcha.html").toExternalForm());
+
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                JSObject window = (JSObject) webEngine.executeScript("window");
+                window.setMember("javaConnector", new JavaConnector(tokenHolder));
+            }
+        });
+
+        // Wait for token
+        long start = System.currentTimeMillis();
+        while (tokenHolder[0] == null && System.currentTimeMillis() - start < 5000) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return tokenHolder[0];
+    }
+
+    public void receiveToken(String token) {
+        this.captchaToken = token;
+        System.out.println("Received reCAPTCHA token: " + token);
+    }
+    
+    private void setupCaptcha() {
+        WebEngine webEngine = captchaWebView.getEngine();
+
+        // Expose a Java object to JavaScript
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                webEngine.executeScript(""
+                        + "grecaptcha.ready(function() {"
+                        + "  grecaptcha.execute('6LceouYqAAAAAOHZU_T84yeLIjQ3wEhLQZcAFRVS', {action: 'register'}).then(function(token) {"
+                        + "    window.java.receiveToken(token);"
+                        + "  });"
+                        + "});"
+                );
+            }
+        });
+
+        // Set the Java connector
+        captchaWebView.getEngine().getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                captchaWebView.getEngine().executeScript("window.java = { receiveToken: function(token) { javafxConnector.receiveToken(token); } };");
+            }
+        });
+
+        // Load a simple page with reCAPTCHA library
+        webEngine.loadContent("<html><head><script src='https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY'></script></head><body></body></html>");
+
+        // Connect Java method
+        captchaWebView.getEngine().getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                JSObject window = (JSObject) captchaWebView.getEngine().executeScript("window");
+                window.setMember("javafxConnector", this);
+            }
+        });
+    }
+
+
 }
 
