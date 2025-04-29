@@ -9,7 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.HBox?>
-<AnchorPane prefHeight="500.0" prefWidth="600.0" styleClass="main-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.PatientController" stylesheets="style.css">
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.web.WebView?>
+<AnchorPane prefHeight="500.0" prefWidth="600.0" styleClass="main-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.PatientController" stylesheets="/AymenViews/style.css">
    <children>
       <VBox spacing="15" styleClass="content-container"
             AnchorPane.topAnchor="30.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.bottomAnchor="30.0">
@@ -23,7 +25,9 @@
             <TextField fx:id="tfemail" prefHeight="30.0" prefWidth="300.0" />
 
             <Label text="Password" />
-            <PasswordField fx:id="tfpwd" prefHeight="30.0" prefWidth="300.0" />
+            <PasswordField fx:id="tfpwd" prefHeight="30.0" prefWidth="300.0" onKeyReleased="#checkPasswordStrength" />
+            <ProgressBar fx:id="strengthBar" prefWidth="200" progress="0.0" />
+            <Label fx:id="strengthLabel" text="Password Strength" />
 
             <Label text="Address" />
             <TextField fx:id="tfaddress" prefHeight="30.0" prefWidth="300.0" />
@@ -35,6 +39,7 @@
                <children>
                   <Button fx:id="cancelbtn" text="Annuler" onAction="#cancelAdd" styleClass="danger-button" />
                   <Button fx:id="registerbtn" text="Register" onAction="#AddPatient" styleClass="primary-button" />
+                  <WebView fx:id="captchaWebView" prefWidth="0" prefHeight="0" visible="false" />
                </children>
             </HBox>
          </children>

@@ -9,11 +9,8 @@ import javafx.stage.Stage;
 public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/AymenViews/ShowUsers.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/AymenViews/RecaptchaTest.fxml"));
         Scene scene = new Scene(root);
-
-
-        scene.getStylesheets().add(getClass().getResource("/AymenViews/style.css").toExternalForm());
 
         primaryStage.setTitle("Authentification");
         primaryStage.setScene(scene);

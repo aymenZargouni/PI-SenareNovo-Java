@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.image.ImageView?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.AddTechnicienController" stylesheets="style.css">
     <children>
         <VBox layoutX="50" layoutY="50" prefWidth="500" spacing="20" styleClass="content-container">
@@ -40,6 +41,8 @@
                         <HBox spacing="10">
                             <children>
                                 <Label text="Numéro Téléphone" prefWidth="120" />
+                                <ImageView fx:id="flagImage" fitWidth="24" fitHeight="16" />
+                                <Label fx:id="dialCodeLabel" text="+216" />
                                 <TextField fx:id="tfnumtel" prefWidth="280" />
                             </children>
                         </HBox>

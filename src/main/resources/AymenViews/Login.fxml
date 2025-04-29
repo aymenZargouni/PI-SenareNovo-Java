@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="main-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.Login"
-stylesheets="style.css">
+stylesheets="/AymenViews/style.css">
    <children>
       <VBox alignment="CENTER" layoutX="150.0" layoutY="80.0" prefHeight="300.0" prefWidth="300.0" spacing="20" styleClass="content-container">
          <children>
