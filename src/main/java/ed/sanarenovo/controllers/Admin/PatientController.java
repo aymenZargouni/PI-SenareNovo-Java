@@ -9,8 +9,6 @@ import ed.sanarenovo.entities.Patient;
 import ed.sanarenovo.entities.User;
 import ed.sanarenovo.services.PatientService;
 import ed.sanarenovo.services.UserService;
-import ed.sanarenovo.utils.CaptchaVerifier;
-import ed.sanarenovo.utils.JavaConnector;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -94,12 +92,6 @@ public class PatientController {
             return;
         }
 
-        String recaptchaToken = fetchRecaptchaToken();
-
-        if (!CaptchaVerifier.verify(recaptchaToken)) {
-            showAlert(Alert.AlertType.ERROR, "Erreur CAPTCHA", "La vérification reCAPTCHA a échoué. Veuillez réessayer !");
-            return;
-        }
 
         User user = new User();
         user.setEmail(email);
@@ -137,9 +129,6 @@ public class PatientController {
 
         tfsexe.getItems().addAll("Homme","Femme");
         tfsexe.setValue("Homme");
-
-        setupCaptcha();
-
 
     }
 
@@ -214,73 +203,6 @@ public class PatientController {
         if (score < 0.4) return "Weak";
         else if (score < 0.8) return "Okay";
         else return "Strong";
-    }
-
-    private String fetchRecaptchaToken() {
-        final String[] tokenHolder = new String[1];
-
-        WebView webView = new WebView();
-        WebEngine webEngine = webView.getEngine();
-        webEngine.load(getClass().getResource("/AymenViews/recaptcha.html").toExternalForm());
-
-        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                JSObject window = (JSObject) webEngine.executeScript("window");
-                window.setMember("javaConnector", new JavaConnector(tokenHolder));
-            }
-        });
-
-        // Wait for token
-        long start = System.currentTimeMillis();
-        while (tokenHolder[0] == null && System.currentTimeMillis() - start < 5000) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return tokenHolder[0];
-    }
-
-    public void receiveToken(String token) {
-        this.captchaToken = token;
-        System.out.println("Received reCAPTCHA token: " + token);
-    }
-    
-    private void setupCaptcha() {
-        WebEngine webEngine = captchaWebView.getEngine();
-
-        // Expose a Java object to JavaScript
-        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                webEngine.executeScript(""
-                        + "grecaptcha.ready(function() {"
-                        + "  grecaptcha.execute('6LceouYqAAAAAOHZU_T84yeLIjQ3wEhLQZcAFRVS', {action: 'register'}).then(function(token) {"
-                        + "    window.java.receiveToken(token);"
-                        + "  });"
-                        + "});"
-                );
-            }
-        });
-
-        // Set the Java connector
-        captchaWebView.getEngine().getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                captchaWebView.getEngine().executeScript("window.java = { receiveToken: function(token) { javafxConnector.receiveToken(token); } };");
-            }
-        });
-
-        // Load a simple page with reCAPTCHA library
-        webEngine.loadContent("<html><head><script src='https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY'></script></head><body></body></html>");
-
-        // Connect Java method
-        captchaWebView.getEngine().getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                JSObject window = (JSObject) captchaWebView.getEngine().executeScript("window");
-                window.setMember("javafxConnector", this);
-            }
-        });
     }
 
 
