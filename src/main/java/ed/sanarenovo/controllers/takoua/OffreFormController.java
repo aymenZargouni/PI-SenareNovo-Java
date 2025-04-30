@@ -77,7 +77,9 @@ public class OffreFormController {
             }
 
             if (rhController != null) {
+              
                 rhController.loadOffres();  // Remplacer refreshOffres() par loadOffres()
+
             }
 
             closeWindow();

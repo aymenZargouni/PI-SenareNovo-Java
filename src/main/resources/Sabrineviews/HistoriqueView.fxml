@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.control.Tooltip?>
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ed.sanarenovo.controllers.GestionEquipement.HistoriqueController"
+      spacing="20"
+      style="-fx-padding: 25; -fx-background-color: #f5f7fa;"
+      stylesheets="@/styles/equipment.css">
+
+    <!-- En-tête avec icône -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <ImageView fitWidth="32" fitHeight="32">
+            <image>
+                <Image url="@icons/history.png"/>
+            </image>
+        </ImageView>
+        <Label text="Historique des Réparations" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    </HBox>
+
+    <!-- TableView -->
+
+    <TableView fx:id="historiqueTable" styleClass="modern-table">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" style="-fx-alignment: CENTER;" prefWidth="60"/>
+            <TableColumn fx:id="colEquipement" text="Équipement" prefWidth="180"/>
+            <TableColumn fx:id="colModel" text="Modèle" prefWidth="150"/>
+            <TableColumn fx:id="colDate" text="Date Réparation" prefWidth="150" style="-fx-alignment: CENTER;"/>
+            <TableColumn fx:id="colDescription" text="Description" prefWidth="250"/>
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+        </columnResizePolicy>
+    </TableView>
+
+    <!-- Barre d'outils -->
+    <ToolBar style="-fx-background-color: transparent; -fx-padding: 10 0;">
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <Button text="Synchroniser" onAction="#onSyncHistorique" styleClass="tool-button">
+                <graphic>
+                    <ImageView fitWidth="20" fitHeight="20">
+                        <image>
+                            <Image url="@icons/sync.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button text="Rapport" onAction="#onGenerateReport" styleClass="tool-button">
+                <graphic>
+                    <ImageView fitWidth="20" fitHeight="20">
+                        <image>
+                            <Image url="@icons/report.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+    </ToolBar>
+</VBox>

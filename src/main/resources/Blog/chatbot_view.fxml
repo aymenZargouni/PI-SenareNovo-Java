@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0"
+            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/21"
+            fx:controller="ed.sanarenovo.controllers.Blog.ChatbotController"
+            styleClass="main-container">
+
+    <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+        <!-- Header Section -->
+        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="content-container">
+            <Label text="🤖 SanareNovo ChatBot" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0d6efd;"/>
+        </HBox>
+
+        <!-- Chat Area -->
+        <VBox spacing="15" styleClass="chat-container" VBox.vgrow="ALWAYS">
+            <TextArea fx:id="chatArea" styleClass="chat-message" VBox.vgrow="ALWAYS" wrapText="true" editable="false"/>
+        </VBox>
+
+        <!-- Input Section -->
+        <HBox spacing="10" styleClass="content-container">
+            <TextField fx:id="userInput" promptText="Entrez votre question..." styleClass="chat-input" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="sendButton" text="Envoyer" styleClass="btn,btn-primary" onAction="#sendMessage"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.dossiermedicaleController">
+
+    <children>
+
+        <Pane layoutY="-4.0" prefHeight="580.0" prefWidth="191.0" style="-fx-background-color: #d5f5e3; -fx-background-radius: 10;">
+
+        <children>
+      
+      
+              <!-- Logo -->
+              <ImageView fitHeight="141.0" fitWidth="162.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@logovert.jpg" />
+                  </image>
+              </ImageView>
+      
+              <!-- Navigation -->
+              <Button layoutX="14.0" layoutY="178.0" onAction="#redirectTocons" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Gestion Consultation" />
+              <Button layoutX="14.0" layoutY="290.0" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Gestion DossierMed" />
+         </children></Pane>
+
+        <!-- Title -->
+        <Text layoutX="320.0" layoutY="35.0" styleClass="page-title" text="Gestion Dossier Médicale" />
+
+        <!-- Form Container -->
+        <VBox layoutX="200.0" layoutY="60.0" prefWidth="500" spacing="15">
+            <children>
+
+                <!-- Ligne IMC -->
+                <HBox spacing="10">
+                    <Text styleClass="text" text="IMC :" />
+                    <TextField fx:id="imcField" prefWidth="200" />
+                </HBox>
+                <Label fx:id="imcMessage" styleClass="message-label" />
+
+                <!-- Ligne Date -->
+                <HBox spacing="10">
+                    <Text styleClass="text" text="Date :" />
+                    <DatePicker fx:id="datePicker" prefWidth="200" />
+                </HBox>
+                <Label fx:id="dateMessage" styleClass="message-label" />
+
+                <!-- Ligne Observations -->
+                <HBox spacing="10">
+                    <Text styleClass="text" text="Observations :" />
+                    <TextField fx:id="observationsField" prefWidth="300" />
+                </HBox>
+                <Label fx:id="observationsMessage" styleClass="message-label" />
+
+                <!-- Ligne Ordonnance -->
+                <HBox spacing="10">
+                    <Text styleClass="text" text="Ordonnance :" />
+                    <TextField fx:id="ordonnanceField" prefWidth="300" />
+                </HBox>
+                <Label fx:id="ordonnanceMessage" styleClass="message-label" />
+
+                <!-- Boutons -->
+                <HBox alignment="CENTER" spacing="10">
+                    <Button fx:id="ajouterBtn" onAction="#ajouterDossier" styleClass="primary-btn" text="Add" />
+                    <Button fx:id="modifierBtn" onAction="#updateDossier" styleClass="edit-btn" text="Update" />
+                    <Button fx:id="supprimerBtn" onAction="#supprimerDossier" styleClass="danger-btn" text="Delete" />
+                    <Button fx:id="clearBtn" onAction="#clearFields" styleClass="secondary-btn" text="Clear" />
+                </HBox>
+
+            </children>
+        </VBox>
+
+
+        <!-- TableView -->
+        <TableView fx:id="tableView" layoutX="750" layoutY="200.0" prefHeight="210.0" prefWidth="680.0">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="40.0" text="ID" />
+                <TableColumn fx:id="colImc" prefWidth="80.0" text="IMC" />
+                <TableColumn fx:id="colDate" prefWidth="100.0" text="Date" />
+                <TableColumn fx:id="colObservations" prefWidth="120.0" text="Observations" />
+                <TableColumn fx:id="colOrdonnance" prefWidth="92.0" text="Ordonnance" />
+                <TableColumn fx:id="colConsultations" prefWidth="278.0" text="Consultations" />
+            </columns>
+        </TableView>
+
+    </children>
+</AnchorPane>

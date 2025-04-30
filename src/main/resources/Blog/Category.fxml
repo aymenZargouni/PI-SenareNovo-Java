@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0"
+            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/17"
+            fx:controller="ed.sanarenovo.controllers.Blog.CategoryController">
+
+    <stylesheets>
+        <URL value="@css/CommonStyle.css" />
+    </stylesheets>
+
+    <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+        <!-- Header Section -->
+        <HBox spacing="10" styleClass="header-container">
+            <Label text="Gestion des Catégories" styleClass="header-title"/>
+        </HBox>
+
+        <!-- Form Section -->
+        <GridPane styleClass="content-container" hgap="10" vgap="10">
+            <Label text="Nom de la catégorie :" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="txtName" promptText="Entrez le nom de la catégorie" 
+                      styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                <Button text="Ajouter" onAction="#addCategory" styleClass="button, btn-success"/>
+                <Button text="Modifier" onAction="#updateCategory" styleClass="button, btn-secondary"/>
+                <Button text="Supprimer" onAction="#deleteCategory" styleClass="button, btn-danger"/>
+            </HBox>
+        </GridPane>
+
+        <!-- Table Section -->
+        <VBox styleClass="content-container" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tableCategory" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="100"/>
+                    <TableColumn fx:id="colName" text="Nom" prefWidth="300"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</AnchorPane>

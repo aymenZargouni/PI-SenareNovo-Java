@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ed.sanarenovo.controllers.Blog.CommentClientController"
+            prefHeight="600.0" prefWidth="650.0">
+
+    <VBox spacing="10.0" alignment="TOP_CENTER" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+        <Label fx:id="lblBlogTitle" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+        <TableView fx:id="tableComment" prefHeight="200.0" prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="50.0"/>
+                <TableColumn fx:id="colContent" text="Contenue" prefWidth="300.0"/>
+                <TableColumn fx:id="colUserEmail" text="Utilisateur (Email)" prefWidth="250.0"/>
+            </columns>
+        </TableView>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <TextField fx:id="txtContent" promptText="Écrire un commentaire..." prefWidth="450.0"/>
+            <Button text="Envoyer" onAction="#addComment"/>
+            <Button fx:id="btnUpdate" text="Modifier" onAction="#updateComment"/>
+            <Button fx:id="btnDelete" text="Supprimer" onAction="#deleteComment"/>
+        </HBox>
+
+        <Label text="Réponses aux commentaires" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+        
+        <TableView fx:id="replyTable" prefHeight="150.0" prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="colReplyContent" text="Contenu" prefWidth="300.0"/>
+                <TableColumn fx:id="colReplyAuthor" text="Auteur" prefWidth="150.0"/>
+                <TableColumn fx:id="colReplyDate" text="Date" prefWidth="150.0"/>
+            </columns>
+        </TableView>
+    </VBox>
+
+</AnchorPane>
