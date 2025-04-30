@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ed.sanarenovo.controllers.takoua.OffreFormController"
+            stylesheets="/takoua_views/style.css"
+            styleClass="main-view">
+
+    <children>
+        <!-- Conteneur principal centré -->
+        <VBox alignment="TOP_CENTER" spacing="30.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="20">
+            <fx:include source="/AymenViews/TopBar.fxml" />
+
+            <!-- Carte du formulaire -->
+            <VBox alignment="TOP_LEFT" spacing="15.0" maxWidth="600.0"
+                  styleClass="form-pane">
+
+                <!-- Titre du formulaire -->
+                <Text text="Ajouter une Offre" style="-fx-font-size: 24px; -fx-fill: #2c3e50; -fx-font-weight: bold;" />
+
+                <!-- Champ Titre -->
+                <Label text="Titre :" styleClass="form-label"/>
+                <TextField fx:id="txtTitre" styleClass="form-field"/>
+
+                <!-- Champ Description -->
+                <Label text="Description :" styleClass="form-label"/>
+                <TextArea fx:id="txtDescription" prefRowCount="4" styleClass="form-field"/>
+
+                <!-- Champ Date d'expiration -->
+                <Label text="Date d'expiration :" styleClass="form-label"/>
+                <DatePicker fx:id="dateExpiration" styleClass="form-field" />
+
+                <!-- Boutons -->
+                <HBox spacing="15" alignment="CENTER_RIGHT">
+                    <Button fx:id="btnCancel" text="Annuler" onAction="#handleCancel" styleClass="form-button cancel-button"/>
+                    <Button fx:id="btnSave" text="Enregistrer" onAction="#handleSave" styleClass="form-button"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </children>
+</AnchorPane>

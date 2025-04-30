@@ -13,8 +13,8 @@
       spacing="20"
       style="-fx-padding: 30; -fx-background-color: #f0f4f8;"
       stylesheets="@/styles/equipment.css">
+    <fx:include source="/AymenViews/TopBar.fxml" />
 
-    <!-- Titre principal -->
 
     <HBox alignment="CENTER_LEFT" spacing="10">
         <ImageView fitWidth="32" fitHeight="32">

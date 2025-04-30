@@ -10,20 +10,29 @@ public class MyConnection {
     private String login="root";
     private String pwd="";
 
-    private Connection cnx;
-    private static MyConnection instance;
+    private Connection cnx; // objet pour comminiquer a la BDD
+    public static MyConnection instance; //objet : singleton
+
 
     private MyConnection() {
-        createConnection();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            createConnection();
+        } catch (ClassNotFoundException e) {
+            System.err.println("Erreur de chargement du driver MySQL: " + e.getMessage());
+        }
     }
 
     private void createConnection() {
         try {
             cnx = DriverManager.getConnection(url, login, pwd);
-            cnx.setAutoCommit(true); // Active la reconnexion automatique
-            System.out.println("Connexion established...");
+            cnx.setAutoCommit(true);
+            System.out.println("Connexion établie avec succès...");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println("Erreur de connexion à la base de données: " + e.getMessage());
+            System.err.println("URL: " + url);
+            System.err.println("Login: " + login);
+            // Ne pas initialiser cnx à null ici, laissez-le null pour que getCnx() puisse le détecter
         }
     }
 
@@ -33,7 +42,8 @@ public class MyConnection {
                 createConnection();
             }
         } catch (SQLException e) {
-            System.out.println("Error checking connection: " + e.getMessage());
+            System.err.println("Erreur lors de la vérification de la connexion: " + e.getMessage());
+            createConnection(); // Tentative de reconnexion
         }
         return cnx;
     }

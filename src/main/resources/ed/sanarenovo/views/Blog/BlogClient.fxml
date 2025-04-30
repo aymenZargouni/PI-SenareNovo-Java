@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0"
+            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/17"
+            fx:controller="ed.sanarenovo.controllers.Blog.BlogClientController"
+            styleClass="main-container"
+            stylesheets="@css/BlogClientStyle.css">
+
+    <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+        <!-- Header Section avec style amélioré -->
+        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="header-container">
+            <Label text="Blogs" styleClass="header-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <!-- Search and Filter Section avec style amélioré -->
+        <HBox spacing="10" styleClass="search-container">
+            <TextField fx:id="txtSearch" promptText="Rechercher un blog..." styleClass="search-field" HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="cmbCategory" promptText="Filtrer par catégorie" styleClass="category-combo" prefWidth="200"/>
+            <Button text="Rechercher" styleClass="btn-search" onAction="#searchBlog"/>
+        </HBox>
+
+        <!-- TableView pour les blogs -->
+        <TableView fx:id="tableBlog" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="colTitle" text="Titre" prefWidth="200"/>
+                <TableColumn fx:id="colContent" text="Contenu" prefWidth="300"/>
+                <TableColumn fx:id="colImage" text="Image" prefWidth="150"/>
+                <TableColumn fx:id="colCategory" text="Catégorie" prefWidth="150"/>
+            </columns>
+        </TableView>
+
+        <!-- Navigation and Actions avec style amélioré -->
+        <HBox spacing="10" alignment="CENTER" styleClass="navigation-container">
+            <Button fx:id="btnPrevious" text="← Précédent" styleClass="nav-button" onAction="#previousPage"/>
+            <Label fx:id="lblPage" text="Page 1" styleClass="page-label"/>
+            <Button fx:id="btnNext" text="Suivant →" styleClass="nav-button" onAction="#nextPage"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnTranslate" text="Traduire" styleClass="btn-translate" onAction="#translateBlog"/>
+            <Button fx:id="btnDownloadPDF" text="Télécharger PDF" styleClass="btn-download" onAction="#downloadPDF"/>
+            <Button fx:id="btnViewComments" text="Commenter" styleClass="btn-comment" onAction="#openCommentPage"/>
+        </HBox>
+    </VBox>
+</AnchorPane> 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.takoua.RHController" stylesheets="/takoua_views/style.css">
+    <children>
+        <fx:include source="/AymenViews/TopBar.fxml" />
+        <TabPane fx:id="tabPane" prefHeight="450.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Gestion des Offres">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="800.0">
+                            <children>
+                                <TableView fx:id="tableOffres" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="772.0">
+                                    <columns>
+                                        <TableColumn fx:id="colOffreId" prefWidth="50.0" text="ID" />
+                                        <TableColumn fx:id="colOffreTitre" prefWidth="200.0" text="Titre" />
+                                        <TableColumn fx:id="colOffreExpiration" prefWidth="150.0" text="Date Expiration" />
+                                    </columns>
+                                </TableView>
+                                <Button fx:id="btnAddOffre" onAction="#handleAddOffre" layoutX="14.0" layoutY="330.0" mnemonicParsing="false" text="Ajouter" />
+                                <Button fx:id="btnEditOffre" onAction="#handleEditOffre" layoutX="100.0" layoutY="330.0" mnemonicParsing="false" text="Modifier" />
+                                <Button fx:id="btnDeleteOffre" onAction="#handleDeleteOffre" layoutX="186.0" layoutY="330.0" mnemonicParsing="false" text="Supprimer" />
+                                <Button fx:id="btnRetour" onAction="#handleRetour" layoutX="700.0" layoutY="330.0" mnemonicParsing="false" text="Retour" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Gestion des Candidatures">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="420.0" prefWidth="800.0">
+                            <children>
+                                <TableView fx:id="tableCandidatures" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="772.0">
+                                    <columns>
+                                        <TableColumn fx:id="colCandId" prefWidth="50.0" text="ID" />
+                                        <TableColumn fx:id="colCandNom" prefWidth="100.0" text="Nom" />
+                                        <TableColumn fx:id="colCandPrenom" prefWidth="100.0" text="Prénom" />
+                                        <TableColumn fx:id="colCandEmail" prefWidth="150.0" text="Email" />
+                                        <TableColumn fx:id="colCandDate" prefWidth="120.0" text="Date Candidature" />
+                                        <TableColumn fx:id="colCandStatut" prefWidth="120.0" text="Statut" />
+                                    </columns>
+                                </TableView>
+                                <ComboBox fx:id="comboStatut" layoutX="14.0" layoutY="330.0" prefWidth="150.0" promptText="Nouveau statut" />
+                                <Button fx:id="btnUpdateStatut" onAction="#handleUpdateStatut" layoutX="180.0" layoutY="330.0" mnemonicParsing="false" text="Mettre à jour" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
