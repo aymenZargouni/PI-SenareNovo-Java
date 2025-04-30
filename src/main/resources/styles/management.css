@@ -3,7 +3,12 @@
     -fx-font-family: 'Segoe UI';
     -fx-font-size: 14px;
 }
-
+.modern-table {
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
 /* En-têtes */
 .header-label {
     -fx-font-size: 20px;
@@ -78,4 +83,13 @@
 
 .data-table .table-row-cell:selected {
     -fx-background-color: #e3f2fd;
+}
+.warning-text {
+    -fx-text-fill: #d32f2f;
+    -fx-font-size: 12px;
+    -fx-padding: 5px;
+    -fx-background-color: #fff8e1;
+    -fx-border-color: #d32f2f;
+    -fx-border-width: 1px;
+    -fx-border-radius: 3px;
 }

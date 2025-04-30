@@ -12,18 +12,13 @@ import java.io.IOException;
 public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        try {
-            MyConnection.getInstance();
-            Parent root = FXMLLoader.load(getClass().getResource("/Blog/BLog.fxml"));
-            Scene scene = new Scene(root);
-            //scene.getStylesheets().add(getClass().getResource("/Youssef_views/design.css").toExternalForm());
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            //throw new RuntimeException(e);
-        }
+
+        Parent root = FXMLLoader.load(getClass().getResource("/Sabrineviews/TechClaims.fxml"));
+        primaryStage.setTitle("Gestion des Équipements");
+        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.show();
     }
+  
     public static void main(String[] args) {
         launch(args);
     }

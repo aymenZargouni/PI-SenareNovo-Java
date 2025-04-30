@@ -1,125 +1,61 @@
 package ed.sanarenovo.utils;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.concurrent.TimeUnit;
+import okhttp3.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.*;
 
 public class ReclamationIA {
 
-    // Modèle optimisé pour le français et les rapports techniques
-    private static final String API_URL = "https://api-inference.huggingface.co/models/moussaKam/barthez-orangesum-abstract";
-    private static final String API_TOKEN = "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";
-    private static final int MAX_RETRIES = 5;
-    private static final int RETRY_DELAY = 45;
+    private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
+    private static final String API_KEY = "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"; // Remplace par ta clé OpenRouter
 
-    public static String genererRapport(String description) {
-        try {
-            String prompt = buildOptimizedPrompt(description);
-            System.out.println("[DEBUG] Prompt généré:\n" + prompt); // Log de débogage
+    public static String genererRapport(String description) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        ObjectMapper mapper = new ObjectMapper();
 
-            for (int i = 0; i < MAX_RETRIES; i++) {
-                HttpResponse<String> response = sendApiRequest(createRequest(prompt));
-                System.out.println("[DEBUG] Réponse brute: " + response.body()); // Log de la réponse
+        // Prompt détaillé pour un rapport professionnel et technique
+        String prompt = "Rédige un rapport technique et professionnel sur la réclamation suivante. "
+                + "Le rapport doit contenir :\n"
+                + "- Un titre clair et formel\n"
+                + "- Un résumé de la réclamation\n"
+                + "- Une analyse technique du problème\n"
+                + "- Des causes possibles\n"
+                + "- Des recommandations ou solutions proposées\n"
+                + "- Une conclusion\n\n"
+                + "Voici la description : " + description;
 
-                if (response.statusCode() == 200) {
-                    String result = parseSuccessfulResponse(response.body());
-                    if (!result.isEmpty()) {
-                        return postProcessResponse(result);
-                    }
-                } else {
-                    handleErrorResponse(response);
-                }
+        // Construire le JSON des messages
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("model", "mistralai/mistral-7b-instruct");
 
-                if (i < MAX_RETRIES - 1) {
-                    System.out.println("Nouvelle tentative dans " + RETRY_DELAY + " secondes...");
-                    TimeUnit.SECONDS.sleep(RETRY_DELAY);
-                }
-            }
-            return "Échec de génération après " + MAX_RETRIES + " tentatives";
+        List<Map<String, String>> messages = new ArrayList<>();
+        messages.add(Map.of("role", "user", "content", prompt));
+        payload.put("messages", messages);
 
-        } catch (Exception e) {
-            System.err.println("Erreur critique: ");
-            e.printStackTrace();
-            return "Erreur système: " + e.getClass().getSimpleName();
-        }
-    }
+        String jsonPayload = mapper.writeValueAsString(payload);
 
-    private static String buildOptimizedPrompt(String description) {
-        return String.format(
-                "Génère un rapport technique détaillé en français avec cette structure:\n" +
-                        "Problème: %s\n" +
-                        "Cause probable:\n" +
-                        "Diagnostic technique:\n" +
-                        "Solution recommandée:\n" +
-                        "Pièces nécessaires:\n" +
-                        "---\n" +
-                        "Utilise un style professionnel et des termes techniques précis.",
-                description
-        );
-    }
-
-    private static String createRequest(String prompt) {
-        JSONObject parameters = new JSONObject();
-        parameters.put("max_new_tokens", 350);
-        parameters.put("temperature", 0.7);
-        parameters.put("top_k", 40);
-        parameters.put("num_return_sequences", 1);
-
-        JSONObject request = new JSONObject();
-        request.put("inputs", prompt);
-        request.put("parameters", parameters);
-
-        return request.toString();
-    }
-
-    private static HttpResponse<String> sendApiRequest(String jsonInput) throws Exception {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_URL))
-                .header("Authorization", "Bearer " + API_TOKEN)
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(jsonInput))
+        // Construire la requête HTTP
+        Request request = new Request.Builder()
+                .url(API_URL)
+                .post(RequestBody.create(jsonPayload, MediaType.get("application/json")))
+                .addHeader("Authorization", "Bearer " + API_KEY)
+                .addHeader("HTTP-Referer", "https://yourapp.com") // Requis par OpenRouter
+                .addHeader("X-Title", "ReclamationApp")
                 .build();
 
-        return HttpClient.newHttpClient()
-                .send(request, HttpResponse.BodyHandlers.ofString());
-    }
-
-    private static String parseSuccessfulResponse(String responseBody) {
-        try {
-            JSONArray jsonArray = new JSONArray(responseBody);
-            if (jsonArray.length() > 0) {
-                JSONObject firstItem = jsonArray.getJSONObject(0);
-                return firstItem.optString("generated_text", "");
+        // Exécuter la requête
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Erreur API: " + response.code() + " - " + response.message());
             }
-            return "";
-        } catch (Exception e) {
-            System.err.println("Erreur d'analyse de la réponse: " + e.getMessage());
-            return "";
+
+            String responseBody = response.body().string();
+            JsonNode rootNode = mapper.readTree(responseBody);
+
+            // Extraire le contenu généré
+            return rootNode.path("choices").get(0).path("message").path("content").asText();
         }
-    }
-
-    private static void handleErrorResponse(HttpResponse<String> response) {
-        System.err.println("Erreur API - Code: " + response.statusCode());
-        System.err.println("Détails: " + response.body());
-
-        try {
-            JSONObject errorResponse = new JSONObject(response.body());
-            if (errorResponse.has("error")) {
-                String errorType = errorResponse.optString("error", "Inconnue");
-                System.err.println("Type d'erreur: " + errorType);
-            }
-        } catch (Exception e) {
-            System.err.println("Format d'erreur non reconnu");
-        }
-    }
-
-    private static String postProcessResponse(String text) {
-        return text.replaceAll("(\\n\\s*){2,}", "\n") // Nettoyage des sauts de ligne
-                .replaceAll("\\s{2,}", " ")        // Suppression des espaces multiples
-                .trim();
     }
 }

@@ -2,6 +2,8 @@ package ed.sanarenovo.controllers.GestionEquipement;
 
 import ed.sanarenovo.entities.Equipment;
 import ed.sanarenovo.services.EquipmentService;
+import ed.sanarenovo.utils.PriceTableCell;
+import ed.sanarenovo.utils.StatusTableCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +19,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class EquipmentController {
+
     private final EquipmentService equipmentService = new EquipmentService();
+    private static final double EUR_TO_TND_RATE = 3.3;
 
     @FXML
     private TableView<Equipment> equipmentTable;
@@ -28,17 +32,35 @@ public class EquipmentController {
     @FXML
     private TextField priceField;
     @FXML
-    private DatePicker dateAchatPicker;  // Utiliser pour la saisie de la date d'achat
+    private DatePicker dateAchatPicker;
+    @FXML
+    private ToggleGroup currencyToggleGroup;
+
+    private String currentCurrency = "EUR";
 
     @FXML
     public void initialize() {
         refreshTable();
         dateAchatPicker.setValue(LocalDate.now());
+
+        currencyToggleGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            if (newToggle != null) {
+                currentCurrency = ((RadioButton) newToggle).getUserData().toString();
+                refreshTable();
+            }
+        });
+
         equipmentTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 nameField.setText(newSelection.getName());
                 modelField.setText(newSelection.getModel());
-                priceField.setText(String.valueOf(newSelection.getPrix()));
+
+                double price = newSelection.getPrix();
+                if (currentCurrency.equals("TND")) {
+                    price = price * EUR_TO_TND_RATE;
+                }
+                TableColumn<Equipment, Double> priceColumn = (TableColumn<Equipment, Double>) equipmentTable.getColumns().get(4);
+                priceColumn.setCellFactory(new PriceTableCell(this));
                 if (newSelection.getDateAchat() != null) {
                     dateAchatPicker.setValue(newSelection.getDateAchat().toLocalDate());
                 }
@@ -46,20 +68,59 @@ public class EquipmentController {
         });
     }
 
+    public String getCurrentCurrency() {
+        return currentCurrency;
+    }
+
+    @FXML
+    private void handleCurrencyChange() {
+        RadioButton selectedRadioButton = (RadioButton) currencyToggleGroup.getSelectedToggle();
+        String newCurrency = selectedRadioButton.getUserData().toString();
+
+        if (!currentCurrency.equals(newCurrency)) {
+            String priceText = priceField.getText();
+            if (!priceText.isEmpty()) {
+                try {
+                    double price = Double.parseDouble(priceText);
+                    if (currentCurrency.equals("EUR") && newCurrency.equals("TND")) {
+                        priceField.setText(String.format("%.2f", price * EUR_TO_TND_RATE));
+                    } else if (currentCurrency.equals("TND") && newCurrency.equals("EUR")) {
+                        priceField.setText(String.format("%.2f", price / EUR_TO_TND_RATE));
+                    }
+                } catch (NumberFormatException e) {
+                    showAlert("Erreur", "Prix invalide", Alert.AlertType.ERROR);
+                }
+            }
+            currentCurrency = newCurrency;
+            refreshTable();
+        }
+    }
+
     @FXML
     private void handleAddEquipment() {
         if (!isInputValid()) return;
-        Date dateAchat = Date.valueOf(dateAchatPicker.getValue());
-        Equipment equipment = new Equipment(
-                nameField.getText().trim(),
-                modelField.getText().trim(),
-                dateAchat,
-                Double.parseDouble(priceField.getText())
-        );
-        equipmentService.addEntity(equipment);
-        refreshTable();
-        clearFields();
-        showAlert("Succès", "Équipement ajouté avec succès", Alert.AlertType.INFORMATION);
+
+        try {
+            double price = Double.parseDouble(priceField.getText());
+            if (currentCurrency.equals("TND")) {
+                price = price / EUR_TO_TND_RATE; // Convertir en EUR pour le stockage
+            }
+
+            Date dateAchat = Date.valueOf(dateAchatPicker.getValue());
+            Equipment equipment = new Equipment(
+                    nameField.getText().trim(),
+                    modelField.getText().trim(),
+                    dateAchat,
+                    price
+            );
+
+            equipmentService.addEntity(equipment);
+            refreshTable();
+            clearFields();
+            showAlert("Succès", "Équipement ajouté avec succès", Alert.AlertType.INFORMATION);
+        } catch (NumberFormatException e) {
+            showAlert("Erreur", "Prix invalide", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
@@ -71,15 +132,24 @@ public class EquipmentController {
         }
         if (!isInputValid()) return;
 
-        selected.setName(nameField.getText().trim());
-        selected.setModel(modelField.getText().trim());
-        selected.setPrix(Double.parseDouble(priceField.getText()));
-        selected.setDateAchat(Date.valueOf(dateAchatPicker.getValue()));
+        try {
+            double price = Double.parseDouble(priceField.getText());
+            if (currentCurrency.equals("TND")) {
+                price = price / EUR_TO_TND_RATE; // Convertir en EUR pour le stockage
+            }
 
-        equipmentService.updateEntity(selected, selected.getId());
-        refreshTable();
-        clearFields();
-        showAlert("Succès", "Équipement modifié avec succès", Alert.AlertType.INFORMATION);
+            selected.setName(nameField.getText().trim());
+            selected.setModel(modelField.getText().trim());
+            selected.setPrix(price);
+            selected.setDateAchat(Date.valueOf(dateAchatPicker.getValue()));
+
+            equipmentService.updateEntity(selected, selected.getId());
+            refreshTable();
+            clearFields();
+            showAlert("Succès", "Équipement modifié avec succès", Alert.AlertType.INFORMATION);
+        } catch (NumberFormatException e) {
+            showAlert("Erreur", "Prix invalide", Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
@@ -95,12 +165,20 @@ public class EquipmentController {
         showAlert("Succès", "Équipement supprimé avec succès", Alert.AlertType.INFORMATION);
     }
 
-
     private void refreshTable() {
         List<Equipment> equipmentList = equipmentService.getAll();
         ObservableList<Equipment> observableList = FXCollections.observableArrayList(equipmentList);
         equipmentTable.setItems(observableList);
+
+        // Configuration de la colonne prix
+        TableColumn<Equipment, Double> priceColumn = (TableColumn<Equipment, Double>) equipmentTable.getColumns().get(4);
+        priceColumn.setCellFactory(new PriceTableCell(this));
+
+        // Configuration de la colonne statut
+        TableColumn<Equipment, String> statusColumn = (TableColumn<Equipment, String>) equipmentTable.getColumns().get(3); // Statut est la 4e colonne (index 3)
+        statusColumn.setCellFactory(col -> new StatusTableCell());
     }
+
 
     private void clearFields() {
         nameField.clear();
@@ -161,6 +239,23 @@ public class EquipmentController {
         }
     }
 
+    @FXML
+    private void handleOpenHistorique() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Sabrineviews/HistoriqueView.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Historique des Réparations");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir l'interface Historique: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
     private void showAlert(String title, String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -168,5 +263,4 @@ public class EquipmentController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }

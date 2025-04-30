@@ -6,11 +6,9 @@ import ed.sanarenovo.entities.Technicien;
 import ed.sanarenovo.services.ClaimService;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -26,21 +24,55 @@ public class ClaimsManagementController {
     @FXML private TableColumn<Claim, String> descriptionColumn;
     @FXML private TableColumn<Claim, Timestamp> dateColumn;
     @FXML private TableColumn<Claim, String> statusColumn;
+    @FXML private Button updateButton;
+    @FXML private Button deleteButton;
+    @FXML private HBox expirationWarning;
+
+    private final Tooltip updateTooltip = new Tooltip("Cette réclamation a plus de 24h\nModification impossible");
+    private final Tooltip deleteTooltip = new Tooltip("Cette réclamation a plus de 24h\nSuppression impossible");
 
     @FXML
     public void initialize() {
-        // Configuration explicite des colonnes
         configureTableColumns();
+        refreshClaims();
 
-        // Configurer la sélection
+        updateTooltip.setStyle("-fx-font-size: 12; -fx-text-fill: #ff4444;");
+        deleteTooltip.setStyle("-fx-font-size: 12; -fx-text-fill: #ff4444;");
+
         claimTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 descriptionArea.setText(newSelection.getReclamation());
+
+                boolean isOlderThan24h = false;
+                if (newSelection.getId() != null) {
+                    isOlderThan24h = claimService.isClaimOlderThan24Hours(newSelection.getId());
+                }
+
+                updateButton.setDisable(isOlderThan24h);
+                deleteButton.setDisable(isOlderThan24h);
+
+                // Gérer l'affichage du label d'avertissement
+                expirationWarning.setVisible(isOlderThan24h);
+                expirationWarning.setAccessibleText(isOlderThan24h ? "Cette réclamation a plus de 24h et ne peut être ni modifiée ni supprimée" : "");
+
+                // Appliquer ou retirer les tooltips
+                if (isOlderThan24h) {
+                    Tooltip.install(updateButton, updateTooltip);
+                    Tooltip.install(deleteButton, deleteTooltip);
+                } else {
+                    Tooltip.uninstall(updateButton, updateTooltip);
+                    Tooltip.uninstall(deleteButton, deleteTooltip);
+                }
+            } else {
+                // Si rien n'est sélectionné
+                updateButton.setDisable(true);
+                deleteButton.setDisable(true);
+                descriptionArea.clear();
+                expirationWarning.setVisible(false);
+                Tooltip.uninstall(updateButton, updateTooltip);
+                Tooltip.uninstall(deleteButton, deleteTooltip);
             }
         });
-
-        // Charger les données
-        refreshClaims();
     }
 
     private void configureTableColumns() {
@@ -48,12 +80,12 @@ public class ClaimsManagementController {
 
         equipmentColumn.setCellValueFactory(cellData -> {
             Equipment equipment = cellData.getValue().getEquipment();
-            return equipment != null ? equipment.nameProperty() : new SimpleStringProperty("");
+            return equipment != null ? new SimpleStringProperty(equipment.getName()) : new SimpleStringProperty("");
         });
 
         technicienColumn.setCellValueFactory(cellData -> {
             Technicien technicien = cellData.getValue().getTechnicien();
-            return technicien != null ? technicien.nomProperty() : new SimpleStringProperty("");
+            return technicien != null ? new SimpleStringProperty(technicien.getNom()) : new SimpleStringProperty("");
         });
 
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("reclamation"));
@@ -61,9 +93,10 @@ public class ClaimsManagementController {
 
         statusColumn.setCellValueFactory(cellData -> {
             Equipment equipment = cellData.getValue().getEquipment();
-            return equipment != null ? equipment.statusProperty() : new SimpleStringProperty("");
+            return equipment != null ? new SimpleStringProperty(equipment.getStatus()) : new SimpleStringProperty("");
         });
     }
+
     @FXML
     private void handleUpdateClaim() {
         Claim selected = claimTable.getSelectionModel().getSelectedItem();
@@ -75,10 +108,14 @@ public class ClaimsManagementController {
                     return;
                 }
 
-                selected.setReclamation(newDescription);
-                claimService.updateEntity(selected, selected.getId());
-                refreshClaims();
-                showAlert("Succès", "Réclamation mise à jour", Alert.AlertType.INFORMATION);
+                if (!newDescription.equals(selected.getReclamation())) {
+                    selected.setReclamation(newDescription);
+                    claimService.updateEntity(selected, selected.getId());
+                    refreshClaims();
+                    showAlert("Succès", "Réclamation mise à jour", Alert.AlertType.INFORMATION);
+                } else {
+                    showAlert("Avertissement", "Aucune modification n'a été apportée à la réclamation", Alert.AlertType.WARNING);
+                }
             }
         } else {
             showAlert("Avertissement", "Veuillez sélectionner une réclamation", Alert.AlertType.WARNING);
@@ -105,6 +142,10 @@ public class ClaimsManagementController {
     private void refreshClaims() {
         List<Claim> claims = claimService.getAll();
         claimTable.getItems().setAll(claims);
+        updateButton.setDisable(true);
+        deleteButton.setDisable(true);
+        descriptionArea.clear();
+        expirationWarning.setVisible(false); // Correction ici
     }
 
     private void showAlert(String title, String message, Alert.AlertType type) {
