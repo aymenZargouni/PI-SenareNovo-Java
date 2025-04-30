@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.chart.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ed.sanarenovo.controllers.takoua.RHController"
+            prefWidth="1200" prefHeight="800" stylesheets="/takoua_views/RH.css">
+
+    <VBox spacing="20" layoutX="20" layoutY="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <Label text="Statistiques des Candidatures" styleClass="section-title"/>
+
+        <!-- Bouton de retour -->
+        <Button text="Retour" onAction="#handleReturnFromStats" styleClass="button retour-button"/>
+
+        <!-- Statistiques rapides -->
+        <HBox spacing="20" alignment="CENTER">
+            <VBox styleClass="stat-box" alignment="CENTER">
+                <Label text="Total Candidatures" styleClass="stat-label"/>
+                <Label fx:id="lblTotalCandidats" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-box" alignment="CENTER">
+                <Label text="Nouvelles" styleClass="stat-label"/>
+                <Label fx:id="lblNouvellesCandidatures" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-box" alignment="CENTER">
+                <Label text="Acceptées" styleClass="stat-label"/>
+                <Label fx:id="lblCandidaturesAcceptees" styleClass="stat-value"/>
+            </VBox>
+            <VBox styleClass="stat-box" alignment="CENTER">
+                <Label text="Rejetées" styleClass="stat-label"/>
+                <Label fx:id="lblCandidaturesRejetees" styleClass="stat-value"/>
+            </VBox>
+        </HBox>
+
+        <!-- Graphique principal -->
+        <BarChart fx:id="candidaturesChart" prefHeight="400" prefWidth="1100"/>
+
+        <!-- Filtres -->
+        <HBox spacing="10" alignment="CENTER">
+            <ComboBox fx:id="comboTimeFilter" promptText="Période">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String value="Toutes"/>
+                        <String value="7 derniers jours"/>
+                        <String value="30 derniers jours"/>
+                        <String value="Cette année"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <ComboBox fx:id="comboOfferFilter" promptText="Offre"/>
+            <Button text="Appliquer Filtres" onAction="#handleApplyFilter" styleClass="button primary"/>
+            <Button text="Rafraîchir" onAction="#handleRefreshStats" styleClass="button"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

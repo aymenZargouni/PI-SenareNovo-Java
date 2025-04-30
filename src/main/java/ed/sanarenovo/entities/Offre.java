@@ -3,6 +3,7 @@ package ed.sanarenovo.entities;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Offre {
     private int id;
@@ -10,15 +11,13 @@ public class Offre {
     private String description;
     private Date datePublication;
     private Date dateExpiration;
-    private List<String> competencesRequises;
 
     // Constructeurs
     public Offre() {
-        this.competencesRequises = new ArrayList<>();
     }
 
     public Offre(int id, String titre, String description, Date datePublication, Date dateExpiration) {
-        this();
+
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -47,9 +46,6 @@ public class Offre {
     public Date getDateExpiration() { return dateExpiration; }
     public void setDateExpiration(Date dateExpiration) { this.dateExpiration = dateExpiration; }
 
-    public List<String> getCompetencesRequises() { return competencesRequises; }
-    public void setCompetencesRequises(List<String> competencesRequises) { this.competencesRequises = competencesRequises; }
-    public void addCompetenceRequise(String competence) { this.competencesRequises.add(competence); }
 
     @Override
     public String toString() {
@@ -59,7 +55,19 @@ public class Offre {
                 ", description='" + description + '\'' +
                 ", datePublication=" + datePublication +
                 ", dateExpiration=" + dateExpiration +
-                ", competencesRequises=" + competencesRequises +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Offre offre = (Offre) o;
+        return id == offre.id && Objects.equals(titre, offre.titre) && Objects.equals(description, offre.description) && Objects.equals(datePublication, offre.datePublication) && Objects.equals(dateExpiration, offre.dateExpiration);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, titre, description, datePublication, dateExpiration);
     }
 }

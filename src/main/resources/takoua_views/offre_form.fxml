@@ -3,18 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.takoua.OffreFormController" stylesheets="/takoua_views/style.css">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.takoua.OffreFormController" stylesheets="/takoua_views/OffreForm.css">
     <children>
-        <Label layoutX="14.0" layoutY="14.0" text="Titre:" />
-        <TextField fx:id="txtTitre" layoutX="14.0" layoutY="40.0" prefWidth="372.0" />
+        <!-- Label et champ pour Titre -->
+        <Label layoutX="14.0" layoutY="14.0" text="Titre:" styleClass="form-label"/>
+        <TextField fx:id="txtTitre" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="40.0" prefHeight="30.0" styleClass="text-field"/>
 
-        <Label layoutX="14.0" layoutY="80.0" text="Description:" />
-        <TextArea fx:id="txtDescription" layoutX="14.0" layoutY="106.0" prefHeight="100.0" prefWidth="372.0" />
+        <!-- Label et champ pour Description -->
+        <Label layoutX="14.0" layoutY="80.0" text="Description:" styleClass="form-label"/>
+        <TextArea fx:id="txtDescription" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="106.0" prefHeight="100.0" styleClass="text-area"/>
 
-        <Label layoutX="14.0" layoutY="216.0" text="Date d'expiration:" />
-        <DatePicker fx:id="dateExpiration" layoutX="14.0" layoutY="242.0" prefWidth="150.0" />
+        <!-- Label et champ pour Date d'expiration -->
+        <Label layoutX="14.0" layoutY="216.0" text="Date d'expiration:" styleClass="form-label"/>
+        <DatePicker fx:id="dateExpiration" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="242.0" prefWidth="150.0" styleClass="date-picker"/>
 
-        <Button fx:id="btnSave" layoutX="300.0" layoutY="280.0" mnemonicParsing="false"  text="Enregistrer" onAction="#handleSave" />
-        <Button fx:id="btnCancel" layoutX="300.0" layoutY="280.0" mnemonicParsing="false" text="Annuler" onAction="#handleCancel" />
+        <!-- Conteneur pour les boutons -->
+        <HBox AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.bottomAnchor="14.0" layoutY="280.0" spacing="15" styleClass="button-container">
+            <children>
+                <Button fx:id="btnSave" text="Enregistrer" onAction="#handleSave" styleClass="button"/>
+                <Button fx:id="btnCancel" text="Annuler" onAction="#handleCancel" styleClass="button"/>
+            </children>
+        </HBox>
     </children>
 </AnchorPane>

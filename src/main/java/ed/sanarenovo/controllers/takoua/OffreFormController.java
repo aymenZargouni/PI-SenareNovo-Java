@@ -21,7 +21,7 @@ public class OffreFormController {
     @FXML
     private Button btnCancel;
 
-    private OffreService offreService = new OffreService();
+    private final OffreService offreService = new OffreService();
     private RHController rhController;
     private Offre offreToEdit;
 
@@ -34,49 +34,56 @@ public class OffreFormController {
         txtTitre.setText(offre.getTitre());
         txtDescription.setText(offre.getDescription());
 
-        // ✅ Correction ici : cast vers java.sql.Date, puis conversion vers LocalDate
         if (offre.getDateExpiration() instanceof java.sql.Date) {
             java.sql.Date sqlDate = (java.sql.Date) offre.getDateExpiration();
             dateExpiration.setValue(sqlDate.toLocalDate());
         } else {
-            // fallback au cas où c'est un java.util.Date (très peu probable dans ton cas)
-            dateExpiration.setValue(offre.getDateExpiration().toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate());
+            dateExpiration.setValue(offre.getDateExpiration()
+                    .toInstant()
+                    .atZone(java.time.ZoneId.systemDefault())
+                    .toLocalDate());
         }
     }
 
     @FXML
-    private void handleSave() {
-        if (txtTitre.getText() == null || txtTitre.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur");
-            alert.setHeaderText("Titre manquant");
-            alert.setContentText("Le titre de l'offre est obligatoire.");
-            alert.showAndWait();
-            return; // Ne pas continuer si le titre est vide
-        }
+    private void initialize() {
+        // Bloque les dates passées dans le date picker
+        dateExpiration.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisable(empty || date.isBefore(LocalDate.now().plusDays(1)));
+            }
+        });
+    }
 
-        // Autres vérifications ici
+    @FXML
+    private void handleSave() {
         if (validateInputs()) {
             if (offreToEdit == null) {
-                // Ajout d'une nouvelle offre
-                Offre nouvelleOffre = new Offre(
-                        txtTitre.getText(),
-                        txtDescription.getText(),
-                        java.sql.Date.valueOf(dateExpiration.getValue())
-                );
+                Offre nouvelleOffre = new Offre();
+                nouvelleOffre.setTitre(txtTitre.getText());
+                nouvelleOffre.setDescription(txtDescription.getText());
+                nouvelleOffre.setDatePublication(new java.util.Date());
+                nouvelleOffre.setDateExpiration(Date.valueOf(dateExpiration.getValue()));
+
                 offreService.addOffre(nouvelleOffre);
             } else {
-                // Modification d'une offre existante
                 offreToEdit.setTitre(txtTitre.getText());
                 offreToEdit.setDescription(txtDescription.getText());
-                offreToEdit.setDateExpiration(java.sql.Date.valueOf(dateExpiration.getValue()));
+                offreToEdit.setDateExpiration(Date.valueOf(dateExpiration.getValue()));
+
                 offreService.updateOffre(offreToEdit);
             }
 
-            rhController.refreshOffres();
+            if (rhController != null) {
+                rhController.loadOffres();  // Remplacer refreshOffres() par loadOffres()
+            }
+
             closeWindow();
         }
     }
+
 
     @FXML
     private void handleCancel() {
@@ -86,18 +93,18 @@ public class OffreFormController {
     private boolean validateInputs() {
         String errorMessage = "";
 
-        if (txtTitre.getText() == null || txtTitre.getText().isEmpty()) {
+        if (txtTitre.getText() == null || txtTitre.getText().trim().isEmpty()) {
             errorMessage += "Titre est obligatoire!\n";
         }
 
-        if (txtDescription.getText() == null || txtDescription.getText().isEmpty()) {
+        if (txtDescription.getText() == null || txtDescription.getText().trim().isEmpty()) {
             errorMessage += "Description est obligatoire!\n";
         }
 
         if (dateExpiration.getValue() == null) {
             errorMessage += "Date d'expiration est obligatoire!\n";
-        } else if (dateExpiration.getValue().isBefore(LocalDate.now())) {
-            errorMessage += "Date d'expiration doit être dans le futur!\n";
+        } else if (!dateExpiration.getValue().isAfter(LocalDate.now())) {
+            errorMessage += "La date d'expiration doit être postérieure à aujourd'hui!\n";
         }
 
         if (errorMessage.isEmpty()) {
@@ -105,7 +112,7 @@ public class OffreFormController {
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur de validation");
-            alert.setHeaderText("Veuillez corriger les erreurs suivantes:");
+            alert.setHeaderText("Veuillez corriger les erreurs suivantes :");
             alert.setContentText(errorMessage);
             alert.showAndWait();
             return false;

@@ -4,12 +4,16 @@ import ed.sanarenovo.entities.Offre;
 import ed.sanarenovo.services.OffreService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,12 +33,13 @@ public class OffresController {
     @FXML
     private TableColumn<Offre, Date> colExpiration;
     @FXML
-    private Button btnPostuler;
-    @FXML
     private Button btnRetour;
+    @FXML
+    private TextField searchFieldOffres;
+    @FXML
+    private ObservableList<Offre> offresList = FXCollections.observableArrayList();
 
     private OffreService offreService = new OffreService();
-    private ObservableList<Offre> offresList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -43,8 +48,43 @@ public class OffresController {
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         colPublication.setCellValueFactory(new PropertyValueFactory<>("datePublication"));
         colExpiration.setCellValueFactory(new PropertyValueFactory<>("dateExpiration"));
-
+        OffreService offreService = new OffreService();
+        offreService.supprimerOffresExpirees(); // ⏳ Supprimer les offres expirées au démarrage
         loadOffres();
+        FilteredList<Offre> filteredData = new FilteredList<>(offresList, b -> true);
+
+        searchFieldOffres.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(offre -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                return offre.getTitre().toLowerCase().contains(newValue.toLowerCase());
+            });
+        });
+
+        SortedList<Offre> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableOffres.comparatorProperty());
+
+        tableOffres.setItems(sortedData);
+        addClearButtonToTextField(searchFieldOffres);
+    }
+
+
+    public void addClearButtonToTextField(TextField textField) {
+        Button clearButton = new Button("✖");
+        clearButton.setOnAction(e -> textField.clear());
+        clearButton.getStyleClass().add("clear-button");
+
+        clearButton.setVisible(false);
+        textField.textProperty().addListener((obs, oldText, newText) -> {
+            clearButton.setVisible(!newText.isEmpty());
+        });
+
+        StackPane stackPane = new StackPane(textField, clearButton);
+        StackPane.setAlignment(clearButton, javafx.geometry.Pos.CENTER_RIGHT);
+        AnchorPane.setTopAnchor(stackPane, AnchorPane.getTopAnchor(textField));
+        AnchorPane.setLeftAnchor(stackPane, AnchorPane.getLeftAnchor(textField));
+        AnchorPane.setRightAnchor(stackPane, AnchorPane.getRightAnchor(textField));
     }
 
     private void loadOffres() {
