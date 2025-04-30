@@ -10,7 +10,7 @@ public class SmsService {
 //    public static final String AUTH_TOKEN = "54c93b48d197748d99aa3dda3c4ef09c";
 
     public static final String ACCOUNT_SID = "AC0f89164d3785a717bfd4f81cd1096189";
-    public static final String AUTH_TOKEN = "9e3ff81a58ca8b0267cfe99277fdd191";
+    public static final String AUTH_TOKEN = "4baa29db72a044ae3fedf34719831480";
 
     public SmsService() {
         // Initialiser Twilio avec ton SID et Auth Token

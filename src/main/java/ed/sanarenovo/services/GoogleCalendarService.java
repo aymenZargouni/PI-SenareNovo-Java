@@ -37,9 +37,9 @@ public class GoogleCalendarService {
         event.setStart(start);
         event.setEnd(end);
 
-        if (claim.getTechnicien() != null && claim.getTechnicien().getEmail() != null) {
+        if (claim.getTechnicien() != null && claim.getTechnicien().getUser() != null && claim.getTechnicien().getUser().getEmail() != null){
             event.setAttendees(Collections.singletonList(
-                    new EventAttendee().setEmail(claim.getTechnicien().getEmail())
+                    new EventAttendee().setEmail(claim.getTechnicien().getUser().getEmail())
             ));
         }
 

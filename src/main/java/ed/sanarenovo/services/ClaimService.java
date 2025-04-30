@@ -10,6 +10,7 @@ import com.google.api.services.calendar.model.EventDateTime;
 import ed.sanarenovo.entities.Claim;
 import ed.sanarenovo.entities.Equipment;
 import ed.sanarenovo.entities.Technicien;
+import ed.sanarenovo.entities.User;
 import ed.sanarenovo.interfaces.IService;
 import ed.sanarenovo.utils.CredentialService;
 import ed.sanarenovo.utils.MyConnection;
@@ -104,27 +105,35 @@ private void addToGoogleCalendar(Claim claim) throws GeneralSecurityException, I
 
     event.setStart(new EventDateTime().setDateTime(new com.google.api.client.util.DateTime(startDate)));
     event.setEnd(new EventDateTime().setDateTime(new com.google.api.client.util.DateTime(endDate)));
+    System.out.println("Technicien: " + claim.getTechnicien());
+    System.out.println("User: " + (claim.getTechnicien() != null ? claim.getTechnicien().getUser() : "null"));
 
-    if (claim.getTechnicien() != null && claim.getTechnicien().getEmail() != null) {
-        event.setAttendees(Collections.singletonList(
-                new EventAttendee().setEmail(claim.getTechnicien().getEmail())
-                        .setDisplayName(claim.getTechnicien().getNom())
-        ));
+    Technicien technicien = claim.getTechnicien();
+    if (technicien != null) {
+        User user = technicien.getUser();
+        if (user != null && user.getEmail() != null) {
+            event.setAttendees(Collections.singletonList(
+                    new EventAttendee()
+                            .setEmail(user.getEmail())
+                            .setDisplayName(technicien.getNom())
+            ));
 
-        // Configuration des rappels (corrigé)
-        EventReminder[] reminderOverrides = new EventReminder[] {
-                new EventReminder().setMethod("email").setMinutes(10),
-                new EventReminder().setMethod("popup").setMinutes(30)
-        };
 
-        Event.Reminders reminders = new Event.Reminders()
-                .setUseDefault(false)
-                .setOverrides(Arrays.asList(reminderOverrides));
+            // Configuration des rappels (corrigé)
+            EventReminder[] reminderOverrides = new EventReminder[]{
+                    new EventReminder().setMethod("email").setMinutes(10),
+                    new EventReminder().setMethod("popup").setMinutes(30)
+            };
 
-        event.setReminders(reminders);
+            Event.Reminders reminders = new Event.Reminders()
+                    .setUseDefault(false)
+                    .setOverrides(Arrays.asList(reminderOverrides));
+
+            event.setReminders(reminders);
+        }
+
+        service.events().insert("primary", event).execute();
     }
-
-    service.events().insert("primary", event).execute();
 }
 
     // Toutes les autres méthodes restent inchangées
