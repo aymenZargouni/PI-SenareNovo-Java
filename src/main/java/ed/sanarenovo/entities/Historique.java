@@ -49,4 +49,15 @@ public class Historique {
     public void setRapportDetaille(String rapportDetaille) {
         this.rapportDetaille = rapportDetaille;
     }
+    public String getEquipementName() {
+        return equipment != null ? equipment.getName() : "";
+    }
+
+    public String getModel() {
+        return equipment != null ? equipment.getModel() : "";
+    }
+
+    public String getDescription() {
+        return rapportDetaille != null ? rapportDetaille : "";
+    }
 }

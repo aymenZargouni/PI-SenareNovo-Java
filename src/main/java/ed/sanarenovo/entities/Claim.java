@@ -17,7 +17,6 @@ public class Claim {
     }
 
     // Getters & Setters
-
     public Integer getId() {
         return id;
     }

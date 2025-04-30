@@ -3,15 +3,15 @@ package ed.sanarenovo.services;
 import ed.sanarenovo.entities.Equipment;
 import ed.sanarenovo.entities.Historique;
 import ed.sanarenovo.utils.MyConnection;
+import ed.sanarenovo.utils.ReportGenerator;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileWriter;
 
 public class HistoriqueService {
+
+    private final ReportGenerator reportGenerator = new ReportGenerator();
 
     // Insère les équipements avec des infos valides dans la table historique
     public void syncHistoriqueFromEquipment() {
@@ -38,7 +38,7 @@ public class HistoriqueService {
     public List<Historique> getAllHistoriques() {
         List<Historique> historiques = new ArrayList<>();
         String sql = """
-            SELECT h.*, e.name, e.model
+            SELECT h.*, e.name, e.model, e.status
             FROM historique h
             JOIN equipment e ON h.equipment_id = e.id
             ORDER BY h.date_reparation DESC
@@ -53,6 +53,7 @@ public class HistoriqueService {
                 eq.setId(rs.getInt("equipment_id"));
                 eq.setName(rs.getString("name"));
                 eq.setModel(rs.getString("model"));
+                eq.setStatus(rs.getString("status"));
 
                 Historique h = new Historique();
                 h.setId(rs.getInt("id"));
@@ -70,50 +71,8 @@ public class HistoriqueService {
         return historiques;
     }
 
-
     public void generateReport(int historiqueId) {
-        String sql = """
-            SELECT h.*, e.name, e.model
-            FROM historique h
-            JOIN equipment e ON h.equipment_id = e.id
-            WHERE h.id = ?
-        """;
-
-        try (Connection conn = MyConnection.getInstance().getCnx();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setInt(1, historiqueId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                String rapportDetaille = rs.getString("rapport_detaille");
-                String equipmentName = rs.getString("name");
-                String equipmentModel = rs.getString("model");
-                Date dateReparation = rs.getDate("date_reparation");
-
-                // Générer le contenu du rapport
-                String content = "Rapport de Réparation\n";
-                content += "----------------------------\n";
-                content += "Équipement: " + equipmentName + "\n";
-                content += "Modèle: " + equipmentModel + "\n";
-                content += "Date de Réparation: " + dateReparation + "\n";
-                content += "Rapport Détaille: \n" + rapportDetaille + "\n";
-
-                // Sauvegarder dans un fichier texte
-                String fileName = "rapport_reparation_" + historiqueId + ".txt";
-                File reportFile = new File(fileName);
-                try (FileWriter writer = new FileWriter(reportFile)) {
-                    writer.write(content);
-                    System.out.println("Rapport généré avec succès dans le fichier : " + fileName);
-                } catch (IOException e) {
-                    System.err.println("Erreur lors de l'écriture du fichier rapport : " + e.getMessage());
-                }
-            } else {
-                System.out.println("Aucun rapport trouvé pour l'historique ID: " + historiqueId);
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Erreur lors de la récupération du rapport : " + e.getMessage());
-        }
+        // Utilisation de la classe ReportGenerator pour générer un PDF
+        reportGenerator.generateReport(historiqueId);
     }
 }

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ClaimController {
+
     private final ClaimService claimService = new ClaimService();
     private final EquipmentService equipmentService = new EquipmentService();
     private final TechnicienService technicienService = new TechnicienService();
@@ -126,8 +127,17 @@ public class ClaimController {
             return;
         }
 
+        // Vérification des mots inappropriés
+        if (claimService.containsBadWords(description)) {
+            showAlert("Langage inapproprié",
+                    "Votre réclamation contient des termes inappropriés.\n"
+                            + "Veuillez reformuler votre demande.",
+                    Alert.AlertType.WARNING);
+            return;
+        }
+
         try {
-            claimService.claimEquipment(equipment, technicien.getId());
+            claimService.claimEquipment(equipment, technicien.getId(), description);
 
             descriptionArea.clear();
             refreshClaims();
@@ -138,6 +148,7 @@ public class ClaimController {
             e.printStackTrace();
         }
     }
+
 
 
     private void loadTechniciens() {
@@ -168,7 +179,7 @@ public class ClaimController {
     @FXML
     private void handleOpenClaimsManagement() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/claims_management.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Sabrineviews/claims_management.fxml"));
             Parent root = loader.load();
 
             Stage stage = new Stage();
