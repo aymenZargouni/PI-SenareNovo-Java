@@ -13,7 +13,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/Sabrineviews/equipment.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/mahdyviews/affichage.fxml"));
         primaryStage.setTitle("Gestion des Équipements");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
