@@ -1,36 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controlles.service.showctrl">
-   <children>
-      <TableView fx:id="tabview" layoutX="13.0" layoutY="40.0" prefHeight="200.0" prefWidth="466.0">
-        <columns>
-            <TableColumn fx:id="colID" text="id" />
-            <TableColumn fx:id="colNom" text="nom" />
-            <TableColumn fx:id="colChef" text="chef service " />
-            <TableColumn fx:id="colSalles" text="nbr salle" />
-            <TableColumn fx:id="colCapacite" text="capacite" />
-            <TableColumn fx:id="colEtat" text="etat" />
+<AnchorPane prefHeight="500.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ed.sanarenovo.controlles.service.showctrl">
+    <children>
 
-        </columns>
-      </TableView>
-      <Button fx:id="supp" layoutX="498.0" layoutY="140.0" mnemonicParsing="false" onAction="#deleteService" text="supprimer" />
-      <Button fx:id="updat" layoutX="506.0" layoutY="289.0" mnemonicParsing="false" onAction="#updateService" text="update" />
-      <TextField fx:id="nomField" layoutX="13.0" layoutY="289.0" prefHeight="25.0" prefWidth="47.0" />
-      <TextField fx:id="chefField" layoutX="77.0" layoutY="289.0" prefHeight="25.0" prefWidth="139.0" />
-      <TextField fx:id="capaciteField" layoutX="237.0" layoutY="289.0" />
-      <TextField fx:id="etatField" layoutX="401.0" layoutY="289.0" prefHeight="25.0" prefWidth="78.0" />
-      <Label fx:id="message1" layoutX="13.0" layoutY="332.0" prefHeight="17.0" prefWidth="100.0" />
-      <Label fx:id="message2" layoutX="88.0" layoutY="332.0" prefHeight="17.0" prefWidth="100.0" />
-      <Label fx:id="message3" layoutX="237.0" layoutY="341.0" prefHeight="17.0" prefWidth="100.0" />
-      <Label fx:id="message4" layoutX="401.0" layoutY="341.0" prefHeight="17.0" prefWidth="100.0" />
-      <Button fx:id="add3" layoutX="138.0" layoutY="346.0" mnemonicParsing="false" onAction="#servicenav" prefHeight="25.0" prefWidth="89.0" text="add service " />
-      <Button fx:id="addsall" layoutX="300.0" layoutY="346.0" mnemonicParsing="false" onAction="#addsale" prefHeight="25.0" prefWidth="89.0" text="add salle" />
-   </children>
+        <!-- 🔍 Barre de recherche -->
+        <TextField fx:id="searchField" layoutX="115.0" layoutY="10.0" promptText="Rechercher par ID"
+                   style="-fx-border-color: #ccc; -fx-border-radius: 4px; -fx-padding: 4px;" />
+        <Button layoutX="320.0" layoutY="10.0" onAction="#receherchesalle"
+                style="-fx-background-color: #5bc0de; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5px;"
+                text="Rechercher" />
+
+        <!-- 📋 TableView des services -->
+        <TableView fx:id="tabview" layoutX="20.0" layoutY="50.0" prefHeight="200.0" prefWidth="910.0">
+            <columns>
+                <TableColumn fx:id="colID" prefWidth="50" text="ID" />
+                <TableColumn fx:id="colNom" prefWidth="150" text="Nom" />
+                <TableColumn fx:id="colChef" prefWidth="150" text="Chef Service" />
+                <TableColumn fx:id="colSalles" prefWidth="100" text="Nbr Salles" />
+                <TableColumn fx:id="colCapacite" prefWidth="100" text="Capacité" />
+                <TableColumn fx:id="colEtat" prefWidth="100" text="État" />
+            </columns>
+        </TableView>
+
+        <!-- 📝 Zone de saisie -->
+        <Label layoutX="20.0" layoutY="270.0" text="Nom :" />
+        <TextField fx:id="nomField" layoutX="70.0" layoutY="265.0" prefWidth="120.0" />
+
+        <Label layoutX="210.0" layoutY="270.0" text="Chef :" />
+        <TextField fx:id="chefField" layoutX="260.0" layoutY="265.0" prefWidth="150.0" />
+
+        <Label layoutX="430.0" layoutY="270.0" text="Capacité :" />
+        <TextField fx:id="capaciteField" layoutX="500.0" layoutY="265.0" prefWidth="100.0" />
+
+        <Label layoutX="620.0" layoutY="270.0" text="État :" />
+        <TextField fx:id="etatField" layoutX="670.0" layoutY="265.0" prefWidth="150.0" />
+
+        <!-- 🎯 Boutons d’action CRUD -->
+        <Button fx:id="updat" layoutX="840.0" layoutY="265.0" onAction="#updateService"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;"
+                text="Modifier" />
+        <Button fx:id="supp" layoutX="840.0" layoutY="305.0" onAction="#deleteService"
+                style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold;"
+                text="Supprimer" />
+
+        <!-- ⚠️ Messages d’information -->
+        <Label fx:id="message1" layoutX="20.0" layoutY="310.0" textFill="red" />
+        <Label fx:id="message2" layoutX="210.0" layoutY="310.0" textFill="red" />
+        <Label fx:id="message3" layoutX="430.0" layoutY="310.0" textFill="red" />
+        <Label fx:id="message4" layoutX="620.0" layoutY="310.0" textFill="red" />
+
+        <!-- ➕ Groupe 1 : Boutons Ajouter et Statistiques -->
+        <HBox layoutX="260.0" layoutY="370.0" spacing="20.0">
+            <children>
+                <Button fx:id="add3" onAction="#servicenav" prefWidth="150"
+                        style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;"
+                        text="Ajouter Service" />
+                <Button fx:id="addsall" onAction="#addsale" prefWidth="150"
+                        style="-fx-background-color: #9C27B0; -fx-text-fill: white; -fx-font-weight: bold;"
+                        text="Ajouter Salle" />
+                <Button fx:id="stat1" onAction="#stat" prefWidth="150"
+                        style="-fx-background-color: #03A9F4; -fx-text-fill: white; -fx-font-weight: bold;"
+                        text="Statistiques" />
+            </children>
+        </HBox>
+
+        <!-- 📤 Groupe 2 : Export, Recommandation, TTS -->
+        <HBox layoutX="260.0" layoutY="420.0" spacing="20.0">
+            <children>
+                <Button fx:id="pdf" onAction="#exportserviceToPDF" prefWidth="150"
+                        style="-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-weight: bold;"
+                        text="Exporter PDF" />
+                <Button fx:id="btnRecommande" onAction="#ouvrirRecommandation" prefWidth="180"
+                        style="-fx-background-color: #673AB7; -fx-text-fill: white; -fx-font-weight: bold;"
+                        text="Voir Recommandation" />
+                <Button fx:id="speakButton" onAction="#speakSelectedService" prefWidth="120"
+                        style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-weight: bold;"
+                        text="🔊 Lire" />
+            </children>
+        </HBox>
+
+    </children>
 </AnchorPane>

@@ -86,7 +86,7 @@ public class servicecontroller {
                 try {
                         capacite = Integer.parseInt(capText);
                         if (capacite <= 0) {
-                                System.out.println(" La capacité doit être un entier strictement positif.");
+                                message3.setText(" La capacité doit être un entier strictement positif.");
                                 return;
                         }
                 } catch (NumberFormatException e) {
@@ -123,6 +123,7 @@ public class servicecontroller {
                 // Obtenir la fenêtre (Stage) actuelle et changer la scène
                 Stage stage = (Stage) retour.getScene().getWindow(); // Changez 'mod' si nécessaire pour le bouton que vous utilisez pour naviguer
                 stage.setScene(scene);
+                stage.setTitle("list service");
                 stage.show();
 
         }

@@ -113,6 +113,7 @@ public class addSalle implements Initializable {
         // Obtenir la fenêtre (Stage) actuelle et changer la scène
         Stage stage = (Stage) salo.getScene().getWindow(); // Changez 'mod' si nécessaire pour le bouton que vous utilisez pour naviguer
         stage.setScene(scene);
+        stage.setTitle("list salles");
         stage.show();
     }
     }

@@ -34,23 +34,30 @@ public class Serviceserv implements UiService <Service> {
                 return;
             }
 
-            String requete = "DELETE FROM service WHERE id = ?";
-            PreparedStatement pst = conn.prepareStatement(requete);
-            pst.setInt(1, service.getId());
+            // 1. Supprimer les salles du service
+            String deleteSalles = "DELETE FROM salle WHERE service_id = ?";
+            try (PreparedStatement pst = conn.prepareStatement(deleteSalles)) {
+                pst.setInt(1, service.getId());
+                pst.executeUpdate();
+            }
 
-            System.out.println("Suppression du service avec ID : " + service.getId());
-
-            int rows = pst.executeUpdate();
-            if (rows > 0) {
-                System.out.println("Service supprimé avec succès.");
-            } else {
-                System.out.println("Aucun service trouvé avec cet ID.");
+            // 2. Supprimer le service
+            String deleteService = "DELETE FROM service WHERE id = ?";
+            try (PreparedStatement pst = conn.prepareStatement(deleteService)) {
+                pst.setInt(1, service.getId());
+                int rows = pst.executeUpdate();
+                if (rows > 0) {
+                    System.out.println("Service et ses salles supprimés avec succès.");
+                } else {
+                    System.out.println("Aucun service trouvé avec cet ID.");
+                }
             }
 
         } catch (SQLException e) {
             System.out.println("Erreur lors de la suppression : " + e.getMessage());
         }
     }
+
     @Override
     public void updateService(Service service, int id) {
         try {
@@ -74,7 +81,7 @@ public class Serviceserv implements UiService <Service> {
         return List.of();
     }
 
-    public List<Service> getServices() {
+    public static List<Service> getServices() {
         List<Service> data = new ArrayList<>();
         try {
             String requete = "SELECT * FROM service";

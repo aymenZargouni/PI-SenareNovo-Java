@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controlles.service.RecommandeController" prefWidth="500.0" prefHeight="400.0">
+    <children>
+        <VBox spacing="15.0" layoutX="50.0" layoutY="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="20.0">
+            <Label text="Entrez votre symptôme :" style="-fx-font-size: 14px;" />
+            <TextField fx:id="etatField" promptText="ex: mal à la tête" prefWidth="400" style="-fx-font-size: 13px;" />
+
+            <Label text="Entrez votre âge :" style="-fx-font-size: 14px;" />
+            <TextField fx:id="ageField" promptText="ex: 34" prefWidth="400" style="-fx-font-size: 13px;" />
+
+            <Label text="Sélectionnez votre sexe :" style="-fx-font-size: 14px;" />
+            <ComboBox fx:id="sexeComboBox" promptText="H / F" prefWidth="400" style="-fx-font-size: 13px;" >
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="H" />
+                        <String fx:value="F" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <Button fx:id="recommanderBtn" text="Recommander un service" onAction="#handleRecommendation"
+                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15 8 15; -fx-background-radius: 6px; -fx-font-size: 14px;" />
+
+            <Label fx:id="serviceLabel" style="-fx-font-size: 14px; -fx-text-fill: #d32f2f;" wrapText="true" />
+            <Label fx:id="conseilLabel" style="-fx-font-size: 13px; -fx-text-fill: #555;" wrapText="true" />
+
+            <Button text="Retour" onAction="#retour"
+                    style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15 8 15; -fx-background-radius: 6px; -fx-font-size: 14px;" />
+        </VBox>
+    </children>
+</AnchorPane>

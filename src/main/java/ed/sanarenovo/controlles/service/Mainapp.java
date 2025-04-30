@@ -10,8 +10,8 @@ public class Mainapp extends Application
 {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/mahdyviews/affichage.fxml"));
-        primaryStage.setTitle("Service list ");
+        Parent root = FXMLLoader.load(getClass().getResource("/mahdyviews/serv.fxml"));
+        primaryStage.setTitle("Salle list ");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

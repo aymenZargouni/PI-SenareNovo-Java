@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="490.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controlles.service.ZenQuoteController">
+    <children>
+        <TextFlow fx:id="quoteTextFlow"
+                  layoutX="20" layoutY="40"
+                  prefWidth="530"
+                  style="-fx-background-color: #f9f9f9; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;"/>
+    </children>
+</AnchorPane>

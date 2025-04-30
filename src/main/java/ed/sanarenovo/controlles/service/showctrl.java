@@ -2,6 +2,7 @@ package ed.sanarenovo.controlles.service;
 
 import ed.sanarenovo.entities.Service;
 import ed.sanarenovo.services.Serviceserv;
+import ed.sanarenovo.utils.PDFGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,16 +11,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Optional;
 
 
 public class showctrl {
 
-
+    @FXML
+    public Button stat1;
     @FXML
     private TableView<Service> tabview;
     @FXML
@@ -62,6 +69,54 @@ public class showctrl {
     @FXML private TextField nbrSallesField;
     @FXML private TextField capaciteField;
     @FXML private TextField etatField;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button pdf;
+
+    @FXML
+    private Button speakButton;
+
+    @FXML
+    void speakSelectedService(ActionEvent event) {
+        Service selected = tabview.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            String message = "Service : " + selected.getNom() + ", Chef : " + selected.getChef_service() + ", nombre de salle  : " + selected.getNbr_salle() + ", Capacité  : " + selected.getCapacite();
+            handleTextToSpeech(message);
+        } else {
+            handleTextToSpeech("Aucun service sélectionné.");
+        }
+    }
+
+    Serviceserv salleService = new Serviceserv(); // Assure-toi d’avoir une instance de ton service
+
+    @FXML
+    void receherchesalle(ActionEvent event) {
+        String searchId = searchField.getText().trim();
+
+        if (searchId.isEmpty()) {
+            System.out.println("Le champ de recherche est vide.");
+            return;
+        }
+
+        try {
+            int idRecherche = Integer.parseInt(searchId);
+            Service salle = salleService.getServiceById(idRecherche);
+
+            if (salle != null) {
+                ObservableList<Service> resultats = FXCollections.observableArrayList();
+                resultats.add(salle);
+                tabview.setItems(resultats);
+            } else {
+                System.out.println("Aucune salle trouvée avec l’ID " + idRecherche);
+                tabview.setItems(FXCollections.observableArrayList()); // Vide
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("ID invalide : ce n’est pas un nombre.");
+        }
+    }
+
 
     @FXML
     void deleteService(ActionEvent event) {
@@ -129,15 +184,31 @@ public class showctrl {
 
     public void initialize() {
         Serviceserv serviceManager = new Serviceserv();
+
         colID.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colChef.setCellValueFactory(new PropertyValueFactory<>("chef_service"));
         colSalles.setCellValueFactory(new PropertyValueFactory<>("nbr_salle"));
         colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
+
+        // ➕ Cellule personnalisée pour afficher "Libre" / "Réservé"
         colEtat.setCellValueFactory(new PropertyValueFactory<>("etat"));
+        colEtat.setCellFactory(column -> new TableCell<Service, Boolean>() {
+            @Override
+            protected void updateItem(Boolean etat, boolean empty) {
+                super.updateItem(etat, empty);
+                if (empty || etat == null) {
+                    setText(null);
+                } else {
+                    setText(etat ? "Libre" : "Réservé");
+                }
+            }
+        });
+
         ObservableList<Service> list = FXCollections.observableArrayList(serviceManager.getServices());
         tabview.setItems(list);
     }
+
     @FXML
     public void updateService(ActionEvent event) {
 
@@ -146,6 +217,7 @@ public class showctrl {
         message1.setText("");
 
         boolean valid = true;
+
 
         // Nom > 5 caractères
         if (!nomField.getText().isEmpty()) {
@@ -186,8 +258,8 @@ public class showctrl {
         // État = true/false
         if (!etatField.getText().isEmpty()) {
             String etat = etatField.getText().toLowerCase();
-            if (!(etat.equals("true") || etat.equals("false"))) {
-                message4.setText("L'état doit être 'true' ou 'false'.");
+            if (!(etat.equals("libre") || etat.equals("reserver"))) {
+                message4.setText("L'état doit être 'libre' ou 'reserver'.");
                 valid = false;
             } else {
                 selected.setEtat(Boolean.parseBoolean(etat));
@@ -205,7 +277,7 @@ public class showctrl {
 
         // Message succès dans l'interface
         message4.setText("Service modifié avec succès !");
-        message4.setStyle("-fx-text-fill: green;");
+
 
         // Vider les champs
         nomField.clear();
@@ -223,8 +295,22 @@ public class showctrl {
         // Obtenir la fenêtre (Stage) actuelle et changer la scène
         Stage stage = (Stage) add3.getScene().getWindow(); // Changez 'mod' si nécessaire pour le bouton que vous utilisez pour naviguer
         stage.setScene(scene);
+        stage.setTitle("ajouter service");
         stage.show();
 }
+    @FXML
+    void stat(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mahdyviews/stat.fxml"));
+
+        // Créer une nouvelle scène
+        Scene scene = new Scene(loader.load());
+
+        // Obtenir la fenêtre (Stage) actuelle et changer la scène
+        Stage stage = (Stage) stat1.getScene().getWindow(); // Changez 'mod' si nécessaire pour le bouton que vous utilisez pour naviguer
+        stage.setScene(scene);
+        stage.setTitle("ajouter service");
+        stage.show();
+    }
     @FXML
     void addsale (ActionEvent event)  throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/mahdyviews/addsalle.fxml"));
@@ -235,7 +321,64 @@ public class showctrl {
         // Obtenir la fenêtre (Stage) actuelle et changer la scène
         Stage stage = (Stage) addsall.getScene().getWindow(); // Changez 'mod' si nécessaire pour le bouton que vous utilisez pour naviguer
         stage.setScene(scene);
+        stage.setTitle("ajouter salle");
         stage.show();
+    }
+    @FXML
+    void exportserviceToPDF()
+    {
+        List<Service> users = Serviceserv.getServices();
+
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save PDF");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF files (.pdf)", ".pdf"));
+        fileChooser.setInitialFileName("user-list.pdf");
+
+        File selectedFile = fileChooser.showSaveDialog(tabview.getScene().getWindow());
+
+        if (selectedFile != null) {
+            PDFGenerator.generateUserListPDF(users, selectedFile);
+        }
+    }
+    @FXML
+    private Button btnRecommande;
+
+    @FXML
+    void ouvrirRecommandation(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mahdyviews/recommande.fxml"));
+        Scene scene = new Scene(loader.load());
+        Stage stage = (Stage) btnRecommande.getScene().getWindow();
+        stage.setScene(scene);
+        stage.setTitle("Recommandation médicale");
+        stage.show();
+    }
+    @FXML
+    private void handleTextToSpeech(String text) {
+        if (text == null || text.trim().isEmpty()) {
+            System.out.println("❌ Aucun texte à lire !");
+            return;
+        }
+
+        try {
+            String pythonScriptPath = "src/main/python/text_to_speech.py"; // relative path
+            ProcessBuilder pb = new ProcessBuilder("python", pythonScriptPath, text);
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            int exitCode = process.waitFor();
+            System.out.println("🔄 Script terminé avec code : " + exitCode);
+
+        } catch (IOException | InterruptedException e) {
+            System.out.println("❌ Erreur lors de l'appel au script Python : " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 }
