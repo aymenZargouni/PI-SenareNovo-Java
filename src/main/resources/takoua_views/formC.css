@@ -1,0 +1,66 @@
+/* Styles généraux */
+.root {
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 14px;
+}
+
+/* Label */
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+}
+
+/* TextField */
+.text-field {
+    -fx-pref-width: 370px;
+    -fx-background-color: #f4f4f4;
+    -fx-border-radius: 5;
+    -fx-border-color: #dcdcdc;
+    -fx-padding: 10px;
+}
+
+/* TextArea */
+.text-area {
+    -fx-pref-height: 100px;
+    -fx-background-color: #f4f4f4;
+    -fx-border-radius: 5;
+    -fx-border-color: #dcdcdc;
+    -fx-padding: 10px;
+}
+
+/* Boutons */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.button:disabled {
+    -fx-background-color: #bdc3c7;
+    -fx-text-fill: #7f8c8d;
+}
+
+/* Boutons spécifiques */
+#btnSubmit {
+    -fx-background-color: #2ecc71;
+}
+
+#btnCancel {
+    -fx-background-color: #e74c3c;
+}
+.clear-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7f8c8d;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.clear-button:hover {
+    -fx-text-fill: #e74c3c;
+}

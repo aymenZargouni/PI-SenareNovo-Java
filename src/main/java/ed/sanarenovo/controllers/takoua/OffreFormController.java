@@ -77,12 +77,15 @@ public class OffreFormController {
             }
 
             if (rhController != null) {
-                rhController.refreshOffres();
+              
+                rhController.loadOffres();  // Remplacer refreshOffres() par loadOffres()
+
             }
 
             closeWindow();
         }
     }
+
 
     @FXML
     private void handleCancel() {

@@ -97,6 +97,17 @@ public class OffreService {
         }
         return offres;
     }
+    public void supprimerOffresExpirees() {
+        String query = "DELETE FROM offre WHERE date_expiration < CURDATE()";
+
+        try (Statement stmt = cnx.createStatement()) {
+            int deleted = stmt.executeUpdate(query);
+            System.out.println("✅ " + deleted + " offre(s) expirée(s) supprimée(s) automatiquement.");
+        } catch (SQLException e) {
+            System.out.println("❌ Erreur lors de la suppression des offres expirées : " + e.getMessage());
+        }
+    }
+
 
     public Offre getOffreById(int id) {
         Offre offre = null;

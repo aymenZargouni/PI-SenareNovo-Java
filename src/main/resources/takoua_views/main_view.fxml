@@ -6,12 +6,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="/takoua_views/style.css" styleClass="main-view" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.takoua.MainController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="/takoua_views/mainView.css" styleClass="main-view" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.takoua.MainController">
     <children>
-        <VBox alignment="CENTER" spacing="50.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-            <fx:include source="/AymenViews/TopBar.fxml" />
+        <VBox alignment="CENTER" spacing="50.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="100.0" AnchorPane.bottomAnchor="100.0"
+              styleClass="vbox">
             <children>
-                <Text fill="#2c3e50" text="Système de Recrutement" textAlignment="CENTER">
+                <Text fill="#2c3e50" text="Système de Recrutement" textAlignment="CENTER" styleClass="text">
                     <font>
                         <Font size="36.0" />
                     </font>
