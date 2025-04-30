@@ -2,36 +2,38 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<AnchorPane prefWidth="800.0" prefHeight="600.0"
-            xmlns="http://javafx.com/javafx/8.0.171"
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.takoua.OffresController"
-            stylesheets="/takoua_views/style.css"
-            styleClass="main-view">
+            stylesheets="/takoua_views/OffreView.css">
 
     <children>
-        <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-            <fx:include source="/AymenViews/TopBar.fxml" />
 
-            <!-- Tableau des Offres -->
-            <TableView fx:id="tableOffres" prefHeight="400.0" maxWidth="760.0" styleClass="table-view">
-                <columns>
-                    <TableColumn fx:id="colId" text="ID" prefWidth="50" />
-                    <TableColumn fx:id="colTitre" text="Titre" prefWidth="150" />
-                    <TableColumn fx:id="colDescription" text="Description" prefWidth="250" />
-                    <TableColumn fx:id="colPublication" text="Publication" prefWidth="100" />
-                    <TableColumn fx:id="colExpiration" text="Expiration" prefWidth="100" />
-                </columns>
-            </TableView>
+        <!-- Champ de recherche -->
+        <TextField fx:id="searchFieldOffres" promptText="Rechercher par titre..."
+                   AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
 
-            <!-- Zone des boutons -->
-            <HBox spacing="20" alignment="CENTER_RIGHT" maxWidth="760.0">
-                <Region HBox.hgrow="ALWAYS"/>
-                <Button fx:id="btnPostuler" text="Postuler" onAction="#handlePostuler" styleClass="form-button"/>
-                <Button fx:id="btnRetour" text="Retour" onAction="#handleRetour" styleClass="form-button cancel-button"/>
-            </HBox>
-        </VBox>
+        <!-- TableView des offres -->
+        <TableView fx:id="tableOffres"
+                   AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.bottomAnchor="60.0"
+                   styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="colTitre" prefWidth="150.0" text="Titre" />
+                <TableColumn fx:id="colDescription" prefWidth="200.0" text="Description" />
+                <TableColumn fx:id="colPublication" prefWidth="100.0" text="Publication" />
+                <TableColumn fx:id="colExpiration" prefWidth="100.0" text="Expiration" />
+            </columns>
+        </TableView>
+
+        <!-- Boutons -->
+        <HBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0">
+            <children>
+                <Button fx:id="btnPostuler" text="Postuler" onAction="#handlePostuler" />
+                <Button fx:id="btnRetour" text="Retour" onAction="#handleRetour" />
+            </children>
+        </HBox>
+
     </children>
 </AnchorPane>

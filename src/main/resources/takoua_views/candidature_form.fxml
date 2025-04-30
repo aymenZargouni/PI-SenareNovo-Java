@@ -1,54 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefWidth="800.0" prefHeight="600.0"
+<AnchorPane prefHeight="500.0" prefWidth="400.0"
             xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.takoua.CandidatureController"
-            stylesheets="/takoua_views/style.css"
-            styleClass="main-view">
-
+            stylesheets="/takoua_views/formC.css">
     <children>
-        <!-- Conteneur central -->
-        <VBox alignment="TOP_CENTER" spacing="30" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="20">
-            <fx:include source="/AymenViews/TopBar.fxml" />
+        <!-- Label et champ pour Nom -->
+        <Label layoutX="14.0" layoutY="14.0" text="Nom:" styleClass="label" />
+        <TextField fx:id="txtNom" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="40.0" prefHeight="30.0" styleClass="text-field"/>
 
-            <!-- Carte du formulaire -->
-            <VBox alignment="TOP_LEFT" spacing="15.0" maxWidth="600.0" styleClass="form-pane">
+        <!-- Label et champ pour Prénom -->
+        <Label layoutX="14.0" layoutY="80.0" text="Prénom:" styleClass="label" />
+        <TextField fx:id="txtPrenom" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="106.0" prefHeight="30.0" styleClass="text-field"/>
 
-                <Text text="Soumettre une Candidature" style="-fx-font-size: 24px; -fx-fill: #2c3e50; -fx-font-weight: bold;" />
+        <!-- Label et champ pour Email -->
+        <Label layoutX="14.0" layoutY="146.0" text="Email:" styleClass="label" />
+        <TextField fx:id="txtEmail" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="172.0" prefHeight="30.0" styleClass="text-field"/>
 
-                <!-- Nom -->
-                <Label text="Nom :" styleClass="form-label" />
-                <TextField fx:id="txtNom" styleClass="form-field" />
+        <!-- Label et champ pour CV (PDF) -->
+        <Label layoutX="14.0" layoutY="212.0" text="CV (PDF):" styleClass="label" />
+        <TextField fx:id="txtCVPath" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="238.0" prefWidth="270.0" editable="false" styleClass="text-field"/>
+        <Button fx:id="btnUploadCV" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="238.0" mnemonicParsing="false" text="Choisir fichier" onAction="#handleUploadCV" styleClass="button"/>
 
-                <!-- Prénom -->
-                <Label text="Prénom :" styleClass="form-label" />
-                <TextField fx:id="txtPrenom" styleClass="form-field" />
+        <!-- Label et champ pour Lettre de motivation -->
+        <Label layoutX="14.0" layoutY="278.0" text="Lettre de motivation:" styleClass="label" />
+        <TextArea fx:id="txtLettreMotivation" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="304.0" prefHeight="60.0" styleClass="text-area"/>
 
-                <!-- Email -->
-                <Label text="Email :" styleClass="form-label" />
-                <TextField fx:id="txtEmail" styleClass="form-field" />
+        <!-- Bouton pour générer la lettre avec IA -->
+        <Button text="Générer Lettre" onAction="#handleGenerateMotivation" />
 
-                <!-- CV -->
-                <Label text="CV :" styleClass="form-label" />
-                <TextArea fx:id="txtCV" prefRowCount="3" styleClass="form-field" />
-
-                <!-- Lettre de motivation -->
-                <Label text="Lettre de motivation :" styleClass="form-label" />
-                <TextArea fx:id="txtLettreMotivation" prefRowCount="3" styleClass="form-field" />
-
-                <!-- Boutons -->
-                <HBox spacing="15" alignment="CENTER_RIGHT">
-                    <Button fx:id="btnCancel" text="Annuler" onAction="#handleCancel" styleClass="form-button cancel-button"/>
-                    <Button fx:id="btnSubmit" text="Soumettre" onAction="#handleSubmit" styleClass="form-button"/>
-                </HBox>
-            </VBox>
-        </VBox>
+        <!-- Boutons de soumission et annulation -->
+        <HBox AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.bottomAnchor="14.0" spacing="10.0">
+            <children>
+                <Button fx:id="btnSubmit" text="Soumettre" onAction="#handleSubmit" styleClass="button"/>
+                <Button fx:id="btnCancel" text="Annuler" onAction="#handleCancel" styleClass="button"/>
+            </children>
+        </HBox>
     </children>
 </AnchorPane>
