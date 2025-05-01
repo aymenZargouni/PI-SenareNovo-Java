@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ed.sanarenovo.controllers.GestionEquipement.ClaimsManagementController"
+      spacing="20"
+      style="-fx-padding: 30; -fx-background-color: #f0f4f8;"
+      stylesheets="@/styles/equipment.css">
+    <fx:include source="/AymenViews/TopBar.fxml" />
+
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <ImageView fitWidth="32" fitHeight="32">
+            <image>
+                <Image url="@icons/ManageClaims.png"/>
+            </image>
+        </ImageView>
+        <Label text="Gestion des Réclamations " style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    </HBox>
+    <!-- Encadré du formulaire -->
+    <VBox spacing="15" style="-fx-background-color: #ffffff; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);">
+        <GridPane hgap="10" vgap="10">
+            <Label text="Description :" GridPane.rowIndex="0" GridPane.columnIndex="0"
+                   style="-fx-font-weight: bold;"/>
+            <TextArea fx:id="descriptionArea" prefRowCount="3" prefWidth="400"
+                      GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        </GridPane>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button fx:id="updateButton" text="Modifier" onAction="#handleUpdateClaim" styleClass="tool-button">
+                <tooltip>
+                    <Tooltip text="Modifier"/>
+                </tooltip>
+                <graphic>
+                    <ImageView fitWidth="20" fitHeight="20">
+                        <image>
+                            <Image url="@icons/edit.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button fx:id="deleteButton" text="supprimer" onAction="#handleDeleteClaim" styleClass="tool-button">
+                <tooltip>
+                    <Tooltip text="supprimer"/>
+                </tooltip>
+                <graphic>
+                    <ImageView fitWidth="20" fitHeight="20">
+                        <image>
+                            <Image url="@icons/delete.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+        </HBox>
+    </VBox>
+
+    <!-- Tableau des réclamations -->
+    <TableView fx:id="claimTable" styleClass="modern-table">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+            <TableColumn fx:id="equipmentColumn" text="Équipement" prefWidth="100"/>
+            <TableColumn fx:id="technicienColumn" text="Technicien" prefWidth="100"/>
+            <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="200"/>
+            <TableColumn fx:id="dateColumn" text="Date" prefWidth="120"/>
+            <TableColumn fx:id="statusColumn" text="Statut" prefWidth="100"/>
+        </columns>
+
+    </TableView>
+
+    <HBox fx:id="expirationWarning" alignment="CENTER" spacing="10" visible="false">
+        <ImageView fitWidth="24" fitHeight="24">
+            <image>
+                <Image url="@icons/warning.png"/>
+            </image>
+        </ImageView>
+        <Label text="Cette réclamation a plus de 24h et ne peut être modifiée."
+               style="-fx-text-fill: #e74c3c; -fx-font-weight: bold;"/>
+    </HBox>
+</VBox>

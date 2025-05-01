@@ -1,8 +1,6 @@
 package ed.sanarenovo.entities;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class User {
 
@@ -12,8 +10,9 @@ public class User {
     private String roles;
     private boolean isBlocked = false;
     private String resetToken;
-    private String resetTokenExpiresAt;
-
+    private String resetTokenExpiresAt; //hich
+    private LocalDateTime blockedUntil; //hich
+    private int infractionCount;
     // Relationships (references only, to be implemented later)
     /*
     private Medecin medecin;
@@ -23,9 +22,17 @@ public class User {
 
     public User() {}
 
-    // Getters and Setters
+    public User(int id,String email, String password, String roles, boolean isBlocked) {
+        this.email = email;
+        this.id = id;
+        this.isBlocked = isBlocked;
+        this.password = password;
+        this.roles = roles;
+    }
 
-    public int getId() {
+// Getters and Setters
+
+    public Integer getId() {
         return id;
     }
 
@@ -81,6 +88,22 @@ public class User {
         this.resetTokenExpiresAt = resetTokenExpiresAt;
     }
 
+    //hich
+    public LocalDateTime getBlockedUntil() {
+        return blockedUntil;
+    }
+
+    public void setBlockedUntil(LocalDateTime blockedUntil) {
+        this.blockedUntil = blockedUntil;
+    }
+
+    public int getInfractionCount() {
+        return infractionCount;
+    }
+
+    public void setInfractionCount(int infractionCount) {
+        this.infractionCount = infractionCount; //hich
+    }
     /*
     public Medecin getMedecin() {
         return medecin;

@@ -1,0 +1,53 @@
+/* Formulaire Offre */
+.form-pane {
+    -fx-padding: 20;
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+}
+
+/* Labels */
+.form-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+    -fx-font-size: 14px;
+}
+
+/* TextFields */
+.text-field, .text-area, .date-picker {
+    -fx-pref-width: 372px;
+    -fx-padding: 5;
+    -fx-border-radius: 5;
+    -fx-background-color: #ecf0f1;
+    -fx-border-color: #ccc;
+    -fx-font-size: 14px;
+}
+
+/* TextArea */
+.text-area {
+    -fx-pref-height: 100px;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 8 20;
+    -fx-background-radius: 5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.button:focused {
+    -fx-background-color: #2980b9;
+}
+
+/* Align Buttons */
+.button-container {
+    -fx-alignment: center-right;
+    -fx-spacing: 10px;
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ed.sanarenovo.controllers.Blog.CommentController"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <children>
+        <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+            <!-- Table des commentaires -->
+            <TableView fx:id="tableComments" VBox.vgrow="ALWAYS" prefHeight="200">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colContent" text="Contenue" prefWidth="300"/>
+                    <TableColumn fx:id="colUsername" text="Utilisateur" prefWidth="150"/>
+                </columns>
+            </TableView>
+
+            <!-- Table des réponses -->
+            <Label text="Réponses au commentaire" style="-fx-font-weight: bold;"/>
+            <TableView fx:id="replyTable" VBox.vgrow="ALWAYS" prefHeight="150">
+                <columns>
+                    <TableColumn fx:id="colReplyContent" text="Contenu" prefWidth="300"/>
+                    <TableColumn fx:id="colReplyAuthor" text="Auteur" prefWidth="150"/>
+                    <TableColumn fx:id="colReplyDate" text="Date" prefWidth="150"/>
+                </columns>
+            </TableView>
+
+            <Label fx:id="lblBlogTitle" text="Blog Title" />
+            <TextField fx:id="txtContent" promptText="Contenue"/>
+
+            <HBox spacing="10">
+                <Button fx:id="btnAdd" text="Ajouter" onAction="#addComment"/>
+                <Button fx:id="btnUpdate" text="Modifier" onAction="#updateComment"/>
+                <Button fx:id="btnDelete" text="Supprimer" onAction="#deleteComment"/>
+                <Button fx:id="btnReply" text="Répondre" onAction="#openReplyWindow"/>
+                <Button fx:id="btnDeleteReply" text="Supprimer Réponse" onAction="#deleteReply"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
+

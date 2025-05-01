@@ -1,0 +1,157 @@
+/* Style de base */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* Style de la table */
+.modern-table {
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.modern-table .column-header {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+}
+
+.modern-table .column-header-background {
+    -fx-background-radius: 5px 5px 0 0;
+}
+
+.modern-table .table-row-cell {
+    -fx-border-color: transparent transparent #e0e0e0 transparent;
+}
+
+.modern-table .table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.modern-table .table-row-cell:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+/* Boutons de la barre d'outils */
+.tool-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 4px;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+.tool-button:hover {
+    -fx-background-color: #ecf0f1;
+}
+
+.tool-button.delete {
+    -fx-border-color: #e74c3c;
+}
+
+.tool-button.delete:hover {
+    -fx-background-color: #fadbd8;
+}
+
+.action-button {
+    -fx-background-color: #e67e22;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 4px;
+    -fx-cursor: hand;
+}
+.historiqueButton {
+    -fx-background-color: #22e66d;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 4px;
+    -fx-cursor: hand;
+}
+.action-button:hover {
+    -fx-background-color: #d35400;
+}
+
+/* Style du formulaire */
+.form-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+}
+
+.form-field {
+    -fx-pref-height: 35px;
+    -fx-background-radius: 4px;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 4px;
+}
+
+.form-field:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(three-pass-box, rgba(52,152,219,0.3), 0, 0, 0, 1);
+}
+/* Styles pour les boutons radio de devise */
+.currency-radio {
+    -fx-padding: 5 10 5 10;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 3;
+    -fx-font-size: 12px;
+}
+
+.currency-radio:selected {
+    -fx-background-color: #e1e1e1;
+    -fx-font-weight: bold;
+}
+
+/* Style pour le champ de prix */
+.form-field {
+    -fx-pref-width: 120px;
+}
+.form-datepicker {
+    -fx-pref-height: 35px;
+}
+
+/* Boutons principaux */
+.primary-button {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #27ae60;
+}
+
+.secondary-button {
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4px;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #7f8c8d;
+}
+
+/* Style pour les statuts */
+.status-ok {
+    -fx-text-fill: #27ae60;
+    -fx-font-weight: bold;
+}
+
+.status-warning {
+    -fx-text-fill: #f39c12;
+    -fx-font-weight: bold;
+}
+
+.status-error {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}

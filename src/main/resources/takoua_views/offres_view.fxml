@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ed.sanarenovo.controllers.takoua.OffresController"
+            stylesheets="/takoua_views/OffreView.css">
+
+    <children>
+
+        <!-- Champ de recherche -->
+        <TextField fx:id="searchFieldOffres" promptText="Rechercher par titre..."
+                   AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+
+        <!-- TableView des offres -->
+        <TableView fx:id="tableOffres"
+                   AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.bottomAnchor="60.0"
+                   styleClass="table-view">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="colTitre" prefWidth="150.0" text="Titre" />
+                <TableColumn fx:id="colDescription" prefWidth="200.0" text="Description" />
+                <TableColumn fx:id="colPublication" prefWidth="100.0" text="Publication" />
+                <TableColumn fx:id="colExpiration" prefWidth="100.0" text="Expiration" />
+            </columns>
+        </TableView>
+
+        <!-- Boutons -->
+        <HBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0">
+            <children>
+                <Button fx:id="btnPostuler" text="Postuler" onAction="#handlePostuler" />
+                <Button fx:id="btnRetour" text="Retour" onAction="#handleRetour" />
+            </children>
+        </HBox>
+
+    </children>
+</AnchorPane>

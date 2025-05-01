@@ -1,0 +1,43 @@
+/* Styles généraux */
+.main-view {
+    -fx-font-family: 'Segoe UI';
+    -fx-background-color: #ecf0f1;
+    -fx-padding: 20px;
+}
+
+/* Text */
+.text {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+/* VBox */
+.vbox {
+    -fx-alignment: center;
+    -fx-spacing: 50px;
+    -fx-background-color: transparent;
+}
+
+/* Boutons principaux */
+.main-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.main-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.main-button:focused {
+    -fx-background-color: #2980b9;
+}
+
+/* Ajoute une bordure et de l'ombre pour un effet visuel agréable */
+.main-button {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.0, 0.0, 2);
+}
