@@ -12,9 +12,6 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jogl.version>2.5.0</jogl.version>
-        <jcef.version>1.0.10-110.0.28</jcef.version>
-        <swt.platform>win32.win32.x86_64</swt.platform>
     </properties>
 
     <repositories>
@@ -27,14 +24,8 @@
             <id>openjfx</id>
             <url>https://repo.maven.apache.org/maven2</url>
         </repository>
-        <repository>
-            <id>jcef-releases</id>
-            <url>https://repo.jcefmaven.org/maven2</url>
-        </repository>
-        <repository>
-            <id>jogamp</id>
-            <url>https://jogamp.org/deployment/maven/</url>
-        </repository>
+
+
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
@@ -127,16 +118,8 @@
             <artifactId>jfoenix</artifactId>
             <version>9.0.10</version>
         </dependency>
-        <dependency>
-            <groupId>org.jogamp.gluegen</groupId>
-            <artifactId>gluegen-rt</artifactId>
-            <version>${jogl.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jogamp.jogl</groupId>
-            <artifactId>jogl-all</artifactId>
-            <version>${jogl.version}</version>
-        </dependency>
+
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
@@ -148,13 +131,13 @@
             <artifactId>jfreechart</artifactId>
             <version>1.5.4</version>
         </dependency>
-        <!-- Pour Maven -->
-        <dependency>
-            <groupId>org.eclipse.platform</groupId>
-            <artifactId>org.eclipse.swt.${swt.platform}</artifactId>
-            <version>3.118.0</version>
-        </dependency>
 
+
+        <dependency>
+            <groupId>net.sf.sociaal</groupId>
+            <artifactId>freetts</artifactId>
+            <version>1.2.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -176,6 +159,7 @@
                     </options>
                 </configuration>
             </plugin>
+
 
 
             <plugin>
