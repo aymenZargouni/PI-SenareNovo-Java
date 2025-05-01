@@ -81,7 +81,7 @@ public class PatientController {
             return;
         }
 
-        if (strength.equals("Weak")) {
+        if (strength.equals("Faible")) {
             showAlert(Alert.AlertType.ERROR, "Mot de passe faible", "Veuillez choisir un mot de passe plus fort !");
             return;
         }
@@ -171,7 +171,7 @@ public class PatientController {
         String result = evaluatePasswordStrength(password);
 
         switch (result) {
-            case "Weak":
+            case "Faible":
                 strengthBar.setProgress(0.2);
                 strengthBar.setStyle("-fx-accent: red;");
                 strengthLabel.setText("Weak");
@@ -181,7 +181,7 @@ public class PatientController {
                 strengthBar.setStyle("-fx-accent: orange;");
                 strengthLabel.setText("Okay");
                 break;
-            case "Strong":
+            case "Fort":
                 strengthBar.setProgress(1.0);
                 strengthBar.setStyle("-fx-accent: green;");
                 strengthLabel.setText("Strong");
@@ -200,9 +200,9 @@ public class PatientController {
 
         double score = strength / 5.0;
 
-        if (score < 0.4) return "Weak";
+        if (score < 0.4) return "Faible";
         else if (score < 0.8) return "Okay";
-        else return "Strong";
+        else return "Fort";
     }
 
 
