@@ -12,9 +12,41 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jogl.version>2.5.0</jogl.version>
+        <jcef.version>1.0.10-110.0.28</jcef.version>
+        <swt.platform>win32.win32.x86_64</swt.platform>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>eclipse-repo</id>
+            <url>https://repo.eclipse.org/content/repositories/releases/</url>
+        </repository>
+
+        <repository>
+            <id>openjfx</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>jcef-releases</id>
+            <url>https://repo.jcefmaven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>jogamp</id>
+            <url>https://jogamp.org/deployment/maven/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
+
     <dependencies>
+        <!-- Your existing dependencies remain unchanged -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -43,7 +75,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20210307</version> <!-- This version is a commonly used one -->
+            <version>20210307</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -60,6 +92,78 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.14.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>10.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.13</version>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.13.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jfoenix</groupId>
+            <artifactId>jfoenix</artifactId>
+            <version>9.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jogamp.gluegen</groupId>
+            <artifactId>gluegen-rt</artifactId>
+            <version>${jogl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jogamp.jogl</groupId>
+            <artifactId>jogl-all</artifactId>
+            <version>${jogl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>17.0.14</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <!-- Pour Maven -->
+        <dependency>
+            <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.swt.${swt.platform}</artifactId>
+            <version>3.118.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.sociaal</groupId>
+            <artifactId>freetts</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>com.sun.speech</groupId>
+            <artifactId>en_us</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -71,12 +175,55 @@
                 <configuration>
                     <mainClass>ed.sanarenovo.tests.MainD</mainClass>
                     <options>
+                        <!-- Point directly to your DLL location -->
+                        <option>-Djava.library.path=${project.basedir}/windows-amd64/bin/lib/win64</option>
                         <option>--add-exports=javafx.graphics/com.sun.javafx.sg.prism=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/java.lang=ALL-UNNAMED</option>
+                        <option>--add-modules=javafx.swing</option>
+                        <option>--add-opens=java.base/java.lang.reflect=ALL-UNNAMED</option>
+                        <option>--add-opens=java.base/java.util=ALL-UNNAMED</option>
                     </options>
                 </configuration>
             </plugin>
-            <plugin>
 
+            <!-- Copy all JCEF native files from their original location -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-jcef-resources</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/jcef</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/windows-amd64/bin/lib/win64</directory>
+                                    <includes>
+                                        <include>*.dll</include>
+                                        <include>*.exe</include>
+                                    </includes>
+                                </resource>
+                                <resource>
+                                    <directory>${project.basedir}/windows-amd64</directory>
+                                    <includes>
+                                        <include>locales/**</include>
+                                        <include>*.pak</include>
+                                        <include>*.dat</include>
+                                        <include>*.bin</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.1.2</version>
@@ -99,18 +246,22 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>
+                        -Djava.library.path=${project.basedir}/windows-amd64/bin/lib/win64
+                        --add-opens=java.base/java.lang=ALL-UNNAMED
+                        --add-modules=javafx.swing
+                        --add-opens=java.base/java.lang.reflect=ALL-UNNAMED
+                        --add-opens=java.base/java.util=ALL-UNNAMED
+                    </argLine>
+                </configuration>
             </plugin>
         </plugins>
-
-
     </build>
-    <repositories>
-        <repository>
-            <id>openjfx</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-        </repository>
-    </repositories>
-
-
 </project>
