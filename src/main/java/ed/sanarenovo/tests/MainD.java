@@ -25,7 +25,7 @@ public class MainD extends Application {
             primaryStage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
-            //throw new RuntimeException(e);
+
         }
     }
 }

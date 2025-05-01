@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ed.sanarenovo.controllers.GestionEquipement.ClaimsManagementController"
+      spacing="20"
+      style="-fx-padding: 25; -fx-background-color: #f4f4f4;"
+      stylesheets="@/styles/management.css">
+    <fx:include source="/AymenViews/TopBar.fxml" />
+    <!-- En-tête -->
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <ImageView fitWidth="32" fitHeight="32">
+            <image>
+                <Image url="@icons/ManageClaims.png"/>
+            </image>
+        </ImageView>
+        <Label text="Gestion des Réclamations " style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    </HBox>
+    <!-- Formulaire d'édition -->
+    <GridPane styleClass="form-pane" hgap="15" vgap="15">
+        <Label text="Édition de Réclamation" styleClass="section-label" GridPane.columnSpan="2"/>
+
+        <Label text="Description:" styleClass="form-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextArea fx:id="descriptionArea" GridPane.rowIndex="1" GridPane.columnIndex="1"
+                  promptText="Modifier la description..."
+                  styleClass="form-textarea"/>
+
+        <HBox spacing="15" alignment="CENTER_RIGHT" GridPane.rowIndex="2" GridPane.columnSpan="2">
+            <!-- Bouton Mettre à jour avec icône -->
+            <Button onAction="#handleUpdateClaim" styleClass="primary-button">
+                <graphic>
+                    <ImageView fitHeight="16" fitWidth="16">
+                        <image>
+                            <Image url="@icons/editClaim.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <text>Mettre à jour</text>
+            </Button>
+
+            <!-- Bouton Supprimer avec icône -->
+            <Button onAction="#handleDeleteClaim" styleClass="danger-button">
+                <graphic>
+                    <ImageView fitHeight="16" fitWidth="16">
+                        <image>
+                            <Image url="@icons/deleteClaim.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+                <text>Supprimer</text>
+            </Button>
+        </HBox>
+    </GridPane>
+
+    <!-- Liste des réclamations -->
+    <VBox spacing="10">
+        <Label text="Historique des Réclamations" styleClass="section-label"/>
+        <TableView fx:id="claimTable" styleClass="data-table">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" style="-fx-alignment: CENTER;" prefWidth="60"/>
+                <TableColumn fx:id="equipmentColumn" text="Équipement" prefWidth="150"/>
+                <TableColumn fx:id="technicienColumn" text="Technicien" prefWidth="150"/>
+                <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="300"/>
+                <TableColumn fx:id="dateColumn" text="Date" prefWidth="150"/>
+                <TableColumn fx:id="statusColumn" text="Statut" style="-fx-alignment: CENTER;" prefWidth="100"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </VBox>
+</VBox>

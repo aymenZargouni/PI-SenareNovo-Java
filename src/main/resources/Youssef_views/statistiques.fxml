@@ -1,19 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.consultation.StatistiqueController"
-            prefWidth="600" prefHeight="500">
+            prefWidth="1200" prefHeight="750"
+            style="-fx-background-color: #f4f8fb;">
 
-    <Label fx:id="labelTotalDossiers" layoutX="20" layoutY="20" text="Total Dossiers: " />
-    <Label fx:id="labelTotalConsultations" layoutX="20" layoutY="60" text="Total Consultations: " />
-    <Label fx:id="labelMoyenneConsultations" layoutX="20" layoutY="100" text="Moyenne Consultations/Dossier: " />
+    <!-- Main Layout with Sidebar and Content -->
+    <HBox spacing="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
-    <PieChart fx:id="pieChartConsultations" layoutX="200" layoutY="150" prefWidth="380" prefHeight="300"/>
+        <!-- Sidebar -->
+        <VBox prefWidth="200" style="-fx-background-color: #2e7d32; -fx-padding: 15;">
+            <ImageView fitHeight="100" fitWidth="170" preserveRatio="true">
+                <image>
+                    <Image url="@logovert.jpg" />
+                </image>
+            </ImageView>
 
+            <VBox spacing="10" style="-fx-padding: 20 0 0 0;">
+                <Button prefWidth="170" prefHeight="40"
+                        onAction="#redirectToConsultation"
+                        style="-fx-background-color: #81c784; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"
+                        text="Gestion Consultation" />
+
+                <Button prefWidth="170" prefHeight="40"
+                        onAction="#redirectToDossierMedical"
+                        style="-fx-background-color: #388e3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"
+                        text="Gestion Dossier Médical" />
+            </VBox>
+        </VBox>
+
+        <!-- Main Content -->
+        <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 10 0 0 0;" HBox.hgrow="ALWAYS">
+            <!-- Page Title -->
+            <Label text="Tableau de Bord Statistique" style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #2e7d32;"/>
+
+            <!-- Stats Cards Row -->
+            <HBox spacing="15" alignment="TOP_CENTER">
+                <!-- Dossiers Card -->
+                <VBox style="-fx-background-color: #e3f2fd; -fx-background-radius: 10; -fx-padding: 15; -fx-spacing: 8; -fx-pref-width: 250;">
+                    <Label text="Dossiers Médicaux" style="-fx-font-weight: bold; -fx-font-size: 16; -fx-text-fill: #0d47a1;"/>
+                    <Separator style="-fx-padding: 0 0 5 0;"/>
+                    <Label fx:id="labelTotalDossiers" style="-fx-font-size: 14;"/>
+                    <Label fx:id="labelDossiersSansConsultation" style="-fx-font-size: 14;"/>
+                    <Label text="Dernière mise à jour: aujourd'hui" style="-fx-font-size: 12; -fx-text-fill: #666;"/>
+                </VBox>
+
+                <!-- Consultations Card -->
+                <VBox style="-fx-background-color: #e8f5e9; -fx-background-radius: 10; -fx-padding: 15; -fx-spacing: 8; -fx-pref-width: 300;">
+                    <Label text="Consultations" style="-fx-font-weight: bold; -fx-font-size: 16; -fx-text-fill: #2e7d32;"/>
+                    <Separator style="-fx-padding: 0 0 5 0;"/>
+                    <Label fx:id="labelTotalConsultations" style="-fx-font-size: 14;"/>
+                    <Label fx:id="labelMoyenneConsultations" style="-fx-font-size: 14;"/>
+                    <Label fx:id="labelConsultationsParStatus" style="-fx-font-size: 14; -fx-wrap-text: true;"/>
+                </VBox>
+
+                <!-- IMC Card -->
+                <VBox style="-fx-background-color: #fff3e0; -fx-background-radius: 10; -fx-padding: 15; -fx-spacing: 8; -fx-pref-width: 300;">
+                    <Label text="Indicateurs IMC" style="-fx-font-weight: bold; -fx-font-size: 16; -fx-text-fill: #e65100;"/>
+                    <Separator style="-fx-padding: 0 0 5 0;"/>
+                    <Label fx:id="labelTauxRemplissageIMC" style="-fx-font-size: 14;"/>
+                    <Label fx:id="labelRepartitionIMC" style="-fx-font-size: 14; -fx-wrap-text: true;"/>
+                </VBox>
+            </HBox>
+
+
+            <!-- Charts Area -->
+            <VBox spacing="10" style="-fx-padding: 10; -fx-background-color: #f9f9f9; -fx-background-radius: 10;" VBox.vgrow="ALWAYS">
+                <TabPane prefWidth="1000" prefHeight="500" style="-fx-background-radius: 10;" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <!-- Onglet 1: Consultations par type -->
+                        <Tab text="Types de consultation" style="-fx-font-weight: bold;">
+                            <content>
+                                <AnchorPane fx:id="chartContainer" style="-fx-background-color: white; -fx-background-radius: 0 0 10 10;">
+                                    <padding>
+                                        <Insets top="10" right="10" bottom="10" left="10"/>
+                                    </padding>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+
+                        <!-- Onglet 2: Distribution IMC -->
+                        <Tab text="Distribution IMC" style="-fx-font-weight: bold;">
+                            <content>
+                                <AnchorPane fx:id="imcChartContainer" style="-fx-background-color: white; -fx-background-radius: 0 0 10 10;">
+                                    <padding>
+                                        <Insets top="10" right="10" bottom="10" left="10"/>
+                                    </padding>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+
+                        <!-- Onglet 3: Statut des consultations -->
+                        <Tab text="Statut des consultations" style="-fx-font-weight: bold;">
+                            <content>
+                                <AnchorPane fx:id="statusChartContainer" style="-fx-background-color: white; -fx-background-radius: 0 0 10 10;">
+                                    <padding>
+                                        <Insets top="10" right="10" bottom="10" left="10"/>
+                                    </padding>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </VBox>
+
+            <!-- Footer -->
+            <HBox alignment="CENTER_RIGHT">
+                <Label text="Système de gestion médicale - Sanare Novo © 2023"
+                       style="-fx-font-size: 11; -fx-text-fill: #666;"/>
+            </HBox>
+        </VBox>
+    </HBox>
 </AnchorPane>

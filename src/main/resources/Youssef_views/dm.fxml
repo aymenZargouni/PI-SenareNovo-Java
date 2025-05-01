@@ -14,9 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.TextArea?>
 <AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.dossiermedicaleController">
 
     <children>
+
         <Pane layoutY="-4.0" prefHeight="580.0" prefWidth="191.0" style="-fx-background-color: #d5f5e3; -fx-background-radius: 10;">
 
         <children>
@@ -78,6 +80,7 @@
                     <Button fx:id="clearBtn" onAction="#clearFields" styleClass="secondary-btn" text="Clear" />
                 </HBox>
 
+
             </children>
         </VBox>
 
@@ -93,6 +96,21 @@
                 <TableColumn fx:id="colConsultations" prefWidth="278.0" text="Consultations" />
             </columns>
         </TableView>
+
+        <VBox layoutX="200" layoutY="520.0" spacing="10" prefWidth="500">
+            <children>
+                <Label text="Analyse IA:" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
+                <TextArea fx:id="aiAnalysisArea"
+                          editable="false"
+                          prefHeight="100"
+                          wrapText="true"
+                          style="-fx-control-inner-background: #f8f8f8; -fx-border-color: #e0e0e0;"/>
+                <Button text="Analyser le dossier"
+                        onAction="#analyzeDossier"
+                        style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+            </children>
+        </VBox>
+
 
     </children>
 </AnchorPane>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.TableColumn?>
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.ConsultationCalendarController">
+    <children>
+        <ImageView fitHeight="800.0" fitWidth="1200.0">
+            <image>
+                <Image url="@health.jpg" />
+            </image>
+        </ImageView>
+
+        <!-- Logo -->
+        <ImageView fitHeight="45.0" fitWidth="157.0" layoutX="20.0" layoutY="20.0">
+            <image>
+                <Image url="@logovert.jpg" />
+            </image>
+        </ImageView>
+
+        <!-- Contenu principal -->
+        <VBox layoutX="20.0" layoutY="90.0" spacing="20">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Button onAction="#retour" style="-fx-background-color: #4682B4; -fx-text-fill: white; -fx-font-weight: bold;" text="Retour" />
+            </HBox>
+
+            <HBox spacing="20">
+                <!-- Calendrier -->
+                <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2);">
+                    <padding>
+                        <Insets bottom="15" left="15" right="15" top="15" />
+                    </padding>
+
+                    <Label style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Filtrer consultations par date" />
+
+                    <HBox alignment="CENTER" spacing="10">
+                        <Button fx:id="prevButton" style="-fx-background-color: transparent; -fx-text-fill: #666666;" text="&lt;" />
+                        <Label fx:id="monthYearLabel" style="-fx-font-size: 16; -fx-font-weight: bold;" />
+                        <Button fx:id="nextButton" style="-fx-background-color: transparent; -fx-text-fill: #666666;" text="&gt;" />
+                    </HBox>
+
+                    <GridPane fx:id="calendarGrid" alignment="CENTER" hgap="5" vgap="5">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="14.28" />
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="14.28" />
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="14.28" />
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="14.28" />
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="14.28" />
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="14.28" />
+                            <ColumnConstraints hgrow="ALWAYS" percentWidth="14.28" />
+                        </columnConstraints>
+                    </GridPane>
+
+                    <VBox alignment="CENTER" spacing="5">
+                        <Label fx:id="selectedDateRangeLabel" style="-fx-font-size: 12; -fx-text-fill: #666666;" />
+                        <Button fx:id="clearFilterButton" style="-fx-background-color: transparent; -fx-text-fill: #666666; -fx-border-color: #dee2e6; -fx-border-radius: 15;" text="Effacer le filtre" />
+                    </VBox>
+                </VBox>
+
+                <!-- Liste des consultations -->
+                <VBox spacing="10" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 0, 2);">
+                    <padding>
+                        <Insets bottom="15" left="15" right="15" top="15" />
+                    </padding>
+
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <Label prefWidth="100" style="-fx-font-family: 'MoonetDEMO-Regular'; -fx-font-size: 23.0;" text="Patient" />
+                        <Label prefWidth="150" style="-fx-font-family: 'MoonetDEMO-Regular'; -fx-font-size: 23.0;" text="Date" />
+                        <Label prefWidth="200" style="-fx-font-family: 'MoonetDEMO-Regular'; -fx-font-size: 23.0;" text="Motif" />
+                        <Label prefWidth="100" style="-fx-font-family: 'MoonetDEMO-Regular'; -fx-font-size: 23.0;" text="Type" />
+                        <Label prefWidth="100" style="-fx-font-family: 'MoonetDEMO-Regular'; -fx-font-size: 23.0;" text="Statut" />
+                    </HBox>
+
+                    <TableView fx:id="consultationTableView" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-border-width: 2px; -fx-border-radius: 5px;" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn prefWidth="100" text="Patient" />
+                            <TableColumn prefWidth="150" text="Date" />
+                            <TableColumn prefWidth="200" text="Motif" />
+                            <TableColumn prefWidth="100" text="Type" />
+                            <TableColumn prefWidth="100" text="Statut" />
+                        </columns>
+                    </TableView>
+                </VBox>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
