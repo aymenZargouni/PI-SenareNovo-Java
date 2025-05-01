@@ -1,4 +1,0 @@
-[15256:24016:0427/230943.599:ERROR:google_update_settings.cc(265)] Failed opening key Software\Chromium to set usagestats; result: 5
-[13800:20836:0427/230946.215:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)
-[23044:17096:0427/231243.824:ERROR:gpu_blocklist.cc(71)] Unable to get gpu adapter
-[15256:6528:0427/231243.827:ERROR:service_client.cc(36)] Unexpected on_device_model service disconnect: The device's GPU is not supported.

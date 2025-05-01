@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -397,25 +398,25 @@ public class dossiermedicaleController implements Initializable {
 
     public String analyzeD(int dossierId) {
         try {
-            // Récupérer les données nécessaires
+            // 1. Get dossier data
             Map<String, Object> dossierData = getDossierDataForAnalysis(dossierId);
 
-            // Ensure all required fields are present
-            if (!dossierData.containsKey("imc")) dossierData.put("imc", 0f);
-            if (!dossierData.containsKey("ordonnance")) dossierData.put("ordonnance", "");
-            if (!dossierData.containsKey("observations")) dossierData.put("observations", "");
-            if (!dossierData.containsKey("consult_dates")) dossierData.put("consult_dates", new ArrayList<>());
-
-            // Add debug output
-            System.out.println("Sending to Python: " + new ObjectMapper().writeValueAsString(dossierData));
-
-            // Path to your Python script - adjust as needed
+            // 2. Set the full path to python.exe
+            String pythonExecutable = "C:\\Users\\msi\\AppData\\Local\\Programs\\Python\\Python39\\python.exe";
             String pythonScriptPath = "C:\\Users\\msi\\OneDrive\\Bureau\\projetJAVA\\PI-SenareNovo-Java\\src\\main\\resources\\Youssef_views\\analyze_dossier.py";
 
-            Process p = new ProcessBuilder("python",
+            // 3. Create the process with full paths
+            ProcessBuilder pb = new ProcessBuilder(
+                    pythonExecutable,
                     pythonScriptPath,
-                    new ObjectMapper().writeValueAsString(dossierData))
-                    .start();
+                    new ObjectMapper().writeValueAsString(dossierData)
+            );
+
+            // 4. Set working directory to script location
+            pb.directory(new File("C:\\Users\\msi\\OneDrive\\Bureau\\projetJAVA\\PI-SenareNovo-Java\\src\\main\\resources\\Youssef_views"));
+
+            // 5. Start process and handle output
+            Process p = pb.start();
 
             // Read output
             BufferedReader outputReader = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -434,52 +435,8 @@ public class dossiermedicaleController implements Initializable {
                 return "Erreur: Le script Python n'a retourné aucun résultat";
             }
 
-            // Format the analysis result
-            JsonNode result = new ObjectMapper().readTree(output);
-            StringBuilder analysis = new StringBuilder("=== Analyse du Dossier Médical ===\n\n");
-
-            // IMC Analysis
-            analysis.append("IMC: ").append(dossierData.get("imc")).append(" (")
-                    .append(result.get("imc_category").asText()).append(")\n");
-            if (result.get("imc_anomaly").asBoolean()) {
-                analysis.append("⚠️ Anomalie: ").append(result.get("imc_category").asText()).append("\n");
-            }
-
-            // Medications
-            analysis.append("\nMédicaments prescrits:\n");
-            JsonNode meds = result.get("medications");
-            if (meds.size() == 0) {
-                analysis.append("Aucun médicament identifié\n");
-            } else {
-                for (JsonNode med : meds) {
-                    analysis.append("- ").append(med.get("name").asText())
-                            .append(" (").append(med.get("dosage").asText()).append(")\n");
-                }
-            }
-
-            // Consultation frequency
-            analysis.append("\nFréquence de consultation:\n");
-            analysis.append("Moyenne: ").append(String.format("%.1f", result.get("avg_consult_gap").asDouble()))
-                    .append(" jours entre les visites\n");
-            if (result.get("freq_anomaly").asBoolean()) {
-                analysis.append("⚠️ Anomalie de fréquence détectée\n");
-            }
-
-            // Text anomalies
-            if (result.get("text_anomaly").asBoolean()) {
-                analysis.append("\n⚠️ Anomalie détectée dans les observations\n");
-            }
-
-            // Detailed messages
-            JsonNode messages = result.get("messages");
-            if (messages.size() > 0) {
-                analysis.append("\nDétails des anomalies:\n");
-                for (JsonNode msg : messages) {
-                    analysis.append("- ").append(msg.asText()).append("\n");
-                }
-            }
-
-            return analysis.toString();
+            // Format and return the analysis result
+            return formatAnalysisResult(output);
 
         } catch (Exception e) {
             e.printStackTrace();
