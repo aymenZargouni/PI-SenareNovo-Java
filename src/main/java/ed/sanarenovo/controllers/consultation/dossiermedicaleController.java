@@ -1,9 +1,12 @@
 package ed.sanarenovo.controllers.consultation;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ed.sanarenovo.entities.dossiermedicale;
 import ed.sanarenovo.entities.consultation;
 
 import ed.sanarenovo.utils.MyConnection;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,12 +19,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class dossiermedicaleController implements Initializable {
 
@@ -41,6 +46,7 @@ public class dossiermedicaleController implements Initializable {
     @FXML private TableColumn<dossiermedicale, String> colObservations;
     @FXML private TableColumn<dossiermedicale, String> colOrdonnance;
     @FXML private TableColumn<dossiermedicale, String> colConsultations;
+    @FXML private TextArea aiAnalysisArea;
 
     private final ObservableList<dossiermedicale> data = FXCollections.observableArrayList();
 
@@ -62,8 +68,6 @@ public class dossiermedicaleController implements Initializable {
         loadDossiers();
         tableView.setOnMouseClicked(this::handleTableClick);
     }
-
-
 
     private void loadDossiers() {
         data.clear();
@@ -106,11 +110,16 @@ public class dossiermedicaleController implements Initializable {
 
     private void handleTableClick(MouseEvent event) {
         dossiermedicale selected = tableView.getSelectionModel().getSelectedItem();
+
         if (selected != null) {
             imcField.setText(String.valueOf(selected.getImc()));
             datePicker.setValue(LocalDate.parse(selected.getDate()));
             observationsField.setText(selected.getObservations());
             ordonnanceField.setText(selected.getOrdonnance());
+
+            // Call the method that takes an int parameter
+            String analysis = analyzeDossier(selected.getId());
+            aiAnalysisArea.setText(analysis);
         }
     }
 
@@ -329,12 +338,132 @@ public class dossiermedicaleController implements Initializable {
         }
     }
 
+    private Map<String, Object> getDossierDataForAnalysis(int dossierId) {
+        Map<String, Object> data = new HashMap<>();
 
+        String sql = "SELECT imc, observations, ordonnance FROM dossiermedicale WHERE id = ?";
+        try (Connection cnx = MyConnection.getInstance().getCnx();
+             PreparedStatement pst = cnx.prepareStatement(sql)) {
 
+            pst.setInt(1, dossierId);
+            ResultSet rs = pst.executeQuery();
 
+            if (rs.next()) {
+                data.put("imc", rs.getFloat("imc"));
+                data.put("ordonnance", rs.getString("ordonnance"));
 
+                // Récupérer les dates de consultation
+                List<String> consultDates = new ArrayList<>();
+                String datesSql = "SELECT date FROM consultation WHERE dossiermedicale_id = ?";
+                try (PreparedStatement datesStmt = cnx.prepareStatement(datesSql)) {
+                    datesStmt.setInt(1, dossierId);
+                    ResultSet datesRs = datesStmt.executeQuery();
+                    while (datesRs.next()) {
+                        consultDates.add(datesRs.getString("date"));
+                    }
+                }
+                data.put("consult_dates", consultDates);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return data;
+    }
 
+    private String formatAnalysisResult(String jsonResult) {
+        try {
+            JsonNode result = new ObjectMapper().readTree(jsonResult);
+            StringBuilder sb = new StringBuilder("Analyse IA:\n");
 
+            if (result.get("imc_anomaly").asBoolean()) {
+                sb.append("⚠ Anomalie IMC détectée\n");
+            }
+
+            sb.append("Type consultation: ").append(result.get("consult_type").asText()).append("\n");
+
+            if (result.get("prescription_anomaly").asBoolean()) {
+                sb.append("⚠ Ordonnance anormale\n");
+            }
+
+            if (result.get("freq_anomaly").asBoolean()) {
+                sb.append("⚠ Fréquence de consultations élevée\n");
+            }
+
+            return sb.toString();
+        } catch (IOException e) {
+            return "Résultat d'analyse invalide";
+        }
+    }
+
+    public String analyzeD(int dossierId) {
+        try {
+            // 1. Get dossier data
+            Map<String, Object> dossierData = getDossierDataForAnalysis(dossierId);
+
+            // 2. Set the full path to python.exe
+            String pythonExecutable = "C:\\Users\\msi\\AppData\\Local\\Programs\\Python\\Python39\\python.exe";
+            String pythonScriptPath = "C:\\Users\\msi\\OneDrive\\Bureau\\projetJAVA\\PI-SenareNovo-Java\\src\\main\\resources\\Youssef_views\\analyze_dossier.py";
+
+            // 3. Create the process with full paths
+            ProcessBuilder pb = new ProcessBuilder(
+                    pythonExecutable,
+                    pythonScriptPath,
+                    new ObjectMapper().writeValueAsString(dossierData)
+            );
+
+            // 4. Set working directory to script location
+            pb.directory(new File("C:\\Users\\msi\\OneDrive\\Bureau\\projetJAVA\\PI-SenareNovo-Java\\src\\main\\resources\\Youssef_views"));
+
+            // 5. Start process and handle output
+            Process p = pb.start();
+
+            // Read output
+            BufferedReader outputReader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String output = outputReader.readLine();
+
+            // Read errors
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+            String error = errorReader.readLine();
+
+            if (error != null) {
+                System.err.println("Python error: " + error);
+                return "Erreur d'analyse: " + error;
+            }
+
+            if (output == null || output.trim().isEmpty()) {
+                return "Erreur: Le script Python n'a retourné aucun résultat";
+            }
+
+            // Format and return the analysis result
+            return formatAnalysisResult(output);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Erreur d'analyse: " + e.getMessage();
+        }
+    }
+
+    @FXML
+    private void analyzeDossier(ActionEvent actionEvent) {
+        // Get the selected dossier from the table
+        dossiermedicale selected = tableView.getSelectionModel().getSelectedItem();
+
+        if (selected != null) {
+            // Call the analysis logic with the selected dossier's ID
+            String analysisResult = analyzeD(selected.getId());
+
+            // Display the result in the text area
+            aiAnalysisArea.setText(analysisResult);
+        } else {
+            // Show error message if no dossier is selected
+            aiAnalysisArea.setText("Veuillez sélectionner un dossier médical à analyser.");
+        }
+    }
+
+    // This method is called from handleTableClick
+    private String analyzeDossier(int dossierId) {
+        return analyzeD(dossierId); // Just delegate to your existing analyzeD method
+    }
 }
 
