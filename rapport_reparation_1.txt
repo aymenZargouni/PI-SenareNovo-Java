@@ -1,0 +1,7 @@
+Rapport de Réparation
+----------------------------
+Équipement: Scanner IRM
+Modèle: Ow-G4
+Date de Réparation: 2025-04-05
+Rapport Détaille: 
+reparé

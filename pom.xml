@@ -214,6 +214,16 @@
             <artifactId>javase</artifactId>
             <version>3.5.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.sociaal</groupId>
+            <artifactId>freetts</artifactId>
+            <version>1.2.2</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -223,7 +233,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>ed.sanarenovo.tests.MainApp</mainClass>
+                    <mainClass>ed.sanarenovo.tests.MainD</mainClass>
                 </configuration>
             </plugin>
         </plugins>

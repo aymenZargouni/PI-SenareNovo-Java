@@ -7,6 +7,9 @@ public class consultation {
     private String typeConsultation;
     private String status;
     private int dossiermedicaleId;
+    private String patientName;
+    private transient String meetingUrl;
+
 
     public int getId() {
         return id;
@@ -55,4 +58,24 @@ public class consultation {
     public void setDossiermedicaleId(int dossiermedicaleId) {
         this.dossiermedicaleId = dossiermedicaleId;
     }
+
+    // Getter and Setter
+    public String getFullname() {
+        return patientName; // Return the patientName field directly
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+    public String getMeetingUrl() {
+        return meetingUrl;
+    }
+    public void setMeetingUrl(String meetingUrl) {
+        this.meetingUrl = meetingUrl;
+    }
+
+
+
+
+
 }
