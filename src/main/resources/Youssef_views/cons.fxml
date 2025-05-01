@@ -29,7 +29,8 @@
                 </ImageView>
 
                 <Button layoutX="14.0" layoutY="178.0" onAction="#redirectToDossierMedicale" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Gestion Dossier Médical" />
-            </children>
+                <Button layoutX="14.0" layoutY="220.0" onAction="#sessionOnline" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="online meet " />
+        </children>
         </Pane>
 
         <!-- Title -->
