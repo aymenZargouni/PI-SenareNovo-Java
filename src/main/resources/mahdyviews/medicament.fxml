@@ -8,19 +8,21 @@
 
 <AnchorPane prefHeight="683.0" prefWidth="649.0" style="-fx-background-color: #f7f9fc; -fx-padding: 20; -fx-font-family: 'Segoe UI';" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.service.medicament">
 
+    <!-- Champ de recherche -->
     <TextField fx:id="drugTextField" layoutX="30" layoutY="30" prefWidth="300" promptText="Entrer nom médicament" style="-fx-font-size: 14px; -fx-background-color: white; -fx-border-color: #b0c4de; -fx-border-radius: 5; -fx-background-radius: 5; -fx-padding: 5 10;" />
 
     <Button layoutX="350" layoutY="30" onAction="#onSearchClicked" style="-fx-background-color: #0077cc; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 5;" text="Rechercher" />
 
-    <!-- Labels pour chaque attribut -->
+    <!-- Labels pour afficher les résultats -->
     <VBox layoutX="30" layoutY="80" spacing="10">
         <Label fx:id="genericNameLabel" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
-
         <Label fx:id="usageLabel" style="-fx-font-size: 14px; -fx-text-fill: green;" />
-
-        <Label fx:id="dosageLabel" layoutX="30" layoutY="180" prefWidth="520" style="-fx-font-size: 14px; -fx-text-fill: red; -fx-font-weight: bold;               -fx-background-color: #ffe0e0; -fx-padding: 10;               -fx-border-radius: 5; -fx-background-radius: 5;" wrapText="true" />
-
-        <Label fx:id="warningsLabel" layoutX="30" layoutY="240" prefWidth="520" style="-fx-font-size: 14px; -fx-text-fill: red; -fx-font-weight: bold;               -fx-background-color: #ffe0e0; -fx-padding: 10;               -fx-border-radius: 5; -fx-background-radius: 5;" wrapText="true" />
+        <Label fx:id="dosageLabel" prefWidth="520" style="-fx-font-size: 14px; -fx-text-fill: red; -fx-font-weight: bold; -fx-background-color: #ffe0e0; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5;" wrapText="true" />
+        <Label fx:id="warningsLabel" prefWidth="520" style="-fx-font-size: 14px; -fx-text-fill: red; -fx-font-weight: bold; -fx-background-color: #ffe0e0; -fx-padding: 10; -fx-border-radius: 5; -fx-background-radius: 5;" wrapText="true" />
     </VBox>
 
+    <!-- Bouton Retour -->
+    <Button  text="Retour" layoutX="30" layoutY="260"
+             style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6 12; -fx-background-radius: 5;"
+             onAction="#retour"/>
 </AnchorPane>

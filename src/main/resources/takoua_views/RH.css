@@ -1,7 +1,7 @@
 /* ========== BASE STYLES ========== */
 .root {
     -fx-font-family: 'Segoe UI', Roboto, sans-serif;
-    -fx-background-color: #f8fafc;
+    -fx-background-color: #FFFFFF;
     -fx-padding: 0;
 }
 
@@ -36,19 +36,6 @@
     -fx-text-fill: #94a3b8;
 }
 
-.stat-trend-up {
-    -fx-font-size: 12px;
-    -fx-text-fill: #10b981;
-    -fx-font-weight: 600;
-    -fx-graphic: url(images/arrow-up.png);
-}
-
-.stat-trend-down {
-    -fx-font-size: 12px;
-    -fx-text-fill: #ef4444;
-    -fx-font-weight: 600;
-    -fx-graphic: url(images/arrow-down.png);
-}
 
 /* ========== CARD STYLES ========== */
 .card {
@@ -321,4 +308,12 @@
 #colCandScore {
     -fx-pref-width: 100px;
     -fx-alignment: CENTER;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: white;
+}
+
+.scroll-bar:vertical {
+    -fx-padding: 0;
 }

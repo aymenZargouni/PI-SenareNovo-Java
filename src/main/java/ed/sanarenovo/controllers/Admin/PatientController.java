@@ -174,7 +174,7 @@ public class PatientController {
             case "Faible":
                 strengthBar.setProgress(0.2);
                 strengthBar.setStyle("-fx-accent: red;");
-                strengthLabel.setText("Weak");
+                strengthLabel.setText("Faible");
                 break;
             case "Okay":
                 strengthBar.setProgress(0.6);
@@ -184,7 +184,7 @@ public class PatientController {
             case "Fort":
                 strengthBar.setProgress(1.0);
                 strengthBar.setStyle("-fx-accent: green;");
-                strengthLabel.setText("Strong");
+                strengthLabel.setText("Fort");
                 break;
         }
     }

@@ -32,6 +32,8 @@ import javafx.util.Duration;
 
 import javafx.scene.control.Alert.AlertType;
 import java.io.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Map;
 
@@ -205,7 +207,7 @@ public class RHController {
             };
         }
 
-}
+    }
 
 
     // Initialize Offre table
@@ -252,18 +254,26 @@ public class RHController {
         FilteredList<Candidature> filteredList = new FilteredList<>(candidaturesList, p -> true);
         txtSearchCandidatures.textProperty().addListener((obs, oldVal, newVal) -> {
             filteredList.setPredicate(cand -> {
-                if (newVal == null || newVal.isEmpty()) return true;
+                if (newVal == null || newVal.isEmpty()) {
+                    return true;
+                }
+
                 String lower = newVal.toLowerCase();
-                return cand.getNom().toLowerCase().contains(lower) ||
-                        cand.getPrenom().toLowerCase().contains(lower) ||
-                        cand.getTitreOffre().toLowerCase().contains(lower);
+
+                // Vérification null-safe pour chaque champ
+                boolean matches = (cand.getNom() != null && cand.getNom().toLowerCase().contains(lower)) ||
+                        (cand.getPrenom() != null && cand.getPrenom().toLowerCase().contains(lower)) ||
+                        (cand.getEmail() != null && cand.getEmail().toLowerCase().contains(lower)) ||
+                        (cand.getTitreOffre() != null && cand.getTitreOffre().toLowerCase().contains(lower));
+
+                return matches;
             });
         });
+
         SortedList<Candidature> sortedList = new SortedList<>(filteredList);
         sortedList.comparatorProperty().bind(tableCandidatures.comparatorProperty());
         tableCandidatures.setItems(sortedList);
     }
-
     private void filterCandidatures(String searchText) {
         ObservableList<Candidature> filtered = FXCollections.observableArrayList();
         for (Candidature cand : allCandidatures) {
@@ -347,38 +357,37 @@ public class RHController {
         if (selected != null && selected.getCv() != null) {
             File cvFile = new File(selected.getCv());
             if (cvFile.exists()) {
-                // Afficher un indicateur de chargement
                 Alert loadingAlert = new Alert(AlertType.INFORMATION);
                 loadingAlert.setTitle("Analyse en cours");
                 loadingAlert.setHeaderText("Analyse du CV en cours...");
                 loadingAlert.show();
+
+                // Create a final copy of the selected candidature for use in the thread
+                final Candidature finalSelected = selected;
 
                 new Thread(() -> {
                     try {
                         CVAnalyzer analyzer = new CVAnalyzer();
                         Map<String, Object> analysis = analyzer.analyzeCV(cvFile);
 
-                        // Mettre à jour le score dans la candidature
+                        // Handle potential null score
                         Integer score = (Integer) analysis.get("score");
+                        if (score == null) {
+                            score = 0; // Default value if analysis fails
+                        }
 
-                        // Mettre à jour dans l'UI thread
+                        Integer finalScore = score;
                         Platform.runLater(() -> {
-                            // 1. Fermer l'alerte de chargement
                             loadingAlert.close();
-
-                            // 2. Mettre à jour l'objet candidature
-                            selected.setAnalysisScore(score);
-
-                            // 3. Rafraîchir la table pour voir le changement
+                            finalSelected.setAnalysisScore(finalScore);
                             tableCandidatures.refresh();
-
-                            // 4. Afficher les résultats détaillés
-                            showCVAnalysis(selected, analysis);
+                            showCVAnalysis(finalSelected, analysis);
                         });
 
-                        // Optionnel: Sauvegarder en base de données
-                        candidatureService.updateCandidature(selected);
-
+                        // Update in database with null check
+                        if (finalSelected.getAnalysisScore() != null) {
+                            candidatureService.updateCandidature(finalSelected);
+                        }
                     } catch (Exception e) {
                         Platform.runLater(() -> {
                             loadingAlert.close();
@@ -393,7 +402,6 @@ public class RHController {
             showAlert("Erreur", "Veuillez sélectionner une candidature avec un CV.");
         }
     }
-
     // Modifiez cette méthode pour gérer correctement les types
     private void showCVAnalysis(Candidature candidature, Map<String, Object> analysis) {
         Alert alert = new Alert(AlertType.INFORMATION);
@@ -520,8 +528,6 @@ public class RHController {
         candidaturesChart.getData().clear();
         candidaturesChart.getData().addAll(chart.getData());
 
-
-
         // Ajouter des données de démonstration
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.getData().add(new XYChart.Data<>("Jan", 45));
@@ -536,6 +542,8 @@ public class RHController {
 
         // Style des barres
         for (XYChart.Data<String, Number> data : series.getData()) {
+            // Create a final copy of the data for use in the lambda
+            final XYChart.Data<String, Number> finalData = data;
             data.nodeProperty().addListener((obs, oldNode, newNode) -> {
                 if (newNode != null) {
                     newNode.setStyle("-fx-bar-fill: #700680;");
@@ -544,15 +552,15 @@ public class RHController {
         }
     }
 
-   private void setupStats() {
-       // Example of stats setup
+    private void setupStats() {
+        // Example of stats setup
         updateStats(250, 45, 120, 85);
-   }
+    }
 
     private void updateStats(int total, int nouvelles, int acceptees, int rejetees) {
-       // Add stat display logic
-   }
-//    private void applyRowAnimations() {
+        // Add stat display logic
+    }
+    //    private void applyRowAnimations() {
 //        for (Node row : tableCandidatures.lookupAll("TableRow")) {
 //            TranslateTransition
 //            slideIn = new TranslateTransition(Duration.millis(500), row);

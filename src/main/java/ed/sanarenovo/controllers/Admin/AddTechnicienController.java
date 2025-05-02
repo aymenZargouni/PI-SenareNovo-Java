@@ -83,6 +83,11 @@ public class AddTechnicienController {
             return;
         }
 
+        if (phone.length() > 8) {
+            showAlert(Alert.AlertType.ERROR, "Alert", "Veuillez entrer un numéro valide");
+            return;
+        }
+
         UserService userService = new UserService();
         if (userService.emailExists(email)) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email est déjà utilisé !");

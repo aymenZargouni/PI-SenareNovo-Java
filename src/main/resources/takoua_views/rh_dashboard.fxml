@@ -10,6 +10,7 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="ed.sanarenovo.controllers.takoua.RHController"
             prefWidth="1200" prefHeight="800" stylesheets="@RH.css">
+    <ScrollPane fitToWidth="true" fitToHeight="false" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
 
     <!-- Main Container -->
     <VBox spacing="25" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
@@ -157,4 +158,5 @@
             <Button fx:id="btnRetour" text="Retour à l'accueil" styleClass="button retour-button" onAction="#handleRetour"/>
         </HBox>
     </VBox>
+    </ScrollPane>
 </AnchorPane>

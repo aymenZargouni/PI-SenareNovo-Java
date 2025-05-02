@@ -40,7 +40,7 @@ public class MailSender {
   
    public static void sendEmailWithAttachment(String to, String subject, String body, File attachment) {
         String from = "aymen.zargouni1996@gmail.com";
-        String password = "ntyhkrmqqixlphud"; // Use App Password if needed
+        String password = "ntyhkrmqqixlphud";
 
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -61,7 +61,8 @@ public class MailSender {
             message.setSubject(subject);
 
             MimeBodyPart textPart = new MimeBodyPart();
-            textPart.setText(body);
+            textPart.setContent(body, "text/html; charset=utf-8");
+
 
             MimeBodyPart attachmentPart = new MimeBodyPart();
             attachmentPart.attachFile(attachment);

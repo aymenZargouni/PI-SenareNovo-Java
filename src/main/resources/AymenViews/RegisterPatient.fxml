@@ -11,10 +11,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.web.WebView?>
-<AnchorPane prefHeight="500.0" prefWidth="600.0" styleClass="main-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.PatientController" stylesheets="/AymenViews/style.css">
+<AnchorPane prefHeight="700.0" prefWidth="800.0" styleClass="main-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.PatientController" stylesheets="/AymenViews/style.css">
    <children>
-      <VBox spacing="15" styleClass="content-container"
-            AnchorPane.topAnchor="30.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.bottomAnchor="30.0">
+      <VBox alignment="CENTER" prefHeight="600.0" prefWidth="500.0" spacing="20" styleClass="content-container"
+            AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0"
+            AnchorPane.topAnchor="50.0" AnchorPane.bottomAnchor="50.0">
+
          <children>
             <Label text="Créer un compte Patient" styleClass="section-title" />
 

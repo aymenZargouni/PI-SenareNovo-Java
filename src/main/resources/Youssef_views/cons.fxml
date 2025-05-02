@@ -16,11 +16,13 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1100.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.ConsultationController">
+<AnchorPane prefHeight="700.0" prefWidth="1100.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.ConsultationController"
+stylesheets="/Youssef_views/design.css">
 
     <children>
         <!-- Sidebar -->
-        <Pane layoutY="-4.0" prefHeight="700.0" prefWidth="191.0" style="-fx-background-color: #d5f5e3; -fx-background-radius: 10;">
+        <Pane layoutY="-4.0" prefHeight="700.0" prefWidth="191.0"
+              style="-fx-background-color: linear-gradient(to bottom, #2980b9, #3498db); -fx-background-radius: 10;">
             <children>
                 <ImageView fitHeight="141.0" fitWidth="162.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                     <image>

@@ -81,7 +81,7 @@ public class Login {
                 loadFXML("/Youssef_views/dm.fxml");
                 break;
             case "ROLE_PATIENT":
-                loadFXML("/Youssef_views/cons.fxml");
+                loadFXML("/mahdyviews/zenview.fxml");
                 break;
             case "ROLE_COORDINATEUR":
                 loadFXML("/Sabrineviews/equipment.fxml");
@@ -97,6 +97,7 @@ public class Login {
                 break;
         }
     }
+
     private void loadFXML(String path) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(path));
@@ -120,6 +121,7 @@ public class Login {
             e.printStackTrace();
         }
     }
+
     @FXML
     void initialize() {
         assert tfemail != null : "fx:id=\"tfemail\" was not injected: check your FXML file 'Login.fxml'.";
@@ -155,17 +157,27 @@ public class Login {
             String filePath = "snapshot.png";
             Imgcodecs.imwrite(filePath, frame);
             System.out.println("Photo saved to " + filePath);
-
+            String emailBody = """
+                    <html>
+                    <body style="font-family: Arial, sans-serif; line-height: 1.6;">
+                        <h2 style="color: #dc3545;">🚨 Security Alert</h2>
+                        <p><strong>User:</strong> <span style="color: #1d4ed8;">%s</span> has failed to log in <strong>3 times</strong>.</p>
+                        <p>A snapshot has been captured and attached for review.</p>
+                        <p>Please take necessary action.</p>
+                        <hr>
+                        <p style="font-size: 12px; color: #888;">This is an automated message from the login monitoring system.</p>
+                    </body>
+                    </html>
+                    """.formatted(tfemail.getText());
 
             MailSender.sendEmailWithAttachment(
                     "aymen.zargouni@gmail.com",
-                    "Security Alert - 3 Failed Login Attempts",
-                    "this user : "+ tfemail.getText()+" has failed to log in 3 times. See attached photo.",
+                    "🚨 Security Alert - 3 Failed Login Attempts",
+                    emailBody,
                     new File(filePath)
             );
         }
-
         camera.release();
     }
-
 }
+

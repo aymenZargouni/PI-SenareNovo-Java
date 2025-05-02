@@ -1,8 +1,10 @@
+/* Main background remains the same */
 .main-pane {
-    -fx-background-color: #eafaf1;
+    -fx-background-color: #f0f8ff;
     -fx-padding: 20;
 }
 
+/* Text styles remain unchanged */
 .title-label, .text, .page-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
@@ -10,15 +12,17 @@
     -fx-padding: 0 0 10 0;
 }
 
+/* Changed primary button from green to blue */
 .primary-btn {
-    -fx-background-color: #2ecc71;
+    -fx-background-color: #3498db; /* Changed from #2ecc71 to blue */
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 5;
     -fx-padding: 10 15;
-    -fx-effect: dropshadow(three-pass-box, rgba(46, 204, 113, 0.3), 10, 0, 0, 2);
+    -fx-effect: dropshadow(three-pass-box, rgba(52, 152, 219, 0.3), 10, 0, 0, 2); /* Updated shadow color */
 }
 
+/* Other buttons remain the same */
 .secondary-btn {
     -fx-background-color: #95a5a6;
     -fx-text-fill: white;
@@ -40,13 +44,18 @@
     -fx-padding: 10 20;
 }
 
+/* Table header changed to blue */
+.table-view .column-header-background {
+    -fx-background-color: #d6eaf8; /* Lighter blue instead of #d1f2eb */
+}
+
+/* Everything below remains exactly the same */
 .message-label {
     -fx-text-fill: #2c3e50;
     -fx-font-size: 12px;
     -fx-padding: 5px 0;
 }
 
-/* Form container enhancement */
 VBox {
     -fx-background-color: #ffffff;
     -fx-background-radius: 10;
@@ -55,26 +64,18 @@ VBox {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 10, 0, 0, 0);
 }
 
-/* Table styling */
 .table-view {
     -fx-background-color: white;
     -fx-background-radius: 10;
     -fx-padding: 5;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 10, 0, 0, 0);
 }
-.table-view .column-header-background {
-    -fx-background-color: #d1f2eb;
-}
+
 .table-view .cell {
     -fx-font-size: 13px;
     -fx-text-fill: #2c3e50;
 }
-.main-pane {
-    -fx-background-color: #eafaf1;
-    -fx-padding: 30;
-}
 
-/* Réduction des paddings et tailles */
 .text {
     -fx-font-size: 14px;
     -fx-text-fill: #2c3e50;
@@ -94,9 +95,8 @@ TextField, DatePicker {
     -fx-background-radius: 6;
 }
 
-/* Labels de validation */
 .message-label {
     -fx-font-size: 11px;
     -fx-text-fill: #e74c3c;
-    -fx-padding: 0 0 5 140; /* Aligné avec les champs */
+    -fx-padding: 0 0 5 140;
 }

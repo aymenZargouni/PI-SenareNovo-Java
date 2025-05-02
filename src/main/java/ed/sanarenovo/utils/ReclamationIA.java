@@ -9,7 +9,7 @@ import java.util.*;
 public class ReclamationIA {
 
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
-    private static final String API_KEY = "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"; // Remplace par ta clé OpenRouter
+    private static final String API_KEY = "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"; // Remplace par ta clé OpenRouter
 
     public static String genererRapport(String description) throws IOException {
         OkHttpClient client = new OkHttpClient();

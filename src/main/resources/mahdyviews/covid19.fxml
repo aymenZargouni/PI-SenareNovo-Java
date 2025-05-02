@@ -10,7 +10,9 @@
         <GridPane fx:id="covidGrid" layoutX="30" layoutY="30" hgap="20" vgap="15"
                   style="-fx-font-size: 14px; -fx-padding: 20; -fx-background-color: #f4f9ff; -fx-border-radius: 10; -fx-background-radius: 10;">
         </GridPane>
+
+        <Button  text="Retour" layoutX="30" layoutY="260"
+                 style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6 12; -fx-background-radius: 5;"
+                 onAction="#retour"/>
     </children>
 </AnchorPane>
-
-

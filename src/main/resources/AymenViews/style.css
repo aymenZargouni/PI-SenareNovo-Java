@@ -84,7 +84,11 @@
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-background-radius: 8;
+    -fx-pref-width: 180px; /* Increase width as needed */
     -fx-padding: 10 15;
+    -fx-text-alignment: center;
+    -fx-alignment: CENTER;
+    -fx-wrap-text: true;   /* Allow text to wrap if it's too long */
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
 }

@@ -233,7 +233,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>ed.sanarenovo.tests.MainD</mainClass>
+                    <mainClass>ed.sanarenovo.controllers.Admin.MainApp</mainClass>
                 </configuration>
             </plugin>
         </plugins>
