@@ -3,7 +3,6 @@ package ed.sanarenovo;
 import ed.sanarenovo.entities.Claim;
 import ed.sanarenovo.entities.Equipment;
 import ed.sanarenovo.entities.Historique;
-import ed.sanarenovo.services.ClaimService;
 import ed.sanarenovo.services.EquipmentService;
 import ed.sanarenovo.services.HistoriqueService;
 import ed.sanarenovo.utils.MyConnection;
@@ -59,20 +58,20 @@ public class Main {
             System.out.println("Rapport Detaille: " + equipment.getRapportDetaille());
             System.out.println("----------------------------------");
         }
-        ClaimService claimService = new ClaimService();
-        List<Claim> toutesReclamations = claimService.getAll();
-        for (Claim claim : toutesReclamations) {
-            System.out.println("Claim ID: " + claim.getId());
-            System.out.println("reclamtion "+claim.getReclamation());
+        //ClaimService claimService = new ClaimService();
+        //List<Claim> toutesReclamations = claimService.getAll();
+        //for (Claim claim : toutesReclamations) {
+        //    System.out.println("Claim ID: " + claim.getId());
+        //    System.out.println("reclamtion "+claim.getReclamation());
         }
-        Claim claimToUpdate = ClaimService.getClaimById(4);
-        if (claimToUpdate != null) {
+        //Claim claimToUpdate = ClaimService.getClaimById(4);
+        //if (claimToUpdate != null) {
             // Modifier les propriétés
-            claimToUpdate.setReclamation("Nouvelle description");
-            claimToUpdate.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+            //claimToUpdate.setReclamation("Nouvelle description");
+            //claimToUpdate.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
             // Appeler la mise à jour
-          claimService.updateEntity(claimToUpdate, claimToUpdate.getId());
+          //claimService.updateEntity(claimToUpdate, claimToUpdate.getId());
           //claimService.deleteEntity(17);
             //claimService.claimEquipment(12,4);
 
@@ -83,19 +82,19 @@ public class Main {
             HistoriqueService hs = new HistoriqueService();
 
             // Synchroniser les historiques depuis equipment
-            hs.syncHistoriqueFromEquipment();
+            //hs.syncHistoriqueFromEquipment();
 
             // Afficher les historiques
             List<Historique> historiques = hs.getAllHistoriques();
-            for (Historique h : historiques) {
-                System.out.println("Équipement: " + h.getEquipment().getName() +
-                        ", Modèle: " + h.getEquipment().getModel() +
-                        ", Date réparation: " + h.getDateReparation() +
-                        ", Rapport: " + h.getRapportDetaille());
+            //for (Historique h : historiques) {
+             //   System.out.println("Équipement: " + h.getEquipment().getName() +
+               //         ", Modèle: " + h.getEquipment().getModel() +
+             //           ", Date réparation: " + h.getDateReparation() +
+              //          ", Rapport: " + h.getRapportDetaille());
             }
-            ReportGenerator rg = new ReportGenerator();
-            rg.generateReport(3);  // Remplacer 1 par l'ID de l'équipement pour lequel tu veux générer un rapport
+            //ReportGenerator rg = new ReportGenerator();
+            //rg.generateReport(3);  // Remplacer 1 par l'ID de l'équipement pour lequel tu veux générer un rapport
           //  hs.generateReport(1);
 //            CoordinateurInterface  interfacecor = new CoordinateurInterface();
 //            interfacecor.showReportDownloadMenu();
-    }}}
+    //}}}

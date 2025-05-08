@@ -13,13 +13,13 @@ public class MainAppBlogTest extends Application {
     @Override
     public void start(Stage primaryStage) {
         // Établir la connexion à la base de données
-        try {
+        /*try {
             MyConnection.getInstance();
             System.out.println("Connexion à la base de données établie avec succès.");
         } catch (Exception e) {
             System.err.println("Erreur lors de la connexion à la base de données: " + e.getMessage());
             return;
-        }
+        }*/
 
         try {
             Parent login = FXMLLoader.load(getClass().getResource("/AymenViews/Login.fxml"));
@@ -35,7 +35,7 @@ public class MainAppBlogTest extends Application {
             Parent blogRoot = FXMLLoader.load(getClass().getResource("/Blog/Blog.fxml"));
             Stage blogStage = new Stage();
             Scene blogScene = new Scene(blogRoot);
-            blogScene.getStylesheets().add(getClass().getResource("/Blog/style.css").toExternalForm());
+            //blogScene.getStylesheets().add(getClass().getResource("/Blog/style.css").toExternalForm());
             blogStage.setTitle("Gestion Blog");
             blogStage.setScene(blogScene);
             blogStage.show();
@@ -43,7 +43,7 @@ public class MainAppBlogTest extends Application {
             System.err.println("Erreur lors du chargement de Blog.fxml: " + e.getMessage());
         }
 
-        try {
+        /*try {
             Parent categoryRoot = FXMLLoader.load(getClass().getResource("/Blog/Category.fxml"));
             Stage categoryStage = new Stage();
             categoryStage.setTitle("Gestion Category");
@@ -51,7 +51,7 @@ public class MainAppBlogTest extends Application {
             categoryStage.show();
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de Category.fxml: " + e.getMessage());
-        }
+        }*/
 
         try {
             Parent BclientRoot = FXMLLoader.load(getClass().getResource("/Blog/BlogClient.fxml"));
@@ -64,7 +64,7 @@ public class MainAppBlogTest extends Application {
             System.err.println("Erreur lors du chargement de BlogClient.fxml");
         }
 
-        try {
+        /*try {
             Parent chatRoot = FXMLLoader.load(getClass().getResource("/Blog/chatBot_view.fxml"));
             Stage chatStage = new Stage();
             chatStage.setTitle("Chat Boot AI");
@@ -95,7 +95,7 @@ public class MainAppBlogTest extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Erreur lors du chargement de ChatBloot.fxml");
-        }
+        }*/
 
     }
 

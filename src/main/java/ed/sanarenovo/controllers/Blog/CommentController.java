@@ -62,12 +62,12 @@ public class CommentController {
         });
 
         // Configuration des colonnes de réponses
-        colReplyContent.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getContent()));
-        colReplyAuthor.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getUserEmail()));
-        colReplyDate.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getFormattedDate()));
+        colReplyContent.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getContent()));
+        colReplyAuthor.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getUserEmail()));
+        colReplyDate.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getFormattedDate()));
 
         UserSession session = UserSession.getInstance();
         if (session != null && session.isLoggedIn()) {
@@ -106,7 +106,7 @@ public class CommentController {
         }
 
         boolean isAdmin = currentUser.getRoles() != null && currentUser.getRoles().contains("ROLE_ADMIN");
-        
+
         // Les admins peuvent tout faire
         if (isAdmin) {
             btnDelete.setVisible(true);
@@ -117,7 +117,7 @@ public class CommentController {
             btnUpdate.setVisible(false);
             btnDeleteReply.setVisible(false);
         }
-        
+
         // Tout utilisateur connecté peut ajouter des commentaires et répondre
         btnAdd.setVisible(true);
         btnReply.setVisible(true);
@@ -177,8 +177,8 @@ public class CommentController {
             return;
         }
 
-        if (currentUser != null && currentUser.getRoles() != null && 
-            currentUser.getRoles().contains("ROLE_ADMIN")) {
+        if (currentUser != null && currentUser.getRoles() != null &&
+                currentUser.getRoles().contains("ROLE_ADMIN")) {
             Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
             confirmation.setTitle("Confirmation de suppression");
             confirmation.setHeaderText(null);
@@ -268,7 +268,7 @@ public class CommentController {
         Comment selectedComment = tableComments.getSelectionModel().getSelectedItem(); //Récupération du commentaire sélectionné
         if (selectedComment != null) { // Seul un admin peut supprimer des commentaires.
             if (currentUser != null && currentUser.getRoles() != null &&
-                currentUser.getRoles().contains("ROLE_ADMIN")) {
+                    currentUser.getRoles().contains("ROLE_ADMIN")) {
                 commentService.deleteComment(selectedComment.getId());
                 refreshTable();
             } else {
@@ -284,7 +284,7 @@ public class CommentController {
         Comment selectedComment = tableComments.getSelectionModel().getSelectedItem();
         if (selectedComment != null) {
             if (currentUser != null && currentUser.getRoles() != null &&
-                currentUser.getRoles().contains("ROLE_ADMIN")) {
+                    currentUser.getRoles().contains("ROLE_ADMIN")) {
                 String newContent = txtContent.getText().trim();
                 if (!newContent.isEmpty()) {
                     selectedComment.setContent(newContent);

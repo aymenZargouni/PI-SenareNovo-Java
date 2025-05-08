@@ -15,6 +15,8 @@ import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
+import javafx.scene.text.Text;
 import ed.sanarenovo.entities.Blog;
 import ed.sanarenovo.services.BlogServices;
 import ed.sanarenovo.entities.User;
@@ -24,6 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -66,7 +69,7 @@ public class BlogController implements Initializable {
     @FXML private TableColumn<Blog, String> colCategory;
 
     @FXML private TextField txtTitle;
-    @FXML private TextField txtContent;
+    @FXML private TextArea  txtContent;
     @FXML private TextField txtImage;
     @FXML private TextField txtSearch;
     @FXML private Label lblPage;
@@ -85,11 +88,15 @@ public class BlogController implements Initializable {
 
     private BlogServices blogService = new BlogServices();
 
+    @FXML private Text captchaText;
+    @FXML private TextField captchaInput;
+    private String currentCaptcha;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Vérification de l'accès administrateur
-        //checkAdminAccess();
-
+        checkAdminAccess();
+        generateCaptcha();
         colId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         colTitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
         colContent.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContent()));
@@ -181,6 +188,13 @@ public class BlogController implements Initializable {
         showPage(currentPage);
     }
 
+    // Ajoutez cette méthode pour générer le CAPTCHA
+    private void generateCaptcha() {
+        currentCaptcha = CaptchaGenerator.generateCaptcha(6);
+        captchaText.setText(currentCaptcha);
+        captchaInput.clear();
+    }
+
     private void checkAdminAccess() {
         // Récupération de la session utilisateur
         UserSession session = UserSession.getInstance();
@@ -222,6 +236,12 @@ public class BlogController implements Initializable {
 
     @FXML
     private void addBlog() {
+        // Vérification du CAPTCHA d'abord
+        if (!captchaInput.getText().equals(currentCaptcha)) {
+            showAlert(Alert.AlertType.ERROR, "Erreur CAPTCHA", "Le CAPTCHA saisi est incorrect !");
+            generateCaptcha();
+            return;
+        }
         // Récupère le texte des champs et supprime les espaces inutiles
         String title = txtTitle.getText().trim();
         String content = txtContent.getText().trim();
@@ -248,7 +268,7 @@ public class BlogController implements Initializable {
         blogService.addBlog(blog);
         refreshTable();
         clearFields();
-
+        generateCaptcha();
     }
 
     private void showAlert(Alert.AlertType type, String title, String content) {
@@ -475,7 +495,7 @@ public class BlogController implements Initializable {
     private void openCategoriesPage() {
         try {
             // Chargement de la page des catégories
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/BlogCategory.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/Category.fxml"));
             Parent root = loader.load();
             
             // Récupération de la scène actuelle
