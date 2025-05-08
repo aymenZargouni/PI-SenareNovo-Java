@@ -2,102 +2,115 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/17"
+<BorderPane prefHeight="600.0" prefWidth="900.0"
+            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/"
             fx:controller="ed.sanarenovo.controllers.Blog.BlogController"
-            stylesheets="@/Blog/css/BlogStyle.css"
-            prefHeight="600.0" prefWidth="800.0">
+            stylesheets="@/Blog/css/BlogStyle.css">
 
-   <children>
+   <top>
+      <Label text="Gestion Blog" styleClass="main-title"
+             BorderPane.alignment="CENTER"/>
+   </top>
 
-      <VBox spacing="15" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
-            AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
-         <padding>
-            <Insets top="20" right="20" bottom="20" left="20"/>
-         </padding>
-
-         <!-- Table -->
-         <TableView fx:id="tableBlog" prefHeight="200.0">
+   <center>
+      <VBox spacing="15" styleClass="main-container">
+         <!-- TableView for Blog Entries -->
+         <SplitPane orientation="VERTICAL">
+         <TableView fx:id="tableBlog">
             <columns>
-               <TableColumn fx:id="colId" text="ID"/>
-               <TableColumn fx:id="colTitle" text="Titre"/>
-               <TableColumn fx:id="colContent" text="Contenue"/>
-               <TableColumn fx:id="colImage" text="Image"/>
-               <TableColumn fx:id="colCategory" text="Catégories" prefWidth="150"/>
+               <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+               <TableColumn fx:id="colTitle" text="Titre" prefWidth="200"/>
+               <TableColumn fx:id="colContent" text="Contenu" prefWidth="300"/>
+               <TableColumn fx:id="colImage" text="Image" prefWidth="150"/>
+               <TableColumn fx:id="colCategory" text="Catégorie" prefWidth="150"/>
             </columns>
          </TableView>
+         </SplitPane>
 
-         <!-- Formulaire -->
-         <VBox spacing="10">
-            <HBox spacing="10">
-               <Label text="Titre :" minWidth="80"/>
-               <TextField fx:id="txtTitle" promptText="Titre"/>
-               <Button fx:id="btnAdd" text="Ajouter" onAction="#addBlog"/>
+
+         <!-- Form Layout for Adding/Editing Blogs -->
+         <GridPane styleClass="form-container" hgap="10" vgap="10">
+            <columnConstraints>
+               <ColumnConstraints hgrow="NEVER" prefWidth="100"/>
+               <ColumnConstraints hgrow="ALWAYS" prefWidth="400"/>
+               <ColumnConstraints hgrow="NEVER" prefWidth="200"/>
+            </columnConstraints>
+
+            <!-- Titre -->
+            <Label text="Titre :" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtTitle" promptText="Titre" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <HBox spacing="5" GridPane.rowIndex="0" GridPane.columnIndex="2">
+               <Label text="CAPTCHA :"/>
+               <Text fx:id="captchaText" styleClass="captcha-text"/>
             </HBox>
 
-            <HBox spacing="10">
-               <Label text="Contenue :" minWidth="80"/>
-               <TextField fx:id="txtContent" promptText="Contenue"/>
-               <Button fx:id="btnUpdate" text="Modifier" onAction="#updateBlog"/>
+            <!-- Contenu -->
+            <Label text="Contenu :" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextArea fx:id="txtContent" promptText="Contenu" wrapText="true" prefHeight="100" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <HBox spacing="5" GridPane.rowIndex="1" GridPane.columnIndex="2">
+               <TextField fx:id="captchaInput" promptText="Entrez le CAPTCHA" styleClass="captcha-input"/>
             </HBox>
 
-            <HBox spacing="10">
-               <Label text="Image :" minWidth="80"/>
-               <TextField fx:id="txtImage" promptText="Image"/>
-               <Button text="Choisir une image" onAction="#chooseImage"/>
-               <Button fx:id="btnDelete" text="Supprimer" onAction="#deleteBlog"/>
+            <!-- Image -->
+            <Label text="Image :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <HBox spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="1">
+               <TextField fx:id="txtImage" promptText="Chemin de l'image" styleClass="image-path"/>
+               <Button text="Parcourir" minWidth="100" onAction="#chooseImage" styleClass="secondary-button"/>
             </HBox>
 
-            <HBox spacing="10">
-               <Label text="Catégories :" minWidth="80"/>
-               <ListView fx:id="listCategories" prefHeight="80" prefWidth="200"/>
-            </HBox>
-         </VBox>
+            <!-- Catégories -->
+            <Label text="Catégories :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <ListView fx:id="listCategories" prefHeight="100" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
+         </GridPane>
 
-         <!-- Filtres -->
-         <VBox spacing="10">
-            <Label text="Filtres"/>
-            <HBox spacing="10">
-               <ComboBox fx:id="filterCategory" promptText="Filtrer par catégorie"/>
-               <Button text="Appliquer les filtres" onAction="#applyFilters"/>
-               <Button text="Réinitialiser" onAction="#resetFilters"/>
-            </HBox>
-         </VBox>
-
-         <!-- Recherche et actions -->
-         <HBox spacing="10">
-            <Label text="Recherche :"/>
-            <TextField fx:id="txtSearch" promptText="Rechercher par titre"/>
-            <Button text="Rechercher" onAction="#searchBlog"/>
-            <Button text="Translate" onAction="#handleTranslate"/>
-            <Button text="Télécharger PDF" onAction="#handleDownloadPdf"/>
-            <Button text="Écouter" onAction="#handleListen"/>
-         </HBox>
-
-         <!-- Résultat de traduction -->
-         <HBox spacing="10">
-            <Label text="Titre traduit :"/>
-            <Label fx:id="blogTitle" text="..."/>
-         </HBox>
-         <HBox spacing="10">
-            <Label text="Contenu traduit :"/>
-            <TextArea fx:id="blogContent" prefHeight="80"/>
-         </HBox>
-
-         <!-- Navigation -->
+         <!-- Action Buttons -->
          <HBox spacing="10" alignment="CENTER">
-            <Button fx:id="btnPrevious" text="&lt; Précédent" onAction="#previousPage"/>
-            <Button fx:id="btnNext" text="Suivant &gt;" onAction="#nextPage"/>
-            <Label fx:id="lblPage" text="Page 1"/>
-            <Button fx:id="btnCategories" text="Gérer les catégories" onAction="#handleOpenCategoryPage"/>
-            <Button fx:id="btnCommenter" text="Commenter" onAction="#openCommentPage"/>
-            <Button text="Voir les statistiques"
-                    onAction="#handleOpenStats" layoutX="20" layoutY="20"/>
-
+            <Button fx:id="btnAdd" text="Ajouter" minWidth="100" styleClass="primary-button" onAction="#addBlog"/>
+            <Button fx:id="btnUpdate" text="Modifier" minWidth="100" styleClass="secondary-button" onAction="#updateBlog"/>
+            <Button fx:id="btnDelete" text="Supprimer" minWidth="100" styleClass="danger-button" onAction="#deleteBlog"/>
          </HBox>
-      </VBox>
 
-   </children>
-</AnchorPane>
+         <!-- Filter and Search Section -->
+         <VBox spacing="10" styleClass="action-section">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+               <Label text="Filtrer par catégorie :" styleClass="section-label"/>
+               <ComboBox fx:id="filterCategory" promptText="Toutes catégories" styleClass="filter-combo"/>
+               <Button text="Appliquer" minWidth="100" onAction="#applyFilters" styleClass="filter-button"/>
+               <Button text="Réinitialiser" minWidth="100" onAction="#resetFilters" styleClass="reset-button"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+               <Label text="Rechercher :" styleClass="section-label"/>
+               <TextField fx:id="txtSearch" promptText="Rechercher par titre" styleClass="search-field"/>
+               <Button text="Rechercher" minWidth="100" onAction="#searchBlog" styleClass="search-button"/>
+               <Button text="Traduire" minWidth="100" onAction="#handleTranslate" styleClass="action-button"/>
+               <Button text="PDF" minWidth="100" onAction="#handleDownloadPdf" styleClass="action-button"/>
+               <Button text="Écouter" minWidth="100" onAction="#handleListen" styleClass="action-button"/>
+            </HBox>
+         </VBox>
+
+         <!-- Translation Section -->
+         <VBox spacing="5" styleClass="translation-section">
+            <Label text="Traduction" styleClass="section-label"/>
+            <Label text="Titre traduit :" styleClass="sub-label"/>
+            <Label fx:id="blogTitle" text="..." styleClass="translated-text"/>
+            <Label text="Contenu traduit :" styleClass="sub-label"/>
+            <TextArea fx:id="blogContent" prefHeight="100" styleClass="translated-content" wrapText="true" editable="false"/>
+         </VBox>
+      </VBox>
+   </center>
+
+   <bottom>
+      <HBox spacing="10" alignment="CENTER" styleClass="navigation-bar">
+         <Button fx:id="btnPrevious" text="&lt; Précédent" minWidth="100" onAction="#previousPage" styleClass="nav-button"/>
+         <Label fx:id="lblPage" text="Page 1" styleClass="page-label"/>
+         <Button fx:id="btnNext" text="Suivant >" minWidth="100" onAction="#nextPage" styleClass="nav-button"/>
+         <Button fx:id="btnCategories" text="Gérer les catégories" minWidth="150" onAction="#openCategoriesPage" styleClass="category-button"/>
+         <Button fx:id="btnCommenter" text="Commenter" minWidth="100" onAction="#openCommentPage" styleClass="comment-button"/>
+      </HBox>
+   </bottom>
+</BorderPane>

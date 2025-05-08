@@ -66,12 +66,12 @@ public class CommentClientController {
 
         // Configuration des colonnes de réponses
         if (replyTable != null && colReplyContent != null && colReplyAuthor != null && colReplyDate != null) {
-            colReplyContent.setCellValueFactory(cellData -> 
-                new SimpleStringProperty(cellData.getValue().getContent()));
-            colReplyAuthor.setCellValueFactory(cellData -> 
-                new SimpleStringProperty(cellData.getValue().getUserEmail()));
-            colReplyDate.setCellValueFactory(cellData -> 
-                new SimpleStringProperty(cellData.getValue().getFormattedDate()));
+            colReplyContent.setCellValueFactory(cellData ->
+                    new SimpleStringProperty(cellData.getValue().getContent()));
+            colReplyAuthor.setCellValueFactory(cellData ->
+                    new SimpleStringProperty(cellData.getValue().getUserEmail()));
+            colReplyDate.setCellValueFactory(cellData ->
+                    new SimpleStringProperty(cellData.getValue().getFormattedDate()));
         }
 
         // Récupérer l'utilisateur connecté
@@ -92,7 +92,7 @@ public class CommentClientController {
             tableComment.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
                 // Mettre à jour la visibilité des boutons en fonction de la sélection
                 updateButtonVisibility();
-                
+
                 // Si un commentaire est sélectionné
                 if (newSelection != null) {
                     // Afficher le contenu du commentaire dans le TextField
@@ -112,21 +112,21 @@ public class CommentClientController {
     private void updateButtonVisibility() {
         UserSession session = UserSession.getInstance();
         boolean isLoggedIn = session != null && session.isLoggedIn();
-        
+
         if (btnAdd != null) btnAdd.setVisible(isLoggedIn);
-        
+
         Comment selectedComment = tableComment != null ? tableComment.getSelectionModel().getSelectedItem() : null;
         if (selectedComment != null) {
             User currentUser = session != null ? session.getUser() : null;
-            boolean isOwner = currentUser != null && selectedComment.getUser() != null && 
+            boolean isOwner = currentUser != null && selectedComment.getUser() != null &&
                     selectedComment.getUser().getId() == currentUser.getId();
-            boolean isAdmin = currentUser != null && currentUser.getRoles() != null && 
+            boolean isAdmin = currentUser != null && currentUser.getRoles() != null &&
                     currentUser.getRoles().contains("ROLE_ADMIN");
-            
+
             if (btnUpdate != null) btnUpdate.setVisible(isOwner || isAdmin);
             if (btnDelete != null) btnDelete.setVisible(isOwner || isAdmin);
             if (btnReply != null) btnReply.setVisible(isLoggedIn);
-            
+
             // Charger les réponses pour le commentaire sélectionné
             if (replyTable != null) {
                 loadReplies(selectedComment.getId());
@@ -369,7 +369,7 @@ public class CommentClientController {
             Stage stage = new Stage();
             stage.setTitle("Répondre au commentaire");
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/Blog/css/CommentStyle.css").toExternalForm());
+            //scene.getStylesheets().add(getClass().getResource("/Blog/css/CommentStyle.css").toExternalForm());
             stage.setScene(scene);
             stage.showAndWait();
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ed.sanarenovo.controllers.Blog.DashboardController"
+      stylesheets="@/Blog/css/dashboardStyle.css"
+      spacing="10" style="-fx-padding: 10;" VBox.vgrow="ALWAYS">
+
+    <Label text="Tableau de bord COVID-19" styleClass="title"/>
+
+    <HBox spacing="15" style="-fx-padding: 5;" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+        <BarChart fx:id="casesChart" title="Top 10 Pays par cas confirmés"
+                  HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"
+                  legendVisible="false" minHeight="400">
+            <xAxis><CategoryAxis label="Pays"/></xAxis>
+            <yAxis><NumberAxis label="Cas confirmés"/></yAxis>
+        </BarChart>
+
+        <PieChart fx:id="countryPieChart" title="Répartition par pays (Top 10)"
+                  HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"
+                  minHeight="400" legendVisible="false"/>
+    </HBox>
+
+    <VBox fx:id="mapContainer" spacing="10" style="-fx-padding: 5;" VBox.vgrow="ALWAYS">
+        <Label text="Carte des foyers épidémiques" styleClass="subtitle"/>
+    </VBox>
+</VBox>
