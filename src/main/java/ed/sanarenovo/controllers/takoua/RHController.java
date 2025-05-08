@@ -402,7 +402,6 @@ public class RHController {
             showAlert("Erreur", "Veuillez sélectionner une candidature avec un CV.");
         }
     }
-    // Modifiez cette méthode pour gérer correctement les types
     private void showCVAnalysis(Candidature candidature, Map<String, Object> analysis) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Analyse du CV - " + candidature.getNom() + " " + candidature.getPrenom());

@@ -9,7 +9,7 @@
             stylesheets="/takoua_views/OffreView.css">
 
     <children>
-        
+
 
         <!-- Champ de recherche -->
         <TextField fx:id="searchFieldOffres" promptText="Rechercher par titre..."
