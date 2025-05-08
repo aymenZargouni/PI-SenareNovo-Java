@@ -10,6 +10,7 @@
 
     <children>
 
+
         <!-- Champ de recherche -->
         <TextField fx:id="searchFieldOffres" promptText="Rechercher par titre..."
                    AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />

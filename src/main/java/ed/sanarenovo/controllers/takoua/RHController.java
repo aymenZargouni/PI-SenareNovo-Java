@@ -207,7 +207,7 @@ public class RHController {
             };
         }
 
-    }
+}
 
 
     // Initialize Offre table
@@ -402,7 +402,6 @@ public class RHController {
             showAlert("Erreur", "Veuillez sélectionner une candidature avec un CV.");
         }
     }
-    // Modifiez cette méthode pour gérer correctement les types
     private void showCVAnalysis(Candidature candidature, Map<String, Object> analysis) {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Analyse du CV - " + candidature.getNom() + " " + candidature.getPrenom());
@@ -552,15 +551,15 @@ public class RHController {
         }
     }
 
-    private void setupStats() {
-        // Example of stats setup
+   private void setupStats() {
+       // Example of stats setup
         updateStats(250, 45, 120, 85);
-    }
+   }
 
     private void updateStats(int total, int nouvelles, int acceptees, int rejetees) {
-        // Add stat display logic
-    }
-    //    private void applyRowAnimations() {
+       // Add stat display logic
+   }
+//    private void applyRowAnimations() {
 //        for (Node row : tableCandidatures.lookupAll("TableRow")) {
 //            TranslateTransition
 //            slideIn = new TranslateTransition(Duration.millis(500), row);

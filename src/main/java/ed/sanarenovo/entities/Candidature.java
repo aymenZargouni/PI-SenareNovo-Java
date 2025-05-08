@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class Candidature {
     private Map<String, Double> analysisResults; // Nouveau champ
+    private Integer analysisScore = 0; // Default to 0 instead of null
 
     private int id;
     private String nom;
@@ -17,7 +18,6 @@ public class Candidature {
     private Date dateCandidature;
     private Offre offre;
     private String statut; // EN_ATTENTE, ACCEPTEE, REFUSEE
-    private Integer analysisScore;
 
     // Getters and setters
 
