@@ -77,64 +77,64 @@ public class ClaimService implements IService<Claim> {
         }
     }
 
-private void addToGoogleCalendar(Claim claim) throws GeneralSecurityException, IOException {
-    final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-    Calendar service = new Calendar.Builder(
-            HTTP_TRANSPORT,
-            GsonFactory.getDefaultInstance(),
-            CredentialService.getCredentials(HTTP_TRANSPORT))
-            .setApplicationName("SanareNovo Claims")
-            .build();
+    private void addToGoogleCalendar(Claim claim) throws GeneralSecurityException, IOException {
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Calendar service = new Calendar.Builder(
+                HTTP_TRANSPORT,
+                GsonFactory.getDefaultInstance(),
+                CredentialService.getCredentials(HTTP_TRANSPORT))
+                .setApplicationName("SanareNovo Claims")
+                .build();
 
-    // Formater la description avec plus de détails
-    String description = "Détails de la réclamation:\n\n" +
-            "ID: " + claim.getId() + "\n" +
-            "Équipement: " + claim.getEquipment().getName() + "\n" +
-            "Statut: " + claim.getEquipment().getStatus() + "\n" +
-            "Description: " + claim.getReclamation() + "\n\n" +
-            "Technicien assigné: " +
-            (claim.getTechnicien() != null ? claim.getTechnicien().getNom() : "Non assigné");
+        // Formater la description avec plus de détails
+        String description = "Détails de la réclamation:\n\n" +
+                "ID: " + claim.getId() + "\n" +
+                "Équipement: " + claim.getEquipment().getName() + "\n" +
+                "Statut: " + claim.getEquipment().getStatus() + "\n" +
+                "Description: " + claim.getReclamation() + "\n\n" +
+                "Technicien assigné: " +
+                (claim.getTechnicien() != null ? claim.getTechnicien().getNom() : "Non assigné");
 
-    Event event = new Event()
-            .setSummary("[Réclamation #" + claim.getId() + "] " + claim.getEquipment().getName())
-            .setDescription(description)
-            .setColorId("6"); // Couleur orange pour les réclamations
+        Event event = new Event()
+                .setSummary("[Réclamation #" + claim.getId() + "] " + claim.getEquipment().getName())
+                .setDescription(description)
+                .setColorId("6"); // Couleur orange pour les réclamations
 
-    Date startDate = new Date(claim.getCreatedAt().getTime());
-    Date endDate = new Date(startDate.getTime() + 3600000); // +1h
+        Date startDate = new Date(claim.getCreatedAt().getTime());
+        Date endDate = new Date(startDate.getTime() + 3600000); // +1h
 
-    event.setStart(new EventDateTime().setDateTime(new com.google.api.client.util.DateTime(startDate)));
-    event.setEnd(new EventDateTime().setDateTime(new com.google.api.client.util.DateTime(endDate)));
-    System.out.println("Technicien: " + claim.getTechnicien());
-    System.out.println("User: " + (claim.getTechnicien() != null ? claim.getTechnicien().getUser() : "null"));
+        event.setStart(new EventDateTime().setDateTime(new com.google.api.client.util.DateTime(startDate)));
+        event.setEnd(new EventDateTime().setDateTime(new com.google.api.client.util.DateTime(endDate)));
+        System.out.println("Technicien: " + claim.getTechnicien());
+        System.out.println("User: " + (claim.getTechnicien() != null ? claim.getTechnicien().getUser() : "null"));
 
-    Technicien technicien = claim.getTechnicien();
-    if (technicien != null) {
-        User user = technicien.getUser();
-        if (user != null && user.getEmail() != null) {
-            event.setAttendees(Collections.singletonList(
-                    new EventAttendee()
-                            .setEmail(user.getEmail())
-                            .setDisplayName(technicien.getNom())
-            ));
+        Technicien technicien = claim.getTechnicien();
+        if (technicien != null) {
+            User user = technicien.getUser();
+            if (user != null && user.getEmail() != null) {
+                event.setAttendees(Collections.singletonList(
+                        new EventAttendee()
+                                .setEmail(user.getEmail())
+                                .setDisplayName(technicien.getNom())
+                ));
 
 
-            // Configuration des rappels (corrigé)
-            EventReminder[] reminderOverrides = new EventReminder[]{
-                    new EventReminder().setMethod("email").setMinutes(10),
-                    new EventReminder().setMethod("popup").setMinutes(30)
-            };
+                // Configuration des rappels (corrigé)
+                EventReminder[] reminderOverrides = new EventReminder[]{
+                        new EventReminder().setMethod("email").setMinutes(10),
+                        new EventReminder().setMethod("popup").setMinutes(30)
+                };
 
-            Event.Reminders reminders = new Event.Reminders()
-                    .setUseDefault(false)
-                    .setOverrides(Arrays.asList(reminderOverrides));
+                Event.Reminders reminders = new Event.Reminders()
+                        .setUseDefault(false)
+                        .setOverrides(Arrays.asList(reminderOverrides));
 
-            event.setReminders(reminders);
+                event.setReminders(reminders);
+            }
+
+            service.events().insert("primary", event).execute();
         }
-
-        service.events().insert("primary", event).execute();
     }
-}
 
     // Toutes les autres méthodes restent inchangées
     @Override
@@ -253,17 +253,16 @@ private void addToGoogleCalendar(Claim claim) throws GeneralSecurityException, I
         }
         return claims;
     }
-
-    public void claimEquipment(Equipment equipment, int technicienId, String description) {
+    
+    public void claimEquipment (Equipment equipment,int technicienId, String description){
         if (containsBadWords(description)) {
             System.err.println("Réclamation refusée : langage inapproprié détecté.");
             return;
         }
         ClaimService claimService = new ClaimService();
-
         Claim claim = new Claim();
         claim.setEquipment(equipment);
-        claim.setReclamation(description);
+        claim.setReclamation(description); // Utilisation de la description dynamique
         claim.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         equipment.setStatus("panne");
 
@@ -293,10 +292,6 @@ private void addToGoogleCalendar(Claim claim) throws GeneralSecurityException, I
 
             statement.executeUpdate();
             System.out.println("Réclamation enregistrée avec succès!");
-
-            // Ajout au calendrier
-            addToGoogleCalendar(claim);
-
             // Envoi SMS
             SmsService smsService = new SmsService();
             String message = "Bonjour " + technicien.getNom() + ",\n\n"
@@ -306,6 +301,9 @@ private void addToGoogleCalendar(Claim claim) throws GeneralSecurityException, I
                     + "Merci de traiter cette demande dans les plus brefs délais.\n\n"
                     + "Cordialement,\nVotre service technique";
             smsService.sendSms(technicien.getPhoneNumber(), message);
+            // Ajout au calendrier
+            addToGoogleCalendar(claim);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -425,12 +423,14 @@ private void addToGoogleCalendar(Claim claim) throws GeneralSecurityException, I
         try (Connection conn = MyConnection.getInstance().getCnx();
              PreparedStatement pst = conn.prepareStatement(query)) {
             pst.setString(1, status);
-            pst.setDate(2,  repairDate);
+            pst.setDate(2, repairDate);
             pst.setString(3, rapport);
             pst.setInt(4, equipmentId);
             pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
- }
-}
-}
+        }
+    }
+
+
+    }

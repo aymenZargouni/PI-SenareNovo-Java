@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,7 +34,7 @@ import javafx.scene.control.ListCell;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import java.io.File;
+        import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -91,18 +92,18 @@ public class BlogClientController {
         colTitle.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getTitle()));
         colContent.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getContent()));
         colImage.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getImage()));
-        
+
         // Configuration de la colonne image pour afficher l'image elle-même
         colImage.setCellFactory(column -> new TableCell<Blog, String>() {
             private final ImageView imageView = new ImageView();
-            
+
             {
                 imageView.setFitWidth(150);
                 imageView.setFitHeight(100);
                 imageView.setPreserveRatio(true);
                 setStyle("-fx-alignment: CENTER;");
             }
-            
+
             @Override
             protected void updateItem(String imageUrl, boolean empty) {
                 super.updateItem(imageUrl, empty);
@@ -130,7 +131,7 @@ public class BlogClientController {
                                 image = new Image("file:" + imageUrl);
                             }
                         }
-                        
+
                         if (image != null && !image.isError()) {
                             imageView.setImage(image);
                             setGraphic(imageView);
@@ -160,7 +161,7 @@ public class BlogClientController {
 
         List<Category> categories = categoryService.getCategorys();
         cmbCategory.setItems(FXCollections.observableArrayList(categories));
-        
+
         // Personnaliser l'affichage des catégories dans le ComboBox
         cmbCategory.setCellFactory(lv -> new ListCell<Category>() {
             @Override
@@ -169,7 +170,7 @@ public class BlogClientController {
                 setText(empty ? "" : item.getName());
             }
         });
-        
+
         // Personnaliser l'affichage du bouton du ComboBox
         cmbCategory.setButtonCell(new ListCell<Category>() {
             @Override
@@ -178,7 +179,7 @@ public class BlogClientController {
                 setText(empty ? "" : item == null ? "" : item.getName());
             }
         });
-        
+
         cmbCategory.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 filterBlogsByCategory(newVal);
@@ -392,7 +393,7 @@ public class BlogClientController {
             showAlert(Alert.AlertType.WARNING, "Attention", "Veuillez sélectionner un blog à traduire.");
         }
     }
-    
+
     @FXML
     private void downloadPDF() {
         Blog selectedBlog = tableBlog.getSelectionModel().getSelectedItem();
@@ -402,26 +403,26 @@ public class BlogClientController {
                 String downloadsPath = System.getProperty("user.home") + "/Downloads/";
                 String fileName = selectedBlog.getTitle().replaceAll("[^a-zA-Z0-9]", "_") + ".pdf";
                 File file = new File(downloadsPath + fileName);
-                
+
                 // Créer le document PDF
                 Document document = new Document();
                 PdfWriter.getInstance(document, new FileOutputStream(file));
                 document.open();
-                
+
                 // Ajouter le titre
                 Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
                 Paragraph title = new Paragraph(selectedBlog.getTitle(), titleFont);
                 title.setAlignment(Element.ALIGN_CENTER);
                 title.setSpacingAfter(20);
                 document.add(title);
-                
+
                 // Ajouter la date
                 Font dateFont = FontFactory.getFont(FontFactory.HELVETICA, 12);
                 Paragraph date = new Paragraph("Date: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), dateFont);
                 date.setAlignment(Element.ALIGN_RIGHT);
                 date.setSpacingAfter(20);
                 document.add(date);
-                
+
                 // Ajouter l'image si elle existe
                 if (selectedBlog.getImage() != null && !selectedBlog.getImage().isEmpty()) {
                     try {
@@ -434,7 +435,7 @@ public class BlogClientController {
                             // Charger l'image depuis le système de fichiers
                             image = com.itextpdf.text.Image.getInstance(selectedBlog.getImage());
                         }
-                        
+
                         if (image != null) {
                             // Redimensionner l'image pour qu'elle s'adapte à la page
                             float documentWidth = document.getPageSize().getWidth() - document.leftMargin() - document.rightMargin();
@@ -447,7 +448,7 @@ public class BlogClientController {
                         System.err.println("Erreur lors du chargement de l'image: " + e.getMessage());
                     }
                 }
-                
+
                 // Ajouter la catégorie
                 if (selectedBlog.getCategories() != null && !selectedBlog.getCategories().isEmpty()) {
                     Font categoryFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 14);
@@ -455,27 +456,27 @@ public class BlogClientController {
                     category.setSpacingAfter(20);
                     document.add(category);
                 }
-                
+
                 // Ajouter le contenu
                 Font contentFont = FontFactory.getFont(FontFactory.HELVETICA, 12);
                 Paragraph content = new Paragraph(selectedBlog.getContent(), contentFont);
                 content.setSpacingAfter(20);
                 document.add(content);
-                
+
                 // Fermer le document
                 document.close();
-                
+
                 // Ouvrir le fichier PDF automatiquement
                 if (Desktop.isDesktopSupported()) {
                     Desktop.getDesktop().open(file);
                 }
-                
-                showAlert(Alert.AlertType.INFORMATION, "Succès", 
-                         "Le PDF a été généré avec succès et sauvegardé dans votre dossier Downloads.");
+
+                showAlert(Alert.AlertType.INFORMATION, "Succès",
+                        "Le PDF a été généré avec succès et sauvegardé dans votre dossier Downloads.");
             } catch (Exception e) {
                 e.printStackTrace();
-                showAlert(Alert.AlertType.ERROR, "Erreur", 
-                         "Une erreur est survenue lors de la génération du PDF: " + e.getMessage());
+                showAlert(Alert.AlertType.ERROR, "Erreur",
+                        "Une erreur est survenue lors de la génération du PDF: " + e.getMessage());
             }
         } else {
             showAlert(Alert.AlertType.WARNING, "Attention", "Veuillez sélectionner un blog à télécharger en PDF.");
@@ -527,5 +528,21 @@ public class BlogClientController {
             showAlert(Alert.AlertType.ERROR, "Erreur TTS", e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void handleOpenChatBootAI(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/chatbot_view.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+    }
+
+    @FXML
+    private void handleOpenPageQASante(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/ChatbootSante.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
     }
 }

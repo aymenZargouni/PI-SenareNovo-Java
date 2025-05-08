@@ -1,6 +1,8 @@
 package ed.sanarenovo.controllers.Blog;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,7 +39,7 @@ public class CategoryController {
     @FXML
     public void initialize() {
         // Vérification de l'accès administrateur
-        //checkAdminAccess();
+        checkAdminAccess();
 
         colId.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getId()).asObject());
@@ -52,7 +54,7 @@ public class CategoryController {
                 txtName.setText(newSelection.getName());
             }
         });
-        
+
         // Set full screen mode
         javafx.application.Platform.runLater(() -> {
             Stage stage = (Stage) tableCategory.getScene().getWindow();
@@ -65,7 +67,7 @@ public class CategoryController {
     private void checkAdminAccess() {
         // Récupération de la session utilisateur
         UserSession session = UserSession.getInstance();
-        
+
         // Vérification si l'utilisateur est connecté
         if (session == null || !session.isLoggedIn()) {
             showAccessDeniedAndRedirect();
@@ -74,7 +76,7 @@ public class CategoryController {
 
         // Récupération de l'utilisateur connecté
         User currentUser = session.getUser();
-        
+
         // Vérification si l'utilisateur est administrateur
         if (currentUser == null || !currentUser.getRoles().contains("ROLE_ADMIN")) {
             showAccessDeniedAndRedirect();
@@ -83,9 +85,9 @@ public class CategoryController {
 
     private void showAccessDeniedAndRedirect() {
         // Affichage d'une alerte d'accès refusé
-        Alert alert = new Alert(Alert.AlertType.ERROR, 
-            "Accès refusé. Cette page est réservée aux administrateurs.", 
-            ButtonType.OK);
+        Alert alert = new Alert(Alert.AlertType.ERROR,
+                "Accès refusé. Cette page est réservée aux administrateurs.",
+                ButtonType.OK);
         alert.showAndWait();
 
         try {
@@ -204,5 +206,13 @@ public class CategoryController {
     public void setFullScreen() {
         Stage stage = (Stage) tableCategory.getScene().getWindow();
         stage.setFullScreen(true);
+    }
+
+    @FXML
+    private void handleBack(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/Blog.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
     }
 }

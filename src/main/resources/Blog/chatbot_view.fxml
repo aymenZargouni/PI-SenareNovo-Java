@@ -25,6 +25,7 @@
         <HBox spacing="10" styleClass="content-container">
             <TextField fx:id="userInput" promptText="Entrez votre question..." styleClass="chat-input" HBox.hgrow="ALWAYS"/>
             <Button fx:id="sendButton" text="Envoyer" styleClass="btn,btn-primary" onAction="#sendMessage"/>
+            <Button text="Retour à la page Blog" onAction="#handleBack"/>
         </HBox>
     </VBox>
 </AnchorPane>

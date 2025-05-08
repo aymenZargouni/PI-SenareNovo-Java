@@ -8,11 +8,11 @@ import java.util.Properties;
 public class MailSender {
 
     public static void sendEmail(String to, String subject, String body) {
-        final String from = "aymen.zargouni1996@gmail.com"; // 🔁 Remplace avec ton email
-        final String password = "ntyhkrmqqixlphud";      // 🔁 Mot de passe (ou mot de passe d'application si Gmail)
+        final String from = "aymen.zargouni1996@gmail.com";
+        final String password = "ntyhkrmqqixlphud";
 
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com"); // ou ton serveur SMTP
+        props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");

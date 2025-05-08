@@ -74,7 +74,7 @@ public class Login {
 
         switch (cleanedRole) {
             case "ROLE_ADMIN":
-                loadFXML("/AymenViews/ShowMedecin.fxml");
+                loadFXML("/AymenViews/ShowUsers.fxml");
                 //loadFXML("/Blog/Blog.fxml");
                 break;
             case "ROLE_MEDECIN":

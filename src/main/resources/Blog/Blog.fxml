@@ -11,10 +11,7 @@
             prefHeight="600.0" prefWidth="800.0">
 
    <children>
-      <HBox AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
-      <!-- Sidebar (included) -->
-      <fx:include source="/AymenViews/AdminSidebar.fxml"/>
       <VBox spacing="15" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
             AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
          <padding>
@@ -94,10 +91,13 @@
             <Button fx:id="btnPrevious" text="&lt; Précédent" onAction="#previousPage"/>
             <Button fx:id="btnNext" text="Suivant &gt;" onAction="#nextPage"/>
             <Label fx:id="lblPage" text="Page 1"/>
-            <Button fx:id="btnCategories" text="Gérer les catégories" onAction="#openCategoriesPage"/>
+            <Button fx:id="btnCategories" text="Gérer les catégories" onAction="#handleOpenCategoryPage"/>
             <Button fx:id="btnCommenter" text="Commenter" onAction="#openCommentPage"/>
+            <Button text="Voir les statistiques"
+                    onAction="#handleOpenStats" layoutX="20" layoutY="20"/>
+
          </HBox>
       </VBox>
-      </HBox>
+
    </children>
 </AnchorPane>

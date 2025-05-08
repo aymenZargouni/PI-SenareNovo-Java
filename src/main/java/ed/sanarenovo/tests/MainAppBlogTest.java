@@ -7,11 +7,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 public class MainAppBlogTest extends Application {
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws FileNotFoundException {
         // Établir la connexion à la base de données
         try {
             MyConnection.getInstance();
@@ -34,23 +36,14 @@ public class MainAppBlogTest extends Application {
         try {
             Parent blogRoot = FXMLLoader.load(getClass().getResource("/Blog/Blog.fxml"));
             Stage blogStage = new Stage();
+            //blogStage.setFullScreen(true);
             Scene blogScene = new Scene(blogRoot);
-            blogScene.getStylesheets().add(getClass().getResource("/Blog/style.css").toExternalForm());
+            //blogScene.getStylesheets().add(getClass().getResource("/Blog/style.css").toExternalForm());
             blogStage.setTitle("Gestion Blog");
             blogStage.setScene(blogScene);
             blogStage.show();
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement de Blog.fxml: " + e.getMessage());
-        }
-
-        try {
-            Parent categoryRoot = FXMLLoader.load(getClass().getResource("/Blog/Category.fxml"));
-            Stage categoryStage = new Stage();
-            categoryStage.setTitle("Gestion Category");
-            categoryStage.setScene(new Scene(categoryRoot));
-            categoryStage.show();
-        } catch (IOException e) {
-            System.err.println("Erreur lors du chargement de Category.fxml: " + e.getMessage());
         }
 
         try {
@@ -64,7 +57,17 @@ public class MainAppBlogTest extends Application {
             System.err.println("Erreur lors du chargement de BlogClient.fxml");
         }
 
-        try {
+                /*try {
+            Parent categoryRoot = FXMLLoader.load(getClass().getResource("/Blog/Category.fxml"));
+            Stage categoryStage = new Stage();
+            categoryStage.setTitle("Gestion Category");
+            categoryStage.setScene(new Scene(categoryRoot));
+            categoryStage.show();
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement de Category.fxml: " + e.getMessage());
+        }*/
+
+        /*try {
             Parent chatRoot = FXMLLoader.load(getClass().getResource("/Blog/chatBot_view.fxml"));
             Stage chatStage = new Stage();
             chatStage.setTitle("Chat Boot AI");
@@ -73,9 +76,9 @@ public class MainAppBlogTest extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Erreur lors du chargement de ChatBloot.fxml");
-        }
+        }*/
 
-        try {
+        /*try {
             Parent chatBootSante = FXMLLoader.load(getClass().getResource("/Blog/ChatbootSante.fxml"));
             Stage chatSante = new Stage();
             chatSante.setTitle("Chat Boot Santé");
@@ -84,9 +87,9 @@ public class MainAppBlogTest extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Erreur lors du chargement de ChatBloot.fxml");
-        }
+        }*/
 
-        try {
+        /*try {
             Parent BlogStatsCategory = FXMLLoader.load(getClass().getResource("/Blog/BlogStatsCategory.fxml"));
             Stage stageBlogStatsCategory = new Stage();
             stageBlogStatsCategory.setTitle("Statistique par catgories ");
@@ -95,7 +98,7 @@ public class MainAppBlogTest extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Erreur lors du chargement de ChatBloot.fxml");
-        }
+        }*/
 
     }
 

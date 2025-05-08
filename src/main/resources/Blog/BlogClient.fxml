@@ -59,6 +59,9 @@
             <Label fx:id="lblPage" text="Page 1" styleClass="page-label"/>
             <Button fx:id="btnNext" text="Suivant →" styleClass="nav-button" onAction="#nextPage"/>
             <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Questions santé (QA)" onAction="#handleOpenPageQASante" layoutX="20" layoutY="20"/>
+            <Button text="Posez vos questions (IA)" onAction="#handleOpenChatBootAI" layoutX="20" layoutY="20"/>
+
             <Button fx:id="btnTranslate" text="Traduire" styleClass="btn-translate" onAction="#translateBlog"/>
             <Button fx:id="btnDownloadPDF" text="Télécharger PDF" styleClass="btn-download" onAction="#downloadPDF"/>
             <Button fx:id="btnViewComments" text="Commenter" styleClass="btn-comment" onAction="#openCommentPage"/>

@@ -23,13 +23,15 @@
         <!-- Form Section -->
         <GridPane styleClass="content-container" hgap="10" vgap="10">
             <Label text="Nom de la catégorie :" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-            <TextField fx:id="txtName" promptText="Entrez le nom de la catégorie" 
-                      styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <TextField fx:id="txtName" promptText="Entrez le nom de la catégorie"
+                       styleClass="form-field" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
             <HBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
                 <Button text="Ajouter" onAction="#addCategory" styleClass="button, btn-success"/>
                 <Button text="Modifier" onAction="#updateCategory" styleClass="button, btn-secondary"/>
                 <Button text="Supprimer" onAction="#deleteCategory" styleClass="button, btn-danger"/>
+                <Button text="Retour à la page Blog" onAction="#handleBack"/>
+
             </HBox>
         </GridPane>
 

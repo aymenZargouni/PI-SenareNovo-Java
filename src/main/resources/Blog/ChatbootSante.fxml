@@ -28,6 +28,7 @@
         <VBox spacing="10" VBox.vgrow="ALWAYS">
             <Label text="Réponse :" style="-fx-font-size: 16px;"/>
             <TextArea fx:id="answerTextArea" prefHeight="400" wrapText="true" editable="false" />
+            <Button text="Retour à la page Blog" onAction="#handleBack"/>
         </VBox>
 
     </VBox>
