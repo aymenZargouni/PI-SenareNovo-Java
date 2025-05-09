@@ -21,21 +21,21 @@ stylesheets="/Youssef_views/design.css">
     <children>
 
         <Pane layoutY="-4.0" prefHeight="580.0" prefWidth="191.0" style="-fx-background-color: linear-gradient(to bottom, #2980b9, #3498db); -fx-background-radius: 10;">
-
-            <children>
-
-
-                <!-- Logo -->
-                <ImageView fitHeight="141.0" fitWidth="162.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@logovert.jpg" />
-                    </image>
-                </ImageView>
-
-                <!-- Navigation -->
-                <Button layoutX="14.0" layoutY="178.0" onAction="#redirectTocons" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Gestion Consultation" />
-                <Button layoutX="14.0" layoutY="240.0"   onAction="#redirectTostat"  prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Statistiques" />
-            </children>
+        <children>
+      
+      
+              <!-- Logo -->
+              <ImageView fitHeight="141.0" fitWidth="162.0" layoutX="23.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@logovert.jpg" />
+                  </image>
+              </ImageView>
+      
+              <!-- Navigation -->
+              <Button layoutX="14.0" layoutY="178.0" onAction="#redirectTocons" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Gestion Consultation" />
+            <Button layoutX="14.0" layoutY="240.0"   onAction="#redirectTostat"  prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Statistiques" />
+            <Button layoutX="14.0" layoutY="290.0"   onAction="#redirectTorv"  prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Liste Rendez_vous" />
+         </children>
         </Pane>
 
         <!-- Title -->

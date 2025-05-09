@@ -687,6 +687,28 @@ public class ConsultationController implements Initializable {
         }
     }
 
+    @FXML
+    private void redirectTorv() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Youssef_views/rendez_vousMed.fxml"));
+            Scene scene = new Scene(root);
+
+            // Ajoute la feuille de style CSS seulement si elle existe
+            URL cssUrl = getClass().getResource("/Youssef_views/design.css");
+            if (cssUrl != null) {
+                scene.getStylesheets().add(cssUrl.toExternalForm());
+            } else {
+                System.out.println("⚠️ CSS file not found: /cons.css");
+            }
+
+            // Récupère la fenêtre actuelle
+            Stage currentStage = (Stage) tableView.getScene().getWindow();
+            currentStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void redirectToCalendar(javafx.event.ActionEvent actionEvent) {
         try {
