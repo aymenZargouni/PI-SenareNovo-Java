@@ -30,7 +30,7 @@ public class AdminSideBarController {
         btnTechniciens.setOnAction(e -> openView("/AymenViews/ShowTechnicien.fxml"));
         btnPatients.setOnAction(e -> openView("/AymenViews/ShowPatients.fxml"));
         btnBlogs.setOnAction(e -> openView("/Blog/Blog.fxml"));
-        btnServices.setOnAction(e -> openView("/mahdyviews/showsalle.fxml"));
+        btnServices.setOnAction(e -> openView("/mahdyviews/affichage.fxml"));
     }
 
     private void openView(String fxmlPath) {

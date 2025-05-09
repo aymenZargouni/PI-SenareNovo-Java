@@ -9,25 +9,25 @@
             xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/17"
             fx:controller="ed.sanarenovo.controllers.Blog.BlogClientController"
-            styleClass="main-container"
+            styleClass="main-background"
             stylesheets="@css/BlogClientStyle.css">
 
     <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
-        <!-- Header Section avec style amélioré -->
+        <!-- Header Section -->
         <HBox spacing="10" alignment="CENTER_LEFT" styleClass="header-container">
             <Label text="Blogs" styleClass="header-title"/>
             <Region HBox.hgrow="ALWAYS"/>
         </HBox>
 
-        <!-- Search and Filter Section avec style amélioré -->
-        <HBox spacing="10" styleClass="search-container">
-            <TextField fx:id="txtSearch" promptText="Rechercher un blog..." styleClass="search-field" HBox.hgrow="ALWAYS"/>
-            <ComboBox fx:id="cmbCategory" promptText="Filtrer par catégorie" styleClass="category-combo" prefWidth="200"/>
-            <Button text="Rechercher" styleClass="btn-search" onAction="#searchBlog"/>
+        <!-- Search and Filter -->
+        <HBox spacing="20" alignment="CENTER_LEFT" styleClass="toolbar">
+            <TextField fx:id="txtSearch" promptText="🔍 Rechercher un blog..." styleClass="search-bar" HBox.hgrow="ALWAYS"/>
+            <ComboBox fx:id="cmbCategory" promptText="Filtrer par catégorie" styleClass="filter-combo" prefWidth="200"/>
+            <Button text="Rechercher" styleClass="button" onAction="#searchBlog"/>
         </HBox>
 
-        <!-- TableView pour les blogs -->
-        <TableView fx:id="tableBlog" VBox.vgrow="ALWAYS">
+        <!-- Table des Blogs -->
+        <TableView fx:id="tableBlog" VBox.vgrow="ALWAYS" styleClass="blog-table">
             <columns>
                 <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
                 <TableColumn fx:id="colTitle" text="Titre" prefWidth="200"/>
@@ -37,8 +37,8 @@
             </columns>
         </TableView>
 
-        <!-- Translation Section -->
-        <VBox spacing="10" styleClass="translation-container">
+        <!-- Zone de Traduction -->
+        <VBox spacing="15" styleClass="translation-container">
             <Label text="Traduction" styleClass="section-title"/>
             <HBox spacing="10">
                 <Label text="Titre traduit :" styleClass="label"/>
@@ -53,16 +53,15 @@
             </HBox>
         </VBox>
 
-        <!-- Navigation and Actions avec style amélioré -->
-        <HBox spacing="10" alignment="CENTER" styleClass="navigation-container">
-            <Button fx:id="btnPrevious" text="← Précédent" styleClass="nav-button" onAction="#previousPage"/>
+        <!-- Navigation & Actions -->
+        <HBox spacing="20" alignment="CENTER" styleClass="pagination-bar">
+            <Button fx:id="btnPrevious" text="← Précédent" styleClass="pagination-button" onAction="#previousPage"/>
             <Label fx:id="lblPage" text="Page 1" styleClass="page-label"/>
-            <Button fx:id="btnNext" text="Suivant →" styleClass="nav-button" onAction="#nextPage"/>
+            <Button fx:id="btnNext" text="Suivant →" styleClass="pagination-button" onAction="#nextPage"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button fx:id="btnDownloadPDF" text="Télécharger PDF" styleClass="btn-download" onAction="#downloadPDF"/>
-            <Button fx:id="btnViewComments" text="Commenter" styleClass="btn-comment" onAction="#openCommentPage"/>
-            <Button text="Écouter" onAction="#handleListen" />
-
+            <Button fx:id="btnDownloadPDF" text="Télécharger PDF" styleClass="button" onAction="#downloadPDF"/>
+            <Button fx:id="btnViewComments" text="Commenter" styleClass="button" onAction="#openCommentPage"/>
+            <Button text="Écouter" onAction="#handleListen" styleClass="button"/>
         </HBox>
     </VBox>
 </AnchorPane>

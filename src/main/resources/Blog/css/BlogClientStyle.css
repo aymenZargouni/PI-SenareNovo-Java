@@ -1,196 +1,144 @@
-/* Variables globales */
-* {
-    -fx-primary-color: #2196F3;
-    -fx-secondary-color: #FF4081;
-    -fx-grey-color: #b9b9b9;
-    -fx-focus-color: -fx-primary-color;
+/* 🌿 Fond général */
+.main-background {
+    -fx-background-color: linear-gradient(to bottom right, #f9fbe7, #ffffff);
 }
 
-/* Style général */
-.root {
-    -fx-background-color: #f5f5f5;
-    -fx-font-family: 'Segoe UI', Arial, sans-serif;
-}
-
-/* Header styles */
+/* === En-tête === */
 .header-container {
-    -fx-background-color: white;
-    -fx-padding: 15;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
-    -fx-background-radius: 5;
+    -fx-background-color: rgba(255,255,255,0.9);
+    -fx-padding: 12;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);
 }
 
 .header-title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: -fx-primary-color;
+    -fx-text-fill: #1b305e;
 }
 
-/* Search container */
-.search-container {
-    -fx-background-color: white;
-    -fx-padding: 15;
-    -fx-spacing: 10;
-    -fx-background-radius: 5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+/* === Barre de recherche et filtres === */
+.toolbar {
+    -fx-spacing: 16;
 }
 
-.search-field {
-    -fx-background-color: #f5f5f5;
-    -fx-padding: 8;
+.search-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #a3a4d9;
+    -fx-border-width: 2px;
+    -fx-border-radius: 12px;
+    -fx-padding: 8px 12px;
     -fx-font-size: 14px;
-    -fx-background-radius: 20;
+    -fx-text-fill: #1b3243;
+    -fx-effect: dropshadow(gaussian, rgba(163,217,165,0.2), 2, 0.2, 0.5, 0.5);
 }
 
-/* Grid styles */
-.blog-grid {
-    -fx-background-color: transparent;
-    -fx-padding: 20;
-    -fx-alignment: center;
-    -fx-fill-width: true;
+.filter-combo {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cfd8dc;
+    -fx-border-width: 2px;
+    -fx-border-radius: 12px;
+    -fx-padding: 6px 10px;
+    -fx-font-size: 13px;
+    -fx-text-fill: #2e597d;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.04), 2, 0, 0.5, 0.5);
 }
 
-.blog-card {
-    -fx-background-color: white;
-    -fx-background-radius: 10;
-    -fx-padding: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
-    -fx-min-width: 300;
-    -fx-max-width: 450;
-    -fx-pref-width: 400;
-    -fx-spacing: 15;
-}
-
-.blog-card:hover {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 15, 0, 0, 5);
-    -fx-cursor: hand;
-}
-
-.blog-title {
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-wrap-text: true;
-}
-
-.blog-content {
-    -fx-font-size: 14px;
-    -fx-wrap-text: true;
-    -fx-text-fill: #666;
-    -fx-max-height: 100;
-}
-
-.blog-category {
-    -fx-font-size: 12px;
-    -fx-text-fill: -fx-primary-color;
-    -fx-padding: 5 10;
-    -fx-background-color: derive(-fx-primary-color, 90%);
-    -fx-background-radius: 15;
-}
-
-/* Buttons */
-.button {
-    -fx-background-color: -fx-primary-color;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-padding: 10 20;
-    -fx-background-radius: 20;
-}
-
-.button:hover {
-    -fx-background-color: derive(-fx-primary-color, -10%);
-    -fx-cursor: hand;
-}
-
-.btn-translate {
-    -fx-background-color: -fx-secondary-color;
-}
-
-.btn-translate:hover {
-    -fx-background-color: derive(-fx-secondary-color, -10%);
-}
-
-/* Navigation */
-.navigation-container {
-    -fx-background-color: white;
-    -fx-padding: 15;
-    -fx-background-radius: 5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
-}
-
-.page-label {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-}
-
-/* ScrollPane customization */
-.scroll-pane {
-    -fx-background-color: transparent;
-    -fx-padding: 0;
-}
-
-.scroll-pane > .viewport {
-    -fx-background-color: transparent;
-}
-
-.scroll-pane > .scroll-bar:vertical {
-    -fx-background-color: transparent;
-    -fx-padding: 0 0 0 5;
-}
-
-.scroll-pane > .scroll-bar:horizontal {
-    -fx-background-color: transparent;
-    -fx-padding: 5 0 0 0;
-}
-
-/* ComboBox styling */
-.combo-box {
-    -fx-background-color: #f5f5f5;
-    -fx-background-radius: 20;
-    -fx-padding: 5;
-}
-
-.combo-box .list-cell {
-    -fx-padding: 5 10;
-}
-
-/* Translation container */
-.translation-container {
-    -fx-background-color: white;
-    -fx-padding: 15;
-    -fx-background-radius: 5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
-}
-
-.translated-content {
-    -fx-background-color: #f8f9fa;
-    -fx-border-color: #dee2e6;
-    -fx-border-radius: 5;
+/* === Table des blogs === */
+.blog-table {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.03), 5, 0, 1, 1);
     -fx-padding: 10;
-    -fx-font-size: 14px;
-    -fx-text-fill: #495057;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
 }
 
-.translated-content:focused {
-    -fx-border-color: -fx-primary-color;
-    -fx-effect: dropshadow(three-pass-box, rgba(33, 150, 243, 0.1), 5, 0, 0, 2);
+/* === Zone de traduction === */
+.translation-container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 14px;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 2, 2);
 }
 
 .section-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: -fx-primary-color;
+    -fx-text-fill: #2e4a7d;
 }
 
-.label-info {
+.translated-title {
     -fx-font-weight: bold;
+    -fx-text-fill: #1b4332;
 }
 
-.label-content {
-    -fx-text-fill: #666;
+.translated-content {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #cfd8dc;
+    -fx-border-radius: 10;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #495057;
 }
 
-/* Image container */
-.blog-image {
-    -fx-background-radius: 5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
-} 
+.label {
+    -fx-text-fill: #1b4332;
+    -fx-font-size: 14px;
+}
+
+/* === Boutons === */
+.button {
+    -fx-background-color: linear-gradient(to right, #81b4c7, #4c60af);
+    -fx-background-radius: 12;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 13px;
+    -fx-padding: 6 14;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0.1, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to right, #2e7a7d, #1b305e);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+.btn-translate {
+    -fx-background-color: linear-gradient(to right, #ff8a80, #e53935);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+}
+
+.btn-translate:hover {
+    -fx-background-color: linear-gradient(to right, #d32f2f, #c62828);
+}
+
+/* === Pagination === */
+.pagination-bar {
+    -fx-background-color: transparent;
+    -fx-spacing: 20;
+}
+
+.pagination-button {
+    -fx-background-color: linear-gradient(to right, #a3c9d9, #4c63af);
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-font-size: 13px;
+    -fx-padding: 6 14;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.pagination-button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.page-label {
+    -fx-text-fill: #1b305e;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+}

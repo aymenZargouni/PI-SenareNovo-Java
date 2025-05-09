@@ -5,36 +5,33 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="490.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.service.ZenQuoteController">
-    <children>
+<AnchorPane prefHeight="490.0" prefWidth="574.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.service.ZenQuoteController"
+            stylesheets="@/AymenViews/style.css" styleClass="main-container">
 
-        <VBox layoutX="20" layoutY="40" spacing="20">
+    <children>
+        <VBox layoutX="20" layoutY="40" spacing="20" styleClass="content-container">
             <!-- Zone d'affichage du texte -->
             <TextFlow fx:id="quoteTextFlow"
                       prefWidth="530"
-                      style="-fx-background-color: #f9f9f9; -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10;"/>
+                      styleClass="custom-table"/>
 
             <!-- Bouton Recommander -->
             <Button fx:id="recommendButton"
                     text="Recommander"
                     onAction="#onRecommendClicked"
-                    prefWidth="200"
-                    style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                    styleClass="add-button"/>
 
             <!-- Bouton Chercher Médicament -->
             <Button fx:id="medicamentButton"
                     text="Chercher Médicament"
                     onAction="#onMedicamentClicked"
-                    prefWidth="200"
-                    style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                    styleClass="primary-button"/>
 
             <!-- Bouton Info Covid -->
             <Button fx:id="covidButton"
                     text="Info Covid"
                     onAction="#onCovidClicked"
-                    prefWidth="200"
-                    style="-fx-background-color: #FF9800; -fx-text-fill: white;"/>
+                    styleClass="danger-button"/>
         </VBox>
-
     </children>
 </AnchorPane>

@@ -9,26 +9,30 @@
             xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/"
             fx:controller="ed.sanarenovo.controllers.Blog.BlogController"
-            stylesheets="@/Blog/css/BlogStyle.css">
+            stylesheets="@/Blog/css/BlogStyle.css, @/AymenViews/style.css">
 
    <top>
       <Label text="Gestion Blog" styleClass="main-title"
              BorderPane.alignment="CENTER"/>
    </top>
 
+   <left>
+      <fx:include source="/AymenViews/AdminSidebar.fxml" />
+   </left>
+
    <center>
       <VBox spacing="15" styleClass="main-container">
          <!-- TableView for Blog Entries -->
          <SplitPane orientation="VERTICAL">
-         <TableView fx:id="tableBlog">
-            <columns>
-               <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
-               <TableColumn fx:id="colTitle" text="Titre" prefWidth="200"/>
-               <TableColumn fx:id="colContent" text="Contenu" prefWidth="300"/>
-               <TableColumn fx:id="colImage" text="Image" prefWidth="150"/>
-               <TableColumn fx:id="colCategory" text="Catégorie" prefWidth="150"/>
-            </columns>
-         </TableView>
+            <TableView fx:id="tableBlog">
+               <columns>
+                  <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                  <TableColumn fx:id="colTitle" text="Titre" prefWidth="200"/>
+                  <TableColumn fx:id="colContent" text="Contenu" prefWidth="300"/>
+                  <TableColumn fx:id="colImage" text="Image" prefWidth="150"/>
+                  <TableColumn fx:id="colCategory" text="Catégorie" prefWidth="150"/>
+               </columns>
+            </TableView>
          </SplitPane>
 
 

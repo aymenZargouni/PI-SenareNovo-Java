@@ -1,56 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="490.0" prefWidth="440.0"
+<BorderPane prefHeight="500.0" prefWidth="950.0"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.service.servicecontroller"
-            style="-fx-background-color: #f0f4f8;">
-   <children>
+            stylesheets="@/AymenViews/style.css">
 
-      <Button fx:id="enregist" layoutX="85.0" layoutY="383.0" mnemonicParsing="false" onAction="#addService"
-              prefHeight="29.0" prefWidth="100.0" text="Enregistrer"
-              style="-fx-background-color: #5cb85c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5px;" />
+   <!-- Sidebar à gauche -->
+   <left>
+      <fx:include source="/AymenViews/AdminSidebar.fxml" />
+   </left>
 
-      <Button fx:id="retour" layoutX="221.0" layoutY="383.0" mnemonicParsing="false" onAction="#retour"
-              prefHeight="29.0" prefWidth="100.0" text="Retour"
-              style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5px;" />
+   <!-- Contenu principal -->
+   <center>
+      <AnchorPane styleClass="content-container">
+         <children>
+            <Label layoutX="55.0" layoutY="63.0" text="Nom service" styleClass="form-label" />
+            <TextField fx:id="nom" layoutX="208.0" layoutY="59.0" styleClass="form-field"/>
 
-      <Label layoutX="55.0" layoutY="63.0" prefHeight="17.0" prefWidth="140.0" text="Nom service"
-             style="-fx-font-weight: bold;" />
-      <TextField fx:id="nom" layoutX="208.0" layoutY="59.0"
-                 style="-fx-border-color: #ccc; -fx-border-radius: 4px; -fx-padding: 4px;" />
+            <Label layoutX="68.0" layoutY="126.0" text="Nom chef service" styleClass="form-label"/>
+            <TextField fx:id="nomchef" layoutX="208.0" layoutY="122.0" styleClass="form-field"/>
 
-      <Label layoutX="68.0" layoutY="126.0" prefHeight="17.0" prefWidth="140.0" text="Nom chef service"
-             style="-fx-font-weight: bold;" />
-      <TextField fx:id="nomchef" layoutX="208.0" layoutY="122.0"
-                 style="-fx-border-color: #ccc; -fx-border-radius: 4px; -fx-padding: 4px;" />
+            <Label layoutX="55.0" layoutY="186.0" text="Nombre de salles de service" styleClass="form-label"/>
+            <TextField fx:id="nbr_salles" layoutX="208.0" layoutY="182.0" styleClass="form-field"/>
 
-      <Label fx:id="nbr_salle" layoutX="55.0" layoutY="186.0" prefHeight="17.0" prefWidth="160.0"
-             text="Nombre de salles de service"
-             style="-fx-font-weight: bold;" />
-      <TextField fx:id="nbr_salles" layoutX="208.0" layoutY="182.0"
-                 style="-fx-border-color: #ccc; -fx-border-radius: 4px; -fx-padding: 4px;" />
+            <Label layoutX="68.0" layoutY="250.0" text="Capacité" styleClass="form-label"/>
+            <TextField fx:id="cap" layoutX="208.0" layoutY="246.0" styleClass="form-field"/>
 
-      <Label layoutX="68.0" layoutY="250.0" prefHeight="17.0" prefWidth="108.0" text="Capacité"
-             style="-fx-font-weight: bold;" />
-      <TextField fx:id="cap" layoutX="208.0" layoutY="246.0"
-                 style="-fx-border-color: #ccc; -fx-border-radius: 4px; -fx-padding: 4px;" />
+            <Label layoutX="68.0" layoutY="310.0" text="État" styleClass="form-label"/>
+            <TextField fx:id="etat" layoutX="208.0" layoutY="315.0" styleClass="form-field"/>
 
-      <Label layoutX="68.0" layoutY="310.0" prefHeight="17.0" prefWidth="108.0" text="État"
-             style="-fx-font-weight: bold;" />
-      <TextField fx:id="etat" layoutX="208.0" layoutY="315.0"
-                 style="-fx-border-color: #ccc; -fx-border-radius: 4px; -fx-padding: 4px;" />
+            <Button fx:id="enregist" layoutX="85.0" layoutY="383.0" text="Enregistrer"
+                    onAction="#addService" styleClass="primary-button"/>
 
-      <Label fx:id="message1" layoutX="63.0" layoutY="94.0" prefHeight="17.0" prefWidth="316.0"
-             style="-fx-text-fill: #e74c3c;" />
-      <Label fx:id="message2" layoutX="62.0" layoutY="159.0" prefHeight="17.0" prefWidth="316.0"
-             style="-fx-text-fill: #e74c3c;" />
-      <Label fx:id="message3" layoutX="50.0" layoutY="281.0" prefHeight="17.0" prefWidth="316.0"
-             style="-fx-text-fill: #e74c3c;" />
-      <Label fx:id="messafe4" layoutX="62.0" layoutY="343.0" prefHeight="17.0" prefWidth="316.0"
-             style="-fx-text-fill: #e74c3c;" />
+            <Button fx:id="retour" layoutX="221.0" layoutY="383.0" text="Retour"
+                    onAction="#retour" styleClass="secondary-button"/>
 
-   </children>
-</AnchorPane>
+            <!-- Messages d'erreur -->
+            <Label fx:id="message1" layoutX="63.0" layoutY="94.0" styleClass="error-message"/>
+            <Label fx:id="message2" layoutX="62.0" layoutY="159.0" styleClass="error-message"/>
+            <Label fx:id="message3" layoutX="50.0" layoutY="281.0" styleClass="error-message"/>
+            <Label fx:id="messafe4" layoutX="62.0" layoutY="343.0" styleClass="error-message"/>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
