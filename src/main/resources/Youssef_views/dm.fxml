@@ -19,7 +19,7 @@
 
     <children>
 
-        <Pane layoutY="-4.0" prefHeight="580.0" prefWidth="191.0" style="-fx-background-color: #d5f5e3; -fx-background-radius: 10;">
+        <Pane layoutY="-4.0" prefHeight="580.0" prefWidth="191.0" style="-fx-background-color: linear-gradient(to bottom, #2980b9, #3498db); -fx-background-radius: 10;">
 
         <children>
       
@@ -33,9 +33,10 @@
       
               <!-- Navigation -->
               <Button layoutX="14.0" layoutY="178.0" onAction="#redirectTocons" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Gestion Consultation" />
-              <Button layoutX="14.0" layoutY="290.0" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Gestion DossierMed" />
-            <Button layoutX="14.0" layoutY="350.0"   onAction="#redirectTostat"  prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Statistiques" />
-         </children></Pane>
+            <Button layoutX="14.0" layoutY="240.0"   onAction="#redirectTostat"  prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Statistiques" />
+            <Button layoutX="14.0" layoutY="290.0"   onAction="#redirectTorv"  prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Liste Rendez_vous" />
+         </children>
+        </Pane>
 
         <!-- Title -->
         <Text layoutX="320.0" layoutY="35.0" styleClass="page-title" text="Gestion Dossier Médicale" />

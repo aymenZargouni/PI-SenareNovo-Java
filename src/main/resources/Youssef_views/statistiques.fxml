@@ -16,7 +16,7 @@
     <HBox spacing="0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
         <!-- Sidebar -->
-        <VBox prefWidth="200" style="-fx-background-color: #2e7d32; -fx-padding: 15;">
+        <VBox prefWidth="200" style="-fx-background-color: #3498db; -fx-padding: 15;">
             <ImageView fitHeight="100" fitWidth="170" preserveRatio="true">
                 <image>
                     <Image url="@logovert.jpg" />
@@ -26,12 +26,12 @@
             <VBox spacing="10" style="-fx-padding: 20 0 0 0;">
                 <Button prefWidth="170" prefHeight="40"
                         onAction="#redirectToConsultation"
-                        style="-fx-background-color: #81c784; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"
                         text="Gestion Consultation" />
 
                 <Button prefWidth="170" prefHeight="40"
                         onAction="#redirectToDossierMedical"
-                        style="-fx-background-color: #388e3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5;"
                         text="Gestion Dossier Médical" />
             </VBox>
         </VBox>
