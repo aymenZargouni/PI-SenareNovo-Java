@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ed.sanarenovo.controllers.service.Stat"
+            prefWidth="1000" prefHeight="800">
+
+    <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+
+        <!-- Bouton Retour -->
+        <HBox alignment="TOP_LEFT" spacing="10">
+
+            <Button layoutX="221.0" layoutY="383.0" mnemonicParsing="false" onAction="#retour"
+                    prefHeight="29.0" prefWidth="100.0" text="Retour"
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5px;" />
+        </HBox>
+
+        <Label text="📊 Statistiques des services et des salles"
+               style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+        <!-- Ligne 1 : Service par nombre de salles + Salles par type -->
+        <HBox spacing="30" alignment="CENTER">
+            <VBox alignment="TOP_CENTER">
+                <Label text="🧭 Services par nombre de salles"/>
+                <BarChart fx:id="serviceChart" title="Services"
+                          categoryGap="20" barGap="5"
+                          prefWidth="400" prefHeight="300">
+                    <xAxis>
+                        <CategoryAxis label="Service"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Nombre de salles"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+
+            <VBox alignment="TOP_CENTER">
+                <Label text="🏥 Salles par type"/>
+                <BarChart fx:id="salleChart" title="Types de salle"
+                          categoryGap="20" barGap="5"
+                          prefWidth="400" prefHeight="300">
+                    <xAxis>
+                        <CategoryAxis label="Type de salle"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Nombre"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+        </HBox>
+
+        <!-- Ligne 2 : Salles par service + Salles par état -->
+        <HBox spacing="30" alignment="CENTER">
+            <VBox alignment="TOP_CENTER">
+                <Label text="📌 Nombre de salles par service"/>
+                <BarChart fx:id="salleServiceChart" title="Salles par Service"
+                          categoryGap="20" barGap="5"
+                          prefWidth="400" prefHeight="300">
+                    <xAxis>
+                        <CategoryAxis label="Service"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Nombre de salles"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+
+            <VBox alignment="TOP_CENTER">
+                <Label text="🛠️ État des salles"/>
+                <BarChart fx:id="salleEtatChart" title="Salles par État"
+                          categoryGap="20" barGap="5"
+                          prefWidth="400" prefHeight="300">
+                    <xAxis>
+                        <CategoryAxis label="État"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Nombre"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+        </HBox>
+
+        <!-- Ligne 3 : État des services -->
+        <HBox spacing="30" alignment="CENTER">
+            <VBox alignment="TOP_CENTER">
+                <Label text="🧪 État des services"/>
+                <BarChart fx:id="serviceEtatChart" title="Services par État"
+                          categoryGap="20" barGap="5"
+                          prefWidth="400" prefHeight="300">
+                    <xAxis>
+                        <CategoryAxis label="État"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Nombre"/>
+                    </yAxis>
+                </BarChart>
+            </VBox>
+        </HBox>
+
+    </VBox>
+
+</AnchorPane>

@@ -1,48 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0"
-            xmlns="http://javafx.com/javafx/8.0.171"
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.takoua.OffreFormController"
-            stylesheets="/takoua_views/style.css"
-            styleClass="main-view">
+            stylesheets="/takoua_views/OffreForm.css"
+            prefWidth="500" minWidth="400" prefHeight="450">
 
-    <children>
-        <!-- Conteneur principal centré -->
-        <VBox alignment="TOP_CENTER" spacing="30.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="20">
-            <fx:include source="/AymenViews/TopBar.fxml" />
+    <!-- Titre du formulaire -->
+    <Label text="Nouvelle Offre d'Emploi" styleClass="form-title"
+           AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0"/>
 
-            <!-- Carte du formulaire -->
-            <VBox alignment="TOP_LEFT" spacing="15.0" maxWidth="600.0"
-                  styleClass="form-pane">
+    <!-- Champ Titre -->
+    <VBox spacing="5" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+        <Label text="Titre de l'offre:" styleClass="form-label"/>
+        <TextField fx:id="txtTitre" styleClass="text-field"/>
+    </VBox>
 
-                <!-- Titre du formulaire -->
-                <Text text="Ajouter une Offre" style="-fx-font-size: 24px; -fx-fill: #2c3e50; -fx-font-weight: bold;" />
+    <!-- Champ Description -->
+    <VBox spacing="5" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="130.0">
+        <Label text="Description détaillée:" styleClass="form-label"/>
+        <TextArea fx:id="txtDescription" styleClass="text-area" wrapText="true" prefHeight="150"/>
+    </VBox>
 
-                <!-- Champ Titre -->
-                <Label text="Titre :" styleClass="form-label"/>
-                <TextField fx:id="txtTitre" styleClass="form-field"/>
-
-                <!-- Champ Description -->
-                <Label text="Description :" styleClass="form-label"/>
-                <TextArea fx:id="txtDescription" prefRowCount="4" styleClass="form-field"/>
-
-                <!-- Champ Date d'expiration -->
-                <Label text="Date d'expiration :" styleClass="form-label"/>
-                <DatePicker fx:id="dateExpiration" styleClass="form-field" />
-
-                <!-- Boutons -->
-                <HBox spacing="15" alignment="CENTER_RIGHT">
-                    <Button fx:id="btnCancel" text="Annuler" onAction="#handleCancel" styleClass="form-button cancel-button"/>
-                    <Button fx:id="btnSave" text="Enregistrer" onAction="#handleSave" styleClass="form-button"/>
-                </HBox>
-            </VBox>
+    <!-- Conteneur pour Date et Boutons -->
+    <HBox spacing="20" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="320.0">
+        <!-- Champ Date d'expiration -->
+        <VBox spacing="5" styleClass="date-container">
+            <Label text="Date d'expiration:" styleClass="form-label"/>
+            <DatePicker fx:id="dateExpiration" styleClass="date-picker"/>
         </VBox>
-    </children>
+
+        <!-- Boutons - Alignés à droite mais dans le même HBox -->
+        <HBox spacing="15" styleClass="button-container" HBox.hgrow="ALWAYS">
+            <Button fx:id="btnSave" text="Publier l'offre" onAction="#handleSave" styleClass="primary-button"/>
+            <Button fx:id="btnCancel" text="Annuler" onAction="#handleCancel" styleClass="secondary-button"/>
+        </HBox>
+    </HBox>
 </AnchorPane>

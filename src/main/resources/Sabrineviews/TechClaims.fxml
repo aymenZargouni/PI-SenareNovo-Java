@@ -23,6 +23,18 @@
         <Label text="Gestion des Réclamations " style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
     </HBox>
 
+    <!-- Nouveau bouton pour voir le calendrier -->
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button onAction="#handleViewCalendar" styleClass="calendar-button">
+            <graphic>
+                <ImageView fitHeight="16" fitWidth="16">
+
+                </ImageView>
+            </graphic>
+            <text>Voir le Calendrier</text>
+        </Button>
+    </HBox>
+
     <TitledPane text="Options de Rapport" animated="false">
         <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 10;">
             <RadioButton fx:id="radioAuto" text="Génération Automatique (IA)"
@@ -48,7 +60,7 @@
     </TitledPane>
 
     <GridPane hgap="15" vgap="15" style="-fx-padding: 15; -fx-background-color: white; -fx-background-radius: 5;">
-        <Label text="Mise à jour du Statut"
+        <Label text="Réparation "
                GridPane.columnSpan="2"
                style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #34495e;"/>
 
@@ -73,4 +85,5 @@
             <text>Valider la Mise à Jour</text>
         </Button>
     </GridPane>
+
 </VBox>

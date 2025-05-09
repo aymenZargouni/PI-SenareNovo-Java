@@ -15,12 +15,12 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.control.TextArea?>
-<AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.dossiermedicaleController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.dossiermedicaleController"
+stylesheets="/Youssef_views/design.css">
 
     <children>
 
         <Pane layoutY="-4.0" prefHeight="580.0" prefWidth="191.0" style="-fx-background-color: linear-gradient(to bottom, #2980b9, #3498db); -fx-background-radius: 10;">
-
         <children>
       
       

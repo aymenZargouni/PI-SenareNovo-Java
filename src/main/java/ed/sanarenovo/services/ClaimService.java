@@ -1,37 +1,142 @@
 package ed.sanarenovo.services;
 
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.EventAttendee;
+import com.google.api.services.calendar.model.EventDateTime;
 import ed.sanarenovo.entities.Claim;
 import ed.sanarenovo.entities.Equipment;
 import ed.sanarenovo.entities.Technicien;
+import ed.sanarenovo.entities.User;
 import ed.sanarenovo.interfaces.IService;
+import ed.sanarenovo.utils.CredentialService;
 import ed.sanarenovo.utils.MyConnection;
 import ed.sanarenovo.utils.SmsService;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.sql.Date;
 import java.util.List;
+import com.google.api.services.calendar.model.EventReminder;
+
 
 public class ClaimService implements IService<Claim> {
+    public boolean containsBadWords(String text) {
+        List<String> badWords = Arrays.asList(
+                "merde", "putain", "con", "salop", "chiant"
+        );
+        for (String word : badWords) {
+            if (text.toLowerCase().contains(word)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public void addEntity(Claim claim) {
-        try {
-            String sql = "INSERT INTO claim (reclamation, equipment_id, technicien_id, created_at) VALUES (?, ?, ?, ?)";
-            PreparedStatement statement = MyConnection.getInstance().getCnx().prepareStatement(sql);
+        if (containsBadWords(claim.getReclamation())) {
+            System.err.println("Réclamation refusée : langage inapproprié détecté.");
+            return;
+        } else {
+            try {
+                String sql = "INSERT INTO claim (reclamation, equipment_id, technicien_id, created_at) VALUES (?, ?, ?, ?)";
+                PreparedStatement statement = MyConnection.getInstance().getCnx()
+                        .prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(1, claim.getReclamation());
-            statement.setInt(2, claim.getEquipment().getId());
-            statement.setInt(3, claim.getTechnicien().getId());
-            statement.setTimestamp(4, claim.getCreatedAt());
+                statement.setString(1, claim.getReclamation());
+                statement.setInt(2, claim.getEquipment().getId());
+                statement.setInt(3, claim.getTechnicien().getId());
+                statement.setTimestamp(4, claim.getCreatedAt());
 
-            statement.executeUpdate();
-            System.out.println("Réclamation enregistrée avec succès!");
-        } catch (SQLException e) {
-            System.err.println("Erreur ajout réclamation: " + e.getMessage());
+                statement.executeUpdate();
+
+                // Récupérer l'ID généré
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    claim.setId(generatedKeys.getInt(1));
+                }
+
+                System.out.println("Réclamation enregistrée avec succès!");
+
+                // Ajout au calendrier
+                addToGoogleCalendar(claim);
+
+            } catch (SQLException e) {
+                System.err.println("Erreur ajout réclamation: " + e.getMessage());
+            } catch (GeneralSecurityException | IOException e) {
+                System.err.println("Erreur lors de l'ajout au calendrier: " + e.getMessage());
+            }
         }
     }
 
+    private void addToGoogleCalendar(Claim claim) throws GeneralSecurityException, IOException {
+        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        Calendar service = new Calendar.Builder(
+                HTTP_TRANSPORT,
+                GsonFactory.getDefaultInstance(),
+                CredentialService.getCredentials(HTTP_TRANSPORT))
+                .setApplicationName("SanareNovo Claims")
+                .build();
+
+        // Formater la description avec plus de détails
+        String description = "Détails de la réclamation:\n\n" +
+                "ID: " + claim.getId() + "\n" +
+                "Équipement: " + claim.getEquipment().getName() + "\n" +
+                "Statut: " + claim.getEquipment().getStatus() + "\n" +
+                "Description: " + claim.getReclamation() + "\n\n" +
+                "Technicien assigné: " +
+                (claim.getTechnicien() != null ? claim.getTechnicien().getNom() : "Non assigné");
+
+        Event event = new Event()
+                .setSummary("[Réclamation #" + claim.getId() + "] " + claim.getEquipment().getName())
+                .setDescription(description)
+                .setColorId("6"); // Couleur orange pour les réclamations
+
+        Date startDate = new Date(claim.getCreatedAt().getTime());
+        Date endDate = new Date(startDate.getTime() + 3600000); // +1h
+
+        event.setStart(new EventDateTime().setDateTime(new com.google.api.client.util.DateTime(startDate)));
+        event.setEnd(new EventDateTime().setDateTime(new com.google.api.client.util.DateTime(endDate)));
+        System.out.println("Technicien: " + claim.getTechnicien());
+        System.out.println("User: " + (claim.getTechnicien() != null ? claim.getTechnicien().getUser() : "null"));
+
+        Technicien technicien = claim.getTechnicien();
+        if (technicien != null) {
+            User user = technicien.getUser();
+            if (user != null && user.getEmail() != null) {
+                event.setAttendees(Collections.singletonList(
+                        new EventAttendee()
+                                .setEmail(user.getEmail())
+                                .setDisplayName(technicien.getNom())
+                ));
+
+
+                // Configuration des rappels (corrigé)
+                EventReminder[] reminderOverrides = new EventReminder[]{
+                        new EventReminder().setMethod("email").setMinutes(10),
+                        new EventReminder().setMethod("popup").setMinutes(30)
+                };
+
+                Event.Reminders reminders = new Event.Reminders()
+                        .setUseDefault(false)
+                        .setOverrides(Arrays.asList(reminderOverrides));
+
+                event.setReminders(reminders);
+            }
+
+            service.events().insert("primary", event).execute();
+        }
+    }
+
+    // Toutes les autres méthodes restent inchangées
     @Override
     public void updateEntity(Claim claim, int id) {
         if (isClaimOlderThan24Hours(id)) {
@@ -148,13 +253,17 @@ public class ClaimService implements IService<Claim> {
         }
         return claims;
     }
-
-    public void claimEquipment(Equipment equipment, int technicienId) {
+    
+    public void claimEquipment (Equipment equipment,int technicienId, String description){
+        if (containsBadWords(description)) {
+            System.err.println("Réclamation refusée : langage inapproprié détecté.");
+            return;
+        }
+        ClaimService claimService = new ClaimService();
         Claim claim = new Claim();
         claim.setEquipment(equipment);
-        claim.setReclamation("Équipement en panne");
+        claim.setReclamation(description); // Utilisation de la description dynamique
         claim.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-
         equipment.setStatus("panne");
 
         Technicien technicien = getTechnicienById(technicienId);
@@ -162,27 +271,49 @@ public class ClaimService implements IService<Claim> {
             System.out.println("Technicien non trouvé avec l'ID: " + technicienId);
             return;
         }
+        claim.setTechnicien(technicien);
+
         try (Connection connection = MyConnection.getInstance().getCnx()) {
+
+            // Mise à jour du statut de l’équipement dans la base de données
+            String updateSql = "UPDATE equipment SET status = ? WHERE id = ?";
+            PreparedStatement updateStatement = connection.prepareStatement(updateSql);
+            updateStatement.setString(1, "panne");
+            updateStatement.setInt(2, equipment.getId());
+            updateStatement.executeUpdate();
+
+            // Enregistrement de la réclamation
             String sql = "INSERT INTO claim (reclamation, equipment_id, technicien_id, created_at) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-
             statement.setString(1, claim.getReclamation());
             statement.setInt(2, claim.getEquipment().getId());
-            statement.setInt(3, technicienId); // Utilisation directe de l'ID
+            statement.setInt(3, technicienId);
             statement.setTimestamp(4, claim.getCreatedAt());
 
             statement.executeUpdate();
             System.out.println("Réclamation enregistrée avec succès!");
-
+            // Envoi SMS
             SmsService smsService = new SmsService();
-            String message = "Une réclamation a été soumise pour l'équipement avec l'ID: "
-                    + claim.getEquipment().getId() + ". Statut de l'équipement: panne.";
+            String message = "Bonjour " + technicien.getNom() + ",\n\n"
+                    + "Une nouvelle réclamation a été enregistrée pour l'équipement : "
+                    + claim.getEquipment().getName() + " (ID: " + claim.getEquipment().getId() + ").\n"
+                    + "Statut actuel : " + claim.getEquipment().getStatus() + ".\n\n"
+                    + "Merci de traiter cette demande dans les plus brefs délais.\n\n"
+                    + "Cordialement,\nVotre service technique";
             smsService.sendSms(technicien.getPhoneNumber(), message);
+            // Ajout au calendrier
+            addToGoogleCalendar(claim);
+
+
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Erreur lors de l'enregistrement de la réclamation.");
+        } catch (GeneralSecurityException | IOException e) {
+            System.err.println("Erreur calendrier: " + e.getMessage());
         }
     }
+
+
 
     public static Technicien getTechnicienById(int id) {
         try (Connection connection = MyConnection.getInstance().getCnx()) {
@@ -245,11 +376,9 @@ public class ClaimService implements IService<Claim> {
         return null;
     }
 
-
     public List<Claim> getClaimsForTechnicien(int technicienId, String... statuses) {
         List<Claim> claims = new ArrayList<>();
 
-        // Vérification pour éviter une requête invalide
         if (statuses == null || statuses.length == 0) {
             System.err.println("Aucun statut fourni pour la récupération des réclamations.");
             return claims;
@@ -303,4 +432,5 @@ public class ClaimService implements IService<Claim> {
         }
     }
 
-}
+
+    }

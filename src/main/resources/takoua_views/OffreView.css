@@ -1,0 +1,48 @@
+/* Table */
+.table-view {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.table-column {
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+}
+
+/* Colonnes de la Table */
+.table-column-header {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Boutons */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 8 20;
+    -fx-background-radius: 5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.button:focused {
+    -fx-background-color: #2980b9;
+}
+
+/* Alignement des boutons */
+.button-container {
+    -fx-alignment: center-right;}
+.clear-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7f8c8d;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.clear-button:hover {
+    -fx-text-fill: #e74c3c;
+}

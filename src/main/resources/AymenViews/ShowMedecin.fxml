@@ -11,7 +11,7 @@
             xmlns="http://javafx.com/javafx/19"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.Admin.ShowMedecinController"
-            stylesheets="@style.css">
+            stylesheets="@/AymenViews/style.css">
 
     <left>
         <fx:include source="AdminSidebar.fxml" />

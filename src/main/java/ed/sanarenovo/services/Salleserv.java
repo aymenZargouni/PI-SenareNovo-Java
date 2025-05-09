@@ -3,6 +3,7 @@ package ed.sanarenovo.services;
 import ed.sanarenovo.entities.Salle;
 import ed.sanarenovo.interfaces.Uisalle;
 import ed.sanarenovo.utils.MyConnection;
+import ed.sanarenovo.utils.QrCodeGenerator;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,19 +38,51 @@ public class Salleserv implements Uisalle<Salle> {
 
 
     public void deleteSalle(Salle salle) {
-        String requete = "DELETE FROM salle WHERE id = ?";
-        try (PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete)) {
-            pst.setInt(1, salle.getId());
-            int rows = pst.executeUpdate();
-            if (rows > 0) {
-                System.out.println("Salle supprimée avec succès.");
-            } else {
-                System.out.println("Aucune salle trouvée avec cet ID.");
+        String getServiceIdQuery = "SELECT service_id FROM salle WHERE id = ?";
+        String deleteSalleQuery = "DELETE FROM salle WHERE id = ?";
+        String updateServiceQuery = "UPDATE service SET nbr_salle = nbr_salle - 1 WHERE id = ?";
+
+        try (Connection cnx = MyConnection.getInstance().getCnx()) {
+
+            int serviceId = -1;
+
+            // 1. Récupérer l'id du service de la salle
+            try (PreparedStatement pst = cnx.prepareStatement(getServiceIdQuery)) {
+                pst.setInt(1, salle.getId());
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    serviceId = rs.getInt("service_id");
+                } else {
+                    System.out.println("Aucune salle trouvée avec cet ID.");
+                    return;
+                }
             }
+
+            // 2. Supprimer la salle
+            try (PreparedStatement pst = cnx.prepareStatement(deleteSalleQuery)) {
+                pst.setInt(1, salle.getId());
+                int rows = pst.executeUpdate();
+                if (rows == 0) {
+                    System.out.println("Échec de la suppression de la salle.");
+                    return;
+                }
+            }
+
+            // 3. Décrémenter le nombre de salles dans le service
+            try (PreparedStatement pst = cnx.prepareStatement(updateServiceQuery)) {
+                pst.setInt(1, serviceId);
+                pst.executeUpdate();
+            }
+
+            System.out.println("Salle supprimée et nombre de salles décrémenté avec succès.");
+
         } catch (SQLException e) {
-            System.out.println("Erreur lors de la suppression de la salle : " + e.getMessage());
+            System.out.println("Erreur lors de la suppression : " + e.getMessage());
         }
     }
+
+
+
 
     @Override
     public void updateSalle(Salle salle) {
@@ -128,6 +161,14 @@ public class Salleserv implements Uisalle<Salle> {
         }
         return salle;
     }
+    public void generateQrForSalle(Salle salle) {
+        String contenuQR = "ID: " + salle.getId()
+                + "\nType: " + salle.getType()
+                + "\nÉtat: " + (salle.isEtat() ? "Active" : "Inactif")
+                + "\nService ID: " + salle.getService_id();
+        String cheminFichier = "qrcodes/salle_" + salle.getId() + ".png";
 
+        QrCodeGenerator.generateQRCode(contenuQR, cheminFichier);
+    }
 
 }

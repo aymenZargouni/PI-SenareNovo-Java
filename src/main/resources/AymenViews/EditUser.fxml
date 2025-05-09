@@ -13,7 +13,7 @@
             xmlns="http://javafx.com/javafx/19"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.Admin.EditUserController"
-            stylesheets="style.css">
+            stylesheets="/AymenViews/style.css">
    <children>
       <VBox layoutX="50" layoutY="40" prefWidth="500" spacing="20" styleClass="content-container">
          <children>

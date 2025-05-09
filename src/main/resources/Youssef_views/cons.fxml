@@ -16,7 +16,8 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1100.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.ConsultationController">
+<AnchorPane prefHeight="700.0" prefWidth="1100.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.ConsultationController"
+stylesheets="/Youssef_views/design.css">
 
     <children>
         <!-- Sidebar -->

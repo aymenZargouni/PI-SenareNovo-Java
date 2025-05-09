@@ -1,6 +1,7 @@
 package ed.sanarenovo.entities;
 
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +11,20 @@ public class Blog {
     private String content;
     private String image;
     private List<Category> categories = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     public Blog() {
 
     }
     public Blog(int id, String title, String content, String image, List<Category> categories) {
         this.id = id;
+        this.title = title;
+        this.content = content;
+        this.image = image;
+        this.categories = categories;
+    }
+    public Blog(String title, String content, String image, List<Category> categories) {
         this.title = title;
         this.content = content;
         this.image = image;
@@ -38,6 +47,14 @@ public class Blog {
     public Blog (String title, String content){
         this.title = title;
         this.content = content;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public int getId() {
@@ -78,6 +95,10 @@ public class Blog {
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
     @Override
     public String toString() {
         return "Blog{" +

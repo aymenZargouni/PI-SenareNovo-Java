@@ -1,0 +1,113 @@
+/* Styles généraux */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 15px;
+}
+
+/* Titre */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 20px 0;
+}
+
+/* Label */
+.label {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+    -fx-padding: 5px 0;
+}
+
+/* TextField */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-radius: 4px;
+    -fx-border-color: #dcdcdc;
+    -fx-border-width: 1px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 2, 0, 0, 1);
+}
+
+.text-field:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(one-pass-box, rgba(52,152,219,0.3), 5, 0, 0, 2);
+}
+
+/* TextArea */
+.text-area {
+    -fx-background-color: white;
+    -fx-border-radius: 4px;
+    -fx-border-color: #dcdcdc;
+    -fx-border-width: 1px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 2, 0, 0, 1);
+}
+
+.text-area .content {
+    -fx-background-color: white;
+    -fx-background-radius: 4px;
+}
+
+.text-area:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(one-pass-box, rgba(52,152,219,0.3), 5, 0, 0, 2);
+}
+
+/* Boutons */
+.button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 4px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.submit-button {
+    -fx-background-color: #27ae60;
+    -fx-padding: 10px 25px;
+}
+
+.submit-button:hover {
+    -fx-background-color: #219955;
+}
+
+.cancel-button {
+    -fx-background-color: #e74c3c;
+    -fx-padding: 10px 25px;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+.clear-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7f8c8d;
+    -fx-border-color: #7f8c8d;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px 16px;
+}
+
+.clear-button:hover {
+    -fx-text-fill: #e74c3c;
+    -fx-border-color: #e74c3c;
+}
+
+/* HBox et VBox */
+.hbox, .vbox {
+    -fx-spacing: 10px;
+    -fx-alignment: center-left;
+}

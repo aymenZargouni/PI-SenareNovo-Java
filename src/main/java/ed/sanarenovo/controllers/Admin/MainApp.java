@@ -12,9 +12,6 @@ public class MainApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/AymenViews/ShowUsers.fxml"));
         Scene scene = new Scene(root);
 
-
-        scene.getStylesheets().add(getClass().getResource("/AymenViews/style.css").toExternalForm());
-
         primaryStage.setTitle("Authentification");
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ed.sanarenovo.controllers.Blog.ChatBootSante"
+            stylesheets="@/Blog/css/chatbootSante.css">
+
+    <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20"
+          styleClass="main-container">
+
+        <!-- Titre -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="💬 SanareNovo FAQ Santé"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #0d6efd;"/>
+        </HBox>
+
+        <!-- ComboBox des questions -->
+        <VBox spacing="10">
+            <Label text="Choisissez votre question :" style="-fx-font-size: 16px;"/>
+            <ComboBox fx:id="questionComboBox" prefWidth="800"/>
+        </VBox>
+
+        <!-- Zone d'affichage de la réponse -->
+        <VBox spacing="10" VBox.vgrow="ALWAYS">
+            <Label text="Réponse :" style="-fx-font-size: 16px;"/>
+            <TextArea fx:id="answerTextArea" prefHeight="400" wrapText="true" editable="false" />
+            <Button text="Retour à la page Blog" onAction="#handleBack"/>
+        </VBox>
+
+    </VBox>
+</AnchorPane>

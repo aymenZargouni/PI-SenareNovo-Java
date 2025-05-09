@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ed.sanarenovo.controllers.service.CovidController">
+    <children>
+        <GridPane fx:id="covidGrid" layoutX="30" layoutY="30" hgap="20" vgap="15"
+                  style="-fx-font-size: 14px; -fx-padding: 20; -fx-background-color: #f4f9ff; -fx-border-radius: 10; -fx-background-radius: 10;">
+        </GridPane>
+
+        <Button  text="Retour" layoutX="30" layoutY="260"
+                 style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 6 12; -fx-background-radius: 5;"
+                 onAction="#retour"/>
+    </children>
+</AnchorPane>

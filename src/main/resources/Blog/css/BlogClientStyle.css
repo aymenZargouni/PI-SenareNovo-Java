@@ -1,0 +1,196 @@
+/* Variables globales */
+* {
+    -fx-primary-color: #2196F3;
+    -fx-secondary-color: #FF4081;
+    -fx-grey-color: #b9b9b9;
+    -fx-focus-color: -fx-primary-color;
+}
+
+/* Style général */
+.root {
+    -fx-background-color: #f5f5f5;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Header styles */
+.header-container {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-background-radius: 5;
+}
+
+.header-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+/* Search container */
+.search-container {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.search-field {
+    -fx-background-color: #f5f5f5;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+    -fx-background-radius: 20;
+}
+
+/* Grid styles */
+.blog-grid {
+    -fx-background-color: transparent;
+    -fx-padding: 20;
+    -fx-alignment: center;
+    -fx-fill-width: true;
+}
+
+.blog-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-min-width: 300;
+    -fx-max-width: 450;
+    -fx-pref-width: 400;
+    -fx-spacing: 15;
+}
+
+.blog-card:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 15, 0, 0, 5);
+    -fx-cursor: hand;
+}
+
+.blog-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+
+.blog-content {
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+    -fx-text-fill: #666;
+    -fx-max-height: 100;
+}
+
+.blog-category {
+    -fx-font-size: 12px;
+    -fx-text-fill: -fx-primary-color;
+    -fx-padding: 5 10;
+    -fx-background-color: derive(-fx-primary-color, 90%);
+    -fx-background-radius: 15;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: -fx-primary-color;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 20;
+}
+
+.button:hover {
+    -fx-background-color: derive(-fx-primary-color, -10%);
+    -fx-cursor: hand;
+}
+
+.btn-translate {
+    -fx-background-color: -fx-secondary-color;
+}
+
+.btn-translate:hover {
+    -fx-background-color: derive(-fx-secondary-color, -10%);
+}
+
+/* Navigation */
+.navigation-container {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.page-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* ScrollPane customization */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 5;
+}
+
+.scroll-pane > .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-padding: 5 0 0 0;
+}
+
+/* ComboBox styling */
+.combo-box {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 20;
+    -fx-padding: 5;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 5 10;
+}
+
+/* Translation container */
+.translation-container {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.translated-content {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #495057;
+}
+
+.translated-content:focused {
+    -fx-border-color: -fx-primary-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(33, 150, 243, 0.1), 5, 0, 0, 2);
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-color;
+}
+
+.label-info {
+    -fx-font-weight: bold;
+}
+
+.label-content {
+    -fx-text-fill: #666;
+}
+
+/* Image container */
+.blog-image {
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+} 

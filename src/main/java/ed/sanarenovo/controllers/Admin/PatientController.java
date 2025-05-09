@@ -17,6 +17,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.concurrent.Worker;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import netscape.javascript.JSObject;
 
 public class PatientController {
 
@@ -48,12 +52,24 @@ public class PatientController {
     private ChoiceBox<String> tfsexe;
 
     @FXML
+    private ProgressBar strengthBar;
+
+    @FXML
+    private Label strengthLabel;
+
+    @FXML
+    private WebView captchaWebView;
+
+    private String captchaToken;
+
+    @FXML
     void AddPatient(ActionEvent event) {
         String email = tfemail.getText().trim();
         String password = tfpwd.getText();
         String fullname = tffullname.getText().trim();
         String gender = tfsexe.getValue();
         String address = tfaddress.getText().trim();
+        String strength = evaluatePasswordStrength(password);
 
         if (fullname.isEmpty() || email.isEmpty() || password.isEmpty() || address.isEmpty() || gender == null) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Veuillez remplir tous les champs !");
@@ -65,8 +81,8 @@ public class PatientController {
             return;
         }
 
-        if (password.length() < 6) {
-            showAlert(Alert.AlertType.ERROR, "Mot de passe trop court", "Le mot de passe doit contenir au moins 6 caractères !");
+        if (strength.equals("Faible")) {
+            showAlert(Alert.AlertType.ERROR, "Mot de passe faible", "Veuillez choisir un mot de passe plus fort !");
             return;
         }
 
@@ -75,6 +91,7 @@ public class PatientController {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Cet email est déjà utilisé !");
             return;
         }
+
 
         User user = new User();
         user.setEmail(email);
@@ -111,7 +128,7 @@ public class PatientController {
         assert tfsexe != null : "fx:id=\"tfsexe\" was not injected: check your FXML file 'RegisterPatient.fxml'.";
 
         tfsexe.getItems().addAll("Homme","Femme");
-        tfsexe.setValue("Homme"); // default
+        tfsexe.setValue("Homme");
 
     }
 
@@ -147,5 +164,47 @@ public class PatientController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void checkPasswordStrength() {
+        String password = tfpwd.getText();
+        String result = evaluatePasswordStrength(password);
+
+        switch (result) {
+            case "Faible":
+                strengthBar.setProgress(0.2);
+                strengthBar.setStyle("-fx-accent: red;");
+                strengthLabel.setText("Faible");
+                break;
+            case "Okay":
+                strengthBar.setProgress(0.6);
+                strengthBar.setStyle("-fx-accent: orange;");
+                strengthLabel.setText("Okay");
+                break;
+            case "Fort":
+                strengthBar.setProgress(1.0);
+                strengthBar.setStyle("-fx-accent: green;");
+                strengthLabel.setText("Fort");
+                break;
+        }
+    }
+
+    private String evaluatePasswordStrength(String password) {
+        int strength = 0;
+
+        if (password.length() >= 8) strength++;
+        if (password.matches(".*[a-z].*")) strength++;
+        if (password.matches(".*[A-Z].*")) strength++;
+        if (password.matches(".*[0-9].*")) strength++;
+        if (password.matches(".*[!@#$%^&*()-_+=<>?].*")) strength++;
+
+        double score = strength / 5.0;
+
+        if (score < 0.4) return "Faible";
+        else if (score < 0.8) return "Okay";
+        else return "Fort";
+    }
+
+
 }
 

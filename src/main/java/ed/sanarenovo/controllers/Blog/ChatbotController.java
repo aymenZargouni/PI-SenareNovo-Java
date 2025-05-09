@@ -1,10 +1,17 @@
 package ed.sanarenovo.controllers.Blog;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -16,7 +23,7 @@ public class ChatbotController {
     @FXML private TextField userInput;
     @FXML private Button sendButton;
 
-    private static final String API_KEY = "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";
+    private static final String API_KEY = "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";
 
     @FXML
     private void sendMessage() {
@@ -70,5 +77,13 @@ public class ChatbotController {
                 Platform.runLater(() -> chatArea.appendText("Bot: Erreur - " + e.getMessage() + "\n"));
             }
         }).start();
+    }
+
+    @FXML
+    private void handleBack(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/BlogClient.fxml"));
+        Parent root = loader.load();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
     }
 }

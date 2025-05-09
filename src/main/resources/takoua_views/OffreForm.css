@@ -1,0 +1,97 @@
+/* Style général */
+.root {
+    -fx-background-color: #f5f7fa;
+    -fx-padding: 20;
+}
+
+/* Titre du formulaire */
+.form-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 0 0 10px 0;
+}
+
+/* Labels */
+.form-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34495e;
+    -fx-padding: 5px 0;
+}
+
+/* Champs de texte */
+.text-field, .text-area, .date-picker {
+    -fx-font-size: 14px;
+    -fx-padding: 10px 12px;
+    -fx-background-color: white;
+    -fx-border-color: #dbe2e8;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.05), 3, 0, 0, 1);
+}
+
+.text-area {
+    -fx-pref-height: 150px;
+    -fx-min-height: 150px;
+}
+
+.text-area .content {
+    -fx-background-color: white;
+    -fx-background-radius: 6px;
+    -fx-padding: 10px;
+}
+
+/* Conteneur Date */
+.date-container {
+    -fx-pref-width: 220px;
+}
+
+.date-picker {
+    -fx-pref-width: 220px;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #3498db;
+    -fx-background-radius: 0 6px 6px 0;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+/* Boutons */
+.button-container {
+    -fx-alignment: center-right;
+}
+
+.primary-button {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 25px;
+    -fx-background-radius: 6px;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.primary-button:hover {
+    -fx-background-color: #219955;
+}
+
+.secondary-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #7f8c8d;
+    -fx-border-color: #7f8c8d;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-padding: 12px 25px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.secondary-button:hover {
+    -fx-text-fill: #e74c3c;
+    -fx-border-color: #e74c3c;
+}
