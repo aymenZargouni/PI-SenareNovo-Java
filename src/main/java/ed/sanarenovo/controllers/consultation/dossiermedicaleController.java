@@ -18,15 +18,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.io.*;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class dossiermedicaleController implements Initializable {
 
@@ -325,6 +323,28 @@ public class dossiermedicaleController implements Initializable {
     }
 
     @FXML
+    private void redirectTorv() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Youssef_views/rendez_vousMed.fxml"));
+            Scene scene = new Scene(root);
+
+            // Ajoute la feuille de style CSS seulement si elle existe
+            URL cssUrl = getClass().getResource("/Youssef_views/design.css");
+            if (cssUrl != null) {
+                scene.getStylesheets().add(cssUrl.toExternalForm());
+            } else {
+                System.out.println("⚠️ CSS file not found: /cons.css");
+            }
+
+            // Récupère la fenêtre actuelle
+            Stage currentStage = (Stage) tableView.getScene().getWindow();
+            currentStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void redirectTostat() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/Youssef_views/Statistiques.fxml"));
@@ -374,25 +394,89 @@ public class dossiermedicaleController implements Initializable {
     private String formatAnalysisResult(String jsonResult) {
         try {
             JsonNode result = new ObjectMapper().readTree(jsonResult);
-            StringBuilder sb = new StringBuilder("Analyse IA:\n");
+            StringBuilder sb = new StringBuilder("=== ANALYSE COMPLÈTE DU DOSSIER ===\n\n");
 
-            if (result.get("imc_anomaly").asBoolean()) {
-                sb.append("⚠ Anomalie IMC détectée\n");
+            // IMC Analysis
+            if (result.has("imc")) {
+                JsonNode imc = result.get("imc");
+                sb.append("IMC: ").append(imc.get("value").asDouble()).append("\n");
+                sb.append("Catégorie: ").append(imc.get("category").asText()).append("\n");
+                sb.append("Évaluation: ").append(imc.get("details").asText()).append("\n");
+                if (imc.get("anomaly").asBoolean()) {
+                    sb.append("⚠ Anomalie détectée:\n");
+                    for (JsonNode msg : imc.get("messages")) {
+                        sb.append("  • ").append(msg.asText()).append("\n");
+                    }
+                }
+                sb.append("\n");
             }
 
-            sb.append("Type consultation: ").append(result.get("consult_type").asText()).append("\n");
+            // Prescription Analysis
+            if (result.has("prescription")) {
+                JsonNode prescription = result.get("prescription");
+                sb.append("ORDONNANCE:\n");
+                sb.append("Nombre de médicaments: ").append(prescription.get("count").asInt()).append("\n");
+                sb.append("Évaluation: ").append(prescription.get("details").asText()).append("\n");
+                if (prescription.get("anomaly").asBoolean()) {
+                    sb.append("⚠ Anomalie détectée:\n");
+                    for (JsonNode msg : prescription.get("messages")) {
+                        sb.append("  • ").append(msg.asText()).append("\n");
+                    }
+                }
 
-            if (result.get("prescription_anomaly").asBoolean()) {
-                sb.append("⚠ Ordonnance anormale\n");
+                if (prescription.has("medications")) {
+                    sb.append("\nMédicaments identifiés:\n");
+                    for (JsonNode med : prescription.get("medications")) {
+                        sb.append("  • ").append(med.get("name").asText())
+                                .append(" (").append(med.get("dosage").asText()).append(")\n");
+                    }
+                }
+                sb.append("\n");
             }
 
-            if (result.get("freq_anomaly").asBoolean()) {
-                sb.append("⚠ Fréquence de consultations élevée\n");
+            // Consultation Analysis
+            if (result.has("consultations")) {
+                JsonNode consultations = result.get("consultations");
+                sb.append("CONSULTATIONS:\n");
+                sb.append("Nombre: ").append(consultations.get("count").asInt()).append("\n");
+                if (consultations.get("count").asInt() > 1) {
+                    sb.append("Intervalle moyen: ").append(consultations.get("avg_gap_days").asDouble()).append(" jours\n");
+                }
+                sb.append("Évaluation: ").append(consultations.get("details").asText()).append("\n");
+                if (consultations.get("anomaly").asBoolean()) {
+                    sb.append("⚠ Anomalie détectée:\n");
+                    for (JsonNode msg : consultations.get("messages")) {
+                        sb.append("  • ").append(msg.asText()).append("\n");
+                    }
+                }
+                sb.append("\n");
+            }
+
+            // Observations Analysis
+            if (result.has("observations")) {
+                JsonNode observations = result.get("observations");
+                sb.append("OBSERVATIONS:\n");
+                sb.append("Longueur: ").append(observations.get("length").asInt()).append(" caractères\n");
+                sb.append("Évaluation: ").append(observations.get("details").asText()).append("\n");
+                if (observations.get("anomaly").asBoolean()) {
+                    sb.append("⚠ Anomalie détectée:\n");
+                    for (JsonNode msg : observations.get("messages")) {
+                        sb.append("  • ").append(msg.asText()).append("\n");
+                    }
+                }
+                sb.append("\n");
+            }
+
+            // General Info
+            sb.append("TYPE DE CONSULTATION: ").append(result.get("consult_type").asText()).append("\n\n");
+
+            if (result.has("summary")) {
+                sb.append("RÉSUMÉ: ").append(result.get("summary").asText()).append("\n");
             }
 
             return sb.toString();
         } catch (IOException e) {
-            return "Résultat d'analyse invalide";
+            return "Erreur de formatage des résultats: " + e.getMessage();
         }
     }
 
@@ -401,46 +485,67 @@ public class dossiermedicaleController implements Initializable {
             // 1. Get dossier data
             Map<String, Object> dossierData = getDossierDataForAnalysis(dossierId);
 
-            // 2. Set the full path to python.exe
-            String pythonExecutable = "C:\\Users\\msi\\AppData\\Local\\Programs\\Python\\Python39\\python.exe";
-            String pythonScriptPath = "C:\\Users\\msi\\OneDrive\\Bureau\\projetJAVA\\PI-SenareNovo-Java\\src\\main\\resources\\Youssef_views\\analyze_dossier.py";
+            // Create ObjectMapper with proper configuration
+            ObjectMapper mapper = new ObjectMapper();
 
-            // 3. Create the process with full paths
+            // Ensure all dates are properly formatted as strings
+            if (dossierData.containsKey("consult_dates")) {
+                List<String> dates = (List<String>) dossierData.get("consult_dates");
+                dossierData.put("consult_dates", dates.stream().map(Object::toString).collect(Collectors.toList()));
+            }
+
+            // Convert to properly formatted JSON string
+            String jsonInput = mapper.writeValueAsString(dossierData);
+
+            // Debug output
+            System.out.println("Raw JSON being sent: " + jsonInput);
+
+            // 2. Prepare Python command
+            String pythonExecutable = "python";
+            URL scriptUrl = getClass().getResource("/Youssef_views/analyze_dossier.py");
+            if (scriptUrl == null) {
+                return "Erreur: Fichier Python introuvable";
+            }
+            String pythonScriptPath = new File(scriptUrl.toURI()).getAbsolutePath();
+
+            // 3. Create process with proper argument handling
             ProcessBuilder pb = new ProcessBuilder(
                     pythonExecutable,
-                    pythonScriptPath,
-                    new ObjectMapper().writeValueAsString(dossierData)
+                    pythonScriptPath
             );
+            pb.redirectErrorStream(true);
 
-            // 4. Set working directory to script location
-            pb.directory(new File("C:\\Users\\msi\\OneDrive\\Bureau\\projetJAVA\\PI-SenareNovo-Java\\src\\main\\resources\\Youssef_views"));
 
-            // 5. Start process and handle output
+            // Set working directory to the script location
+            pb.directory(new File(pythonScriptPath).getParentFile());
+
+            // 4. Handle output and errors
+            pb.redirectErrorStream(true);
+
             Process p = pb.start();
-
-            // Read output
-            BufferedReader outputReader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String output = outputReader.readLine();
-
-            // Read errors
-            BufferedReader errorReader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-            String error = errorReader.readLine();
-
-            if (error != null) {
-                System.err.println("Python error: " + error);
-                return "Erreur d'analyse: " + error;
+            try (OutputStreamWriter writer = new OutputStreamWriter(p.getOutputStream(), StandardCharsets.UTF_8)) {
+                writer.write(jsonInput);
+                writer.flush();
             }
 
-            if (output == null || output.trim().isEmpty()) {
-                return "Erreur: Le script Python n'a retourné aucun résultat";
+            StringBuilder output = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    output.append(line);
+                }
             }
 
-            // Format and return the analysis result
-            return formatAnalysisResult(output);
+            int exitCode = p.waitFor();
+            if (exitCode != 0) {
+                return "Python script error (code " + exitCode + "):\n" + output.toString();
+            }
+
+            return formatAnalysisResult(output.toString());
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "Erreur d'analyse: " + e.getMessage();
+            return "Analysis error: " + e.getMessage();
         }
     }
 
