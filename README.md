@@ -4,7 +4,7 @@
 
 SanareNovo est une application de bureau développée avec JavaFX pour faciliter la gestion des cliniques et établissements médicaux.  
 Ce projet a été réalisé dans le cadre du cours **PIDEV** à **Esprit School of Engineering**. L’application vise à désengorger les hôpitaux tunisiens en offrant une plateforme numérique  
-de **consultation à distance**, **gestion des dossiers médicaux** et **communication efficace entre patients et médecins**.
+de **consultation à distance**, **gestion éficaces des salles, services, blogs, recrutements** et **communication efficace entre patients et médecins**.
 
 ### Fonctionnalités principales :
 
@@ -14,9 +14,7 @@ de **consultation à distance**, **gestion des dossiers médicaux** et **communi
 - 🏥 Gestion des services, salles et équipements
 - 📰 Blog médical intégré
 - 💼 Gestion des candidatures et recrutements
-- 📸 Prise de photo automatique en cas d’échec de connexion (via OpenCV)
-- 📬 Notifications par mail (via Jakarta Mail)
-
+  
 ---
 
 ## 📑 Table des Matières
@@ -41,9 +39,9 @@ de **consultation à distance**, **gestion des dossiers médicaux** et **communi
 - **Librairie caméra :** OpenCV
 - **Email :** Jakarta Mail
 - **Gestion de sessions :** `UserSession`
-- **Base de données :** MySQL/PostgreSQL (partagée avec l'application Symfony)
+- **Base de données :** MySQL (partagée avec l'application Symfony)
 - **Outil de build :** Maven / Gradle
-- **IDE :** IntelliJ IDEA / Eclipse
+- **IDE :** IntelliJ IDEA
 
 ---
 
@@ -61,10 +59,6 @@ resources/
 ├── images/
 ├── styles/
 
-yaml
-Copier
-Modifier
-
 ---
 
 ## 📦 Installation
@@ -76,9 +70,11 @@ Modifier
 Configurer le projet dans l'IDE (IntelliJ ou Eclipse)
 
 Vérifier les dépendances JavaFX
-Ajouter les chemins vers JavaFX dans la configuration de votre projet.
+2.Ajouter les chemins vers JavaFX dans la configuration de votre projet.
 
-Configurer la base de données dans le fichier de configuration (application.properties, .env ou autre)
+3.Configurer la base de données dans le fichier de configuration
+
+4.Lancer le projet
 
 ## ⚙️ Utilisation
 
