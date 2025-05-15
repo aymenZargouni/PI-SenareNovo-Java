@@ -2,9 +2,9 @@
 
 ## 📖 Description du Projet
 
-SanareNovo est une application de bureau développée avec JavaFX pour faciliter la gestion des cliniques et établissements médicaux.
-Ce projet a été réalisé dans le cadre du cours PIDEV à Esprit School of Engineering. L’application vise à désengorger les hôpitaux tunisiens en offrant une plateforme numérique
-de consultation à distance, gestion des dossiers médicaux et communication efficace entre patients et médecins.
+SanareNovo est une application de bureau développée avec JavaFX pour faciliter la gestion des cliniques et établissements médicaux.  
+Ce projet a été réalisé dans le cadre du cours **PIDEV** à **Esprit School of Engineering**. L’application vise à désengorger les hôpitaux tunisiens en offrant une plateforme numérique  
+de **consultation à distance**, **gestion des dossiers médicaux** et **communication efficace entre patients et médecins**.
 
 ### Fonctionnalités principales :
 
@@ -61,11 +61,18 @@ resources/
 ├── images/
 ├── styles/
 
-📦 Installation
+yaml
+Copier
+Modifier
 
-Cloner le projet depuis GitHub :
-git clone [https://github.com/votre-org/sanarenovo-javafx.git](https://github.com/aymenZargouni/PI-SenareNovo-Java.git)
-cd sanarenovo-javafx
+---
+
+## 📦 Installation
+
+1. Cloner le projet depuis GitHub :
+   ```bash
+   git clone https://github.com/aymenZargouni/PI-SenareNovo-Java.git
+   cd sanarenovo-javafx
 Configurer le projet dans l'IDE (IntelliJ ou Eclipse)
 
 Vérifier les dépendances JavaFX
@@ -73,9 +80,7 @@ Ajouter les chemins vers JavaFX dans la configuration de votre projet.
 
 Configurer la base de données dans le fichier de configuration (application.properties, .env ou autre)
 
-Lancer l’application
-
-⚙️ Utilisation
+## ⚙️ Utilisation
 
 Se connecter avec un compte patient ou médecin
 
@@ -87,34 +92,34 @@ Recevoir des notifications par mail
 
 Sécurité : prise automatique d’une photo après 3 tentatives de connexion échouées
 
-🔗 Connexion à la Base de Données
+## 🔗 Connexion à la Base de Données
 Cette application partage une base de données relationnelle avec un second projet web développé sous Symfony.
 Vérifiez que le serveur de base de données est actif et que la configuration est commune entre les deux projets.
 
-👥 Membres de l’équipe
-Membre 1 – Aymen Zargouni : Gestions des utilisateurs
+## 👥 Contribution
+Membres de l’équipe :
+Aymen Zargouni – Gestion des utilisateurs
 
-Membre 2 – Hichem Mhadhbi : Gestions des blogs & commentaires
+Hichem Mhadhbi – Gestion des blogs & commentaires
 
-Membre 3 – Mahdy Chaouechi : Gestion des services & salles
+Mahdy Chaouechi – Gestion des services & salles
 
-Membre 4 – Youssef Tarhouni : Gestions des consultations
+Youssef Tarhouni – Gestion des consultations
 
-Membre 5 – Sabrine Zaddem : Gestions des equipements & réclamations
+Sabrine Zaddem – Gestion des équipements & réclamations
 
-Membre 6 – Takoua Hichri : Gestions des récrutements
+Takoua Hichri – Gestion des recrutements
 
 Vous êtes les bienvenus pour proposer des suggestions ou signaler des bugs via les issues GitHub.
 
-🛡️ Licence
+## 🛡️ Licence
 Ce projet est distribué sous la licence MIT.
 Consultez le fichier LICENSE pour plus d’informations.
 
-🙏 Remerciements
+## 🙏 Remerciements
 Ce projet a été réalisé sous la supervision de [Nom du professeur]
 à Esprit School of Engineering, dans le cadre du module PIDEV 3A.
 Merci à toute l’équipe pédagogique pour leur accompagnement.
 
-🏷️ Topics GitHub
+## 🏷️ Topics GitHub
 javafx gestion-clinique opencv jakarta-mail user-session pidev esprit-school-of-engineering application-bureau desktop-app
-
