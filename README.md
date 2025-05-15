@@ -62,27 +62,21 @@ resources/
 ├── styles/
 
 📦 Installation
-Cloner le projet depuis GitHub :
 
-bash
-Copier
-Modifier
-git clone https://github.com/votre-org/sanarenovo-javafx.git
+Cloner le projet depuis GitHub :
+git clone [https://github.com/votre-org/sanarenovo-javafx.git](https://github.com/aymenZargouni/PI-SenareNovo-Java.git)
 cd sanarenovo-javafx
 Configurer le projet dans l'IDE (IntelliJ ou Eclipse)
 
-Vérifier les dépendances JavaFX et OpenCV
+Vérifier les dépendances JavaFX
 Ajouter les chemins vers JavaFX dans la configuration de votre projet.
 
 Configurer la base de données dans le fichier de configuration (application.properties, .env ou autre)
 
-Lancer l’application :
+Lancer l’application
 
-bash
-Copier
-Modifier
-java --module-path /chemin/vers/javafx-sdk/lib --add-modules javafx.controls,javafx.fxml -jar target/sanarenovo.jar
 ⚙️ Utilisation
+
 Se connecter avec un compte patient ou médecin
 
 Réserver une consultation via l’interface
