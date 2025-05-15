@@ -34,14 +34,21 @@ de **consultation à distance**, **gestion éficaces des salles, services, blogs
 
 ## 🧰 Technologies Utilisées
 
-- **Langage :** Java 17+
-- **Framework UI :** JavaFX
-- **Librairie caméra :** OpenCV
-- **Email :** Jakarta Mail
-- **Gestion de sessions :** `UserSession`
-- **Base de données :** MySQL (partagée avec l'application Symfony)
-- **Outil de build :** Maven / Gradle
-- **IDE :** IntelliJ IDEA
+- **Langage :** Java 19
+- **Framework UI :** JavaFX (`javafx-controls`, `javafx-fxml`, `javafx-web`, `javafx-swing`)
+- **Build Tool :** Maven + `javafx-maven-plugin`
+- **BDD :** MySQL avec JDBC (`mysql-connector-java`)
+- **Email :** Jakarta Mail (`com.sun.mail:jakarta.mail`) et JavaMail (`javax.mail`)
+- **Sécurité & Auth :** BCrypt (`org.mindrot:jbcrypt`)
+- **Vision par ordinateur :** OpenCV 4.1.1 (via JAR local)
+- **Planification :** CalendarFX
+- **API Web :** OkHttp, Gson
+- **Statistiques :** JFreeChart
+- **PDF :** iTextPDF, OpenPDF, Apache PDFBox
+- **QR/Barcode :** ZXing
+- **OCR :** Tess4J
+- **Text-to-Speech :** FreeTTS (via `.jar` local)
+- **Autres utilitaires :** SLF4J, Log4j2, Apache Commons Email/CSV, Jackson, Google API (Calendar), Jool
 
 ---
 
