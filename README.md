@@ -23,10 +23,10 @@ de **consultation à distance**, **gestion éficaces des salles, services, blogs
 - [🧰 Technologies Utilisées](#-technologies-utilisées)
 - [📁 Structure du Répertoire](#-structure-du-répertoire)
 - [📦 Installation](#-installation)
-- [⚙️ Utilisation](#️-utilisation)
+- [⚙️ Utilisation](#-utilisation)
 - [🔗 Connexion à la Base de Données](#-connexion-à-la-base-de-données)
 - [👥 Contribution](#-contribution)
-- [🛡️ Licence](#️-licence)
+- [🛡️ Licence](#-licence)
 - [🙏 Remerciements](#-remerciements)
 - [🏷️ Topics GitHub](#-topics-github)
 
