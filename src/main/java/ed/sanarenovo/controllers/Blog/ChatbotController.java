@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -22,8 +21,9 @@ public class ChatbotController {
     @FXML private TextArea chatArea;
     @FXML private TextField userInput;
     @FXML private Button sendButton;
-
-    private static final String API_KEY = "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";
+    @FXML
+    private Button btnRetour;
+    private static final String API_KEY = "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";
 
     @FXML
     private void sendMessage() {
@@ -80,10 +80,10 @@ public class ChatbotController {
     }
 
     @FXML
-    private void handleBack(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/BlogClient.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    private void retourBlog(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/Blog/BlogClient.fxml"));
+        Stage stage = (Stage) btnRetour.getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.show();
     }
 }

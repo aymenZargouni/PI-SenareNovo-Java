@@ -16,7 +16,7 @@
         <VBox fx:id="rootContainer" spacing="15" styleClass="content-container">
             <fx:include source="TopBar.fxml" />
 
-            <Label styleClass="page-title" text="Liste des patients" />
+            <Label styleClass="section-title" text="Liste des patients" />
 
             <TableView fx:id="patientTable" prefHeight="250.0" prefWidth="558.0" styleClass="custom-table">
                 <columns>

@@ -9,7 +9,7 @@
 <?import javafx.scene.image.Image?>
 <VBox xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ed.sanarenovo.controllers.GestionEquipement.ClaimsManagementController"
+      fx:controller="ed.sanarenovo.controllers.GestionEquipment.ClaimsManagementController"
       spacing="20"
       style="-fx-padding: 30; -fx-background-color: #f0f4f8;"
       stylesheets="@/styles/equipment.css">

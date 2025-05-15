@@ -57,3 +57,17 @@
     -fx-border-radius: 8px;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
 }
+.button-return {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 6, 0, 2, 2);
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.button-return:hover {
+    -fx-background-color: #0056b3;
+}

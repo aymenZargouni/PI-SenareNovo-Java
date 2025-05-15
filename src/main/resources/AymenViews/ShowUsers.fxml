@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="mainContainer" prefHeight="600.0" prefWidth="1000.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.ShowUsers">
-
+<BorderPane fx:id="mainContainer" prefHeight="600.0" prefWidth="1000.0" stylesheets="@/AymenViews/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.ShowUsers">
     <left>
         <fx:include source="AdminSidebar.fxml" />
     </left>

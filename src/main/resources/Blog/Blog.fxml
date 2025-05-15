@@ -115,6 +115,8 @@
          <Button fx:id="btnNext" text="Suivant >" minWidth="100" onAction="#nextPage" styleClass="nav-button"/>
          <Button fx:id="btnCategories" text="Gérer les catégories" minWidth="150" onAction="#openCategoriesPage" styleClass="category-button"/>
          <Button fx:id="btnCommenter" text="Commenter" minWidth="100" onAction="#openCommentPage" styleClass="comment-button"/>
+         <Button fx:id="btnDashboardCovid" text="Statistique de Covid19" minWidth="100" onAction="#OpenDashCovid" styleClass="comment-button"/>
+
       </HBox>
    </bottom>
 </BorderPane>

@@ -11,7 +11,8 @@
             xmlns="http://javafx.com/javafx/19"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.Admin.ShowMedecinController"
-            stylesheets="@/AymenViews/style.css">
+            stylesheets="@/AymenViews/style.css"
+            styleClass="main-container">
 
     <left>
         <fx:include source="AdminSidebar.fxml" />
@@ -21,7 +22,7 @@
         <VBox fx:id="rootContainer" spacing="15" styleClass="content-container">
             <fx:include source="TopBar.fxml" />
 
-            <Label text="Liste des médecins" styleClass="page-title"/>
+            <Label text="Liste des médecins" styleClass="section-title"/>
 
             <TableView fx:id="medTable" prefHeight="250.0" prefWidth="600.0" styleClass="custom-table">
                 <columns>
@@ -34,9 +35,9 @@
             </TableView>
 
             <VBox spacing="10" alignment="CENTER">
-                <Button fx:id="modifbtn" text="Modifier" onAction="#modifMed" styleClass="action-button"/>
+                <Button fx:id="modifbtn" text="Modifier" onAction="#modifMed" styleClass="primary-button"/>
                 <Button fx:id="deletebtn" text="Supprimer" onAction="#deleteMed" styleClass="danger-button"/>
-                <Button fx:id="addMedbtn" text="Ajouter Médecin" onAction="#addMed" styleClass="add-button"/>
+                <Button fx:id="addMedbtn" text="Ajouter Médecin" onAction="#addMed" styleClass="secondary-button"/>
             </VBox>
         </VBox>
     </center>

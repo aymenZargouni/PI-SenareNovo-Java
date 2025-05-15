@@ -2,7 +2,6 @@ package ed.sanarenovo.controllers.Blog;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,13 +32,15 @@ public class CategoryController {
     @FXML private Button btnUpdate;
     @FXML private Button btnDelete;
     @FXML private Button btnBackToBlogs;
+    @FXML
+    private Button btnRetour;
 
     private final CategoryServices categoryService = new CategoryServices();
 
     @FXML
     public void initialize() {
         // Vérification de l'accès administrateur
-        checkAdminAccess();
+        //checkAdminAccess();
 
         colId.setCellValueFactory(cellData ->
                 new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getId()).asObject());
@@ -209,10 +210,10 @@ public class CategoryController {
     }
 
     @FXML
-    private void handleBack(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/Blog.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    private void retourBlog(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/Blog/Blog.fxml"));
+        Stage stage = (Stage) btnRetour.getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.show();
     }
 }

@@ -29,6 +29,7 @@
             <Button fx:id="btnUpdate" text="Modifier" onAction="#updateComment"/>
             <Button fx:id="btnDelete" text="Supprimer" onAction="#deleteComment"/>
             <Button fx:id="btnReply" text="Repondre" onAction="#openReplyWindow"/>
+            <Button fx:id="btnRetour" text="Retour" onAction="#retourBlog" styleClass="button-return"/>
 
         </HBox>
 

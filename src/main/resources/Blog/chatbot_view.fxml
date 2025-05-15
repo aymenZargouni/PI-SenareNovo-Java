@@ -8,6 +8,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/21"
             fx:controller="ed.sanarenovo.controllers.Blog.ChatbotController"
+            stylesheets="@/Blog/css/chatbootStyle.css"
             styleClass="main-container">
 
     <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
@@ -25,7 +26,10 @@
         <HBox spacing="10" styleClass="content-container">
             <TextField fx:id="userInput" promptText="Entrez votre question..." styleClass="chat-input" HBox.hgrow="ALWAYS"/>
             <Button fx:id="sendButton" text="Envoyer" styleClass="btn,btn-primary" onAction="#sendMessage"/>
-            <Button text="Retour à la page Blog" onAction="#handleBack"/>
+        </HBox>
+        <HBox alignment="CENTER">
+            <Button fx:id="btnRetour" text="Retour" onAction="#retourBlog" styleClass="button-return"/>
         </HBox>
     </VBox>
+
 </AnchorPane>

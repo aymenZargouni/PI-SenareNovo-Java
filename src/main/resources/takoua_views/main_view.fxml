@@ -8,6 +8,7 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="800.0" stylesheets="/takoua_views/mainView.css" styleClass="main-view" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.takoua.MainController">
     <children>
+        <fx:include source="/AymenViews/TopBar.fxml" />
         <VBox alignment="CENTER" spacing="50.0"
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="100.0" AnchorPane.bottomAnchor="100.0"

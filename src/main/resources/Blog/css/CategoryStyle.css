@@ -1,6 +1,7 @@
 /* Variables globales */
-* {
-    -fx-primary-color: #4CAF50;
+{
+
+    -fx-primary-color: #4c63af;
     -fx-secondary-color: #FF9800;
     -fx-grey-color: #b9b9b9;
     -fx-focus-color: -fx-primary-color;
@@ -103,7 +104,7 @@
 }
 
 .btn-danger {
-    -fx-background-color: #dc3545;
+    -fx-background-color: #35aadc;
 }
 
 .btn-danger:hover {
@@ -131,4 +132,13 @@
 .status-error {
     -fx-text-fill: #dc3545;
     -fx-background-color: derive(#dc3545, 90%);
-} 
+}
+.button-return {
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: #000;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8 15 8 15;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 2, 2);
+}

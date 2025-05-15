@@ -9,14 +9,14 @@ import java.util.*;
 public class ReclamationIA {
 
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
-    private static final String API_KEY = "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"; // Remplace par ta clé OpenRouter
+    private static final String API_KEY = "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"; // Remplace par ta clé OpenRouter
 
     public static String genererRapport(String description) throws IOException {
         OkHttpClient client = new OkHttpClient();
         ObjectMapper mapper = new ObjectMapper();
 
         // Prompt détaillé pour un rapport professionnel et technique
-        String prompt = "Rédige un rapport technique et professionnel sur la réclamation suivante. "
+        String prompt = "Rédige un rapport  technique et professionnel en francais sur la réclamation suivante. "
                 + "Le rapport doit contenir :\n"
                 + "- Un titre clair et formel\n"
                 + "- Un résumé de la réclamation\n"

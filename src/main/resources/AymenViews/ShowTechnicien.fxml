@@ -6,13 +6,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.BorderPane?>
-
 <?import javafx.scene.layout.HBox?>
+
 <BorderPane prefHeight="600.0" prefWidth="1000.0"
             xmlns="http://javafx.com/javafx/19"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.Admin.ShowTechnicienController"
-            stylesheets="@style.css"
+            stylesheets="@/AymenViews/style.css"
             styleClass="main-container">
 
     <left>
@@ -31,7 +31,7 @@
 
             <TableView fx:id="techTable"
                        prefHeight="350.0"
-                       styleClass="styled-table">
+                       styleClass="custom-table">
                 <columns>
                     <TableColumn fx:id="fullname" text="Nom complet" prefWidth="150.0" />
                     <TableColumn fx:id="email" text="Email" prefWidth="200.0" />
@@ -41,9 +41,9 @@
             </TableView>
 
             <HBox spacing="10" alignment="CENTER_RIGHT">
-                <Button fx:id="modifbtn" text="Modifier" onAction="#modifTech" styleClass="action-button" />
+                <Button fx:id="modifbtn" text="Modifier" onAction="#modifTech" styleClass="primary-button" />
                 <Button fx:id="deletebtn" text="Supprimer" onAction="#deleteTech" styleClass="danger-button" />
-                <Button fx:id="addMedbtn" text="Ajouter Technicien" onAction="#addTech" styleClass="add-button" />
+                <Button fx:id="addMedbtn" text="Ajouter Technicien" onAction="#addTech" styleClass="secondary-button" />
             </HBox>
 
         </VBox>

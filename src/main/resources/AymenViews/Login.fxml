@@ -4,17 +4,23 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.StackPane?>
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="main-container" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.Login"
-            stylesheets="/AymenViews/style.css">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="main-container" stylesheets="/AymenViews/style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.Admin.Login">
    <children>
-      <StackPane prefWidth="800.0" prefHeight="600.0">
+      <StackPane prefHeight="600.0" prefWidth="800.0">
          <children>
             <VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0" spacing="20" styleClass="content-container">
                <children>
+                  <ImageView fitHeight="146.0" fitWidth="271.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@logo-sanarenovo.png"/>
+                     </image>
+                  </ImageView>
 
                   <Label styleClass="section-title" text="S'authentifier" />
 
@@ -34,7 +40,7 @@
 
                   <Button onAction="#login" prefWidth="120.0" styleClass="primary-button" text="Login" />
 
-                  <Label text="Créer un compte patient" onMouseClicked="#redirectToRegister" styleClass="hyperlink-label" />
+                  <Label onMouseClicked="#redirectToRegister" styleClass="hyperlink-label" text="Créer un compte patient" />
 
                </children>
             </VBox>
@@ -42,4 +48,3 @@
       </StackPane>
    </children>
 </AnchorPane>
-

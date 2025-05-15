@@ -364,7 +364,7 @@ public class Rendez_vousController implements Initializable {
     @FXML
     private void redirectToDossierMedicale() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Youssef_views/dm.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/mahdyviews/zenview.fxml"));
             Scene scene = new Scene(root);
 
             URL cssUrl = getClass().getResource("/Youssef_views/design.css");

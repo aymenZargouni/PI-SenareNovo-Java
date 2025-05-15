@@ -24,6 +24,7 @@
                   HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS"
                   minHeight="400" legendVisible="false"/>
     </HBox>
+    <Button fx:id="btnRetour" text="Retour" onAction="#retourBlog" styleClass="button-return"/>
 
     <VBox fx:id="mapContainer" spacing="10" style="-fx-padding: 5;" VBox.vgrow="ALWAYS">
         <Label text="Carte des foyers épidémiques" styleClass="subtitle"/>

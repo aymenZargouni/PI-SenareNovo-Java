@@ -9,6 +9,7 @@
             stylesheets="@/AymenViews/style.css" styleClass="main-container">
 
     <children>
+        <fx:include source="/AymenViews/TopBar.fxml" />
         <VBox layoutX="20" layoutY="40" spacing="20" styleClass="content-container">
             <!-- Zone d'affichage du texte -->
             <TextFlow fx:id="quoteTextFlow"
@@ -31,6 +32,10 @@
             <Button fx:id="covidButton"
                     text="Info Covid"
                     onAction="#onCovidClicked"
+                    styleClass="danger-button"/>
+            <Button fx:id="rendezVousButton"
+                    text="Prendre Rendez-Vous"
+                    onAction="#onRendezVouClicked"
                     styleClass="danger-button"/>
         </VBox>
     </children>

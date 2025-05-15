@@ -9,7 +9,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,7 +33,7 @@ import javafx.scene.control.ListCell;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-        import java.io.File;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -531,18 +530,71 @@ public class BlogClientController {
     }
 
     @FXML
-    private void handleOpenChatBootAI(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/chatbot_view.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+    private void openStatCategory() {
+        try {
+            // Chargement de la page des catégories
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/BlogStatsCategory.fxml"));
+            Parent root = loader.load();
+
+            // Récupération de la scène actuelle
+            Stage stage = (Stage) tableBlog.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la page des Statistiques catégories : " + e.getMessage());
+        }
     }
 
     @FXML
-    private void handleOpenPageQASante(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/ChatbootSante.fxml"));
-        Parent root = loader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+    private void OpenChatSante() {
+        try {
+            // Chargement de la page des catégories
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/ChatbootSante.fxml"));
+            Parent root = loader.load();
+
+            // Récupération de la scène actuelle
+            Stage stage = (Stage) tableBlog.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la page des Chat Sante : " + e.getMessage());
+        }
     }
+
+    @FXML
+    private void OpenChatBootAI() {
+        try {
+            // Chargement de la page des catégories
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/chatbot_view.fxml"));
+            Parent root = loader.load();
+
+            // Récupération de la scène actuelle
+            Stage stage = (Stage) tableBlog.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la page des Chat Boot AI : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void OpenDashCovid() {
+        try {
+            // Chargement de la page des catégories
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/dashboard.fxml"));
+            Parent root = loader.load();
+
+            // Récupération de la scène actuelle
+            Stage stage = (Stage) tableBlog.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la page des Dashboard Covid19 : " + e.getMessage());
+        }
+    }
+
 }

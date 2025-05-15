@@ -10,17 +10,21 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ed.sanarenovo.controllers.Blog.BlogStatsCategoryController">
-
-    <VBox spacing="20" alignment="TOP_CENTER"
-          AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20"
+            fx:controller="ed.sanarenovo.controllers.Blog.BlogStatsCategoryController"
+            prefWidth="1000" prefHeight="700"
+            stylesheets="@/Blog/css/StatsStyle.css">
+    <!-- Conteneur principal centré -->
+    <VBox spacing="30" alignment="CENTER"
+          AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"
           styleClass="main-container">
 
-        <Label text="Statistiques des Catégories" styleClass="page-title"/>
+        <PieChart fx:id="categoryPieChart" prefHeight="500" prefWidth="800" />
 
-        <Button text="Retour à la page principale" onAction="#handleBack"/>
-
-        <PieChart fx:id="categoryPieChart" prefHeight="600" prefWidth="800"/>
+        <HBox alignment="CENTER">
+            <Button fx:id="btnRetour" text="Retour" onAction="#RetourBlog" styleClass="button-return"/>
+        </HBox>
 
     </VBox>
+
 </AnchorPane>

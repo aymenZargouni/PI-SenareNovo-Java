@@ -95,7 +95,7 @@ public class BlogController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Vérification de l'accès administrateur
-        checkAdminAccess();
+        //checkAdminAccess();
         generateCaptcha();
         colId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         colTitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
@@ -142,7 +142,7 @@ public class BlogController implements Initializable {
                 }
             }
         });
-        
+
         // Configuration de la colonne catégorie
         colCategory.setCellValueFactory(cellData -> {
             Blog blog = cellData.getValue();
@@ -198,7 +198,7 @@ public class BlogController implements Initializable {
     private void checkAdminAccess() {
         // Récupération de la session utilisateur
         UserSession session = UserSession.getInstance();
-        
+
         // Vérification si l'utilisateur est connecté
         if (session == null || !session.isLoggedIn()) {
             showAccessDeniedAndRedirect();
@@ -207,7 +207,7 @@ public class BlogController implements Initializable {
 
         // Récupération de l'utilisateur connecté
         User currentUser = session.getUser();
-        
+
         // Vérification si l'utilisateur est administrateur
         if (currentUser == null || !currentUser.getRoles().contains("ROLE_ADMIN")) {
             showAccessDeniedAndRedirect();
@@ -216,9 +216,9 @@ public class BlogController implements Initializable {
 
     private void showAccessDeniedAndRedirect() {
         // Affichage d'une alerte d'accès refusé
-        Alert alert = new Alert(Alert.AlertType.ERROR, 
-            "Accès refusé. Cette page est réservée aux administrateurs.", 
-            ButtonType.OK);
+        Alert alert = new Alert(Alert.AlertType.ERROR,
+                "Accès refusé. Cette page est réservée aux administrateurs.",
+                ButtonType.OK);
         alert.showAndWait();
 
         try {
@@ -386,7 +386,7 @@ public class BlogController implements Initializable {
         fileChooser.setTitle("Choisir une image");
         // choisir uniquemment le fichier de type ...
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Fichiers d'image", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
+                new FileChooser.ExtensionFilter("Fichiers d'image", ".png", ".jpg", ".jpeg", ".gif", "*.bmp")
         );
 
         File selectedFile = fileChooser.showOpenDialog(null); // Afficher le fichier et recupere le fichier selectionné
@@ -468,7 +468,7 @@ public class BlogController implements Initializable {
         // Filtre les blogs selon la catégorie si une catégorie est sélectionnée
         if (categoryFilter != null) {
             filteredBlogs = filteredBlogs.stream()
-                    .filter(blog -> blog.getCategories() != null && 
+                    .filter(blog -> blog.getCategories() != null &&
                             blog.getCategories().stream()
                                     .anyMatch(cat -> cat.getId() == categoryFilter.getId()))
                     .collect(Collectors.toList());
@@ -497,7 +497,7 @@ public class BlogController implements Initializable {
             // Chargement de la page des catégories
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/Category.fxml"));
             Parent root = loader.load();
-            
+
             // Récupération de la scène actuelle
             Stage stage = (Stage) tableBlog.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -534,9 +534,21 @@ public class BlogController implements Initializable {
     }
 
     @FXML
-    private void CategoryStatistique(ActionEvent event) {
-        // Code pour afficher la statistique
-        System.out.println("Bouton 'Statistique par catégorie' cliqué !");
+    private void OpenDashCovid() {
+        try {
+            // Chargement de la page des catégories
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/dashboard.fxml"));
+            Parent root = loader.load();
+
+            // Récupération de la scène actuelle
+            Stage stage = (Stage) tableBlog.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la page des Dashboard Covid19 : " + e.getMessage());
+        }
     }
+
 
 }

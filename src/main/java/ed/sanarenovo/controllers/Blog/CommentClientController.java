@@ -3,6 +3,7 @@ import ed.sanarenovo.entities.Blog;
 import ed.sanarenovo.entities.User;
 import ed.sanarenovo.services.AvertissementSMSTwilio;
 import ed.sanarenovo.utils.UserSession;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
@@ -45,7 +46,8 @@ public class CommentClientController {
     @FXML private TableColumn<CommentReply, String> colReplyContent;
     @FXML private TableColumn<CommentReply, String> colReplyAuthor;
     @FXML private TableColumn<CommentReply, String> colReplyDate;
-
+    @FXML
+    private Button btnRetour;
     private Blog blog;
     private final CommentServices commentService = new CommentServices();
     private final UserService userService = new UserService();
@@ -387,5 +389,12 @@ public class CommentClientController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+    @FXML
+    private void retourBlog(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/Blog/BlogClient.fxml"));
+        Stage stage = (Stage) btnRetour.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }

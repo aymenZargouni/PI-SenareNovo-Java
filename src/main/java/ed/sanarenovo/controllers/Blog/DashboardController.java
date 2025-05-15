@@ -3,12 +3,20 @@ package ed.sanarenovo.controllers.Blog;
 
 import ed.sanarenovo.entities.CovidData;
 import ed.sanarenovo.services.DataFetcher;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +28,8 @@ public class DashboardController {
     @FXML private BarChart<String, Number> casesChart;
     @FXML private PieChart countryPieChart;
     @FXML private VBox mapContainer;
-
+    @FXML
+    private Button btnRetour;
     @FXML
     public void initialize() { // Point d'entrée, charge les données et initialise les graphiques
         System.out.println("Initialisation du tableau de bord ...");
@@ -235,5 +244,12 @@ public class DashboardController {
         """);
 
         return sb.toString();
+    }
+    @FXML
+    private void retourBlog(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/Blog/BlogClient.fxml"));
+        Stage stage = (Stage) btnRetour.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }

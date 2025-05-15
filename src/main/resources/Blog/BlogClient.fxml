@@ -12,56 +12,72 @@
             styleClass="main-background"
             stylesheets="@css/BlogClientStyle.css">
 
-    <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
-        <!-- Header Section -->
-        <HBox spacing="10" alignment="CENTER_LEFT" styleClass="header-container">
-            <Label text="Blogs" styleClass="header-title"/>
-            <Region HBox.hgrow="ALWAYS"/>
-        </HBox>
+    <HBox AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
 
-        <!-- Search and Filter -->
-        <HBox spacing="20" alignment="CENTER_LEFT" styleClass="toolbar">
-            <TextField fx:id="txtSearch" promptText="🔍 Rechercher un blog..." styleClass="search-bar" HBox.hgrow="ALWAYS"/>
-            <ComboBox fx:id="cmbCategory" promptText="Filtrer par catégorie" styleClass="filter-combo" prefWidth="200"/>
-            <Button text="Rechercher" styleClass="button" onAction="#searchBlog"/>
-        </HBox>
+        <!-- 🧭 NAVBAR LATÉRALE GAUCHE -->
+        <VBox spacing="15" styleClass="sidebar">
+            <Label text="📊 Menu" styleClass="sidebar-title"/>
 
-        <!-- Table des Blogs -->
-        <TableView fx:id="tableBlog" VBox.vgrow="ALWAYS" styleClass="blog-table">
-            <columns>
-                <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
-                <TableColumn fx:id="colTitle" text="Titre" prefWidth="200"/>
-                <TableColumn fx:id="colContent" text="Contenu" prefWidth="300"/>
-                <TableColumn fx:id="colImage" text="Image" prefWidth="150"/>
-                <TableColumn fx:id="colCategory" text="Catégorie" prefWidth="150"/>
-            </columns>
-        </TableView>
-
-        <!-- Zone de Traduction -->
-        <VBox spacing="15" styleClass="translation-container">
-            <Label text="Traduction" styleClass="section-title"/>
-            <HBox spacing="10">
-                <Label text="Titre traduit :" styleClass="label"/>
-                <Label fx:id="blogTitle" styleClass="translated-title"/>
-            </HBox>
-            <HBox spacing="10">
-                <Label text="Contenu traduit :" styleClass="label"/>
-                <TextArea fx:id="blogContent" prefWidth="400" prefHeight="80" styleClass="translated-content"/>
-            </HBox>
-            <HBox spacing="10" alignment="CENTER_RIGHT">
-                <Button text="Traduire" styleClass="btn-translate" onAction="#translateBlog"/>
-            </HBox>
+            <Button fx:id="btnStat" text="Stat. Catégories" styleClass="sidebar-button" onAction="#openStatCategory"/>
+            <Button fx:id="btnStatCovid" text="Stat. Covid" styleClass="sidebar-button" onAction="#OpenDashCovid"/>
+            <Button fx:id="btnChatSante" text="Chat Santé" styleClass="sidebar-button" onAction="#OpenChatSante"/>
+            <Button fx:id="btnChatBootAI" text="Chat AI" styleClass="sidebar-button" onAction="#OpenChatBootAI"/>
         </VBox>
 
-        <!-- Navigation & Actions -->
-        <HBox spacing="20" alignment="CENTER" styleClass="pagination-bar">
-            <Button fx:id="btnPrevious" text="← Précédent" styleClass="pagination-button" onAction="#previousPage"/>
-            <Label fx:id="lblPage" text="Page 1" styleClass="page-label"/>
-            <Button fx:id="btnNext" text="Suivant →" styleClass="pagination-button" onAction="#nextPage"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <Button fx:id="btnDownloadPDF" text="Télécharger PDF" styleClass="button" onAction="#downloadPDF"/>
-            <Button fx:id="btnViewComments" text="Commenter" styleClass="button" onAction="#openCommentPage"/>
-            <Button text="Écouter" onAction="#handleListen" styleClass="button"/>
-        </HBox>
-    </VBox>
+        <!-- 🧾 CONTENU PRINCIPAL -->
+        <VBox spacing="20" styleClass="main-content" HBox.hgrow="ALWAYS">
+
+            <!-- Header -->
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="header-container">
+                <Label text="Blogs" styleClass="header-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
+
+            <!-- Recherche -->
+            <HBox spacing="20" alignment="CENTER_LEFT" styleClass="toolbar">
+                <TextField fx:id="txtSearch" promptText="🔍 Rechercher un blog..." styleClass="search-bar" HBox.hgrow="ALWAYS"/>
+                <ComboBox fx:id="cmbCategory" promptText="Filtrer par catégorie" styleClass="filter-combo" prefWidth="200"/>
+                <Button text="Rechercher" styleClass="button" onAction="#searchBlog"/>
+            </HBox>
+
+            <!-- Tableau des blogs -->
+            <TableView fx:id="tableBlog" VBox.vgrow="ALWAYS" styleClass="blog-table">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colTitle" text="Titre" prefWidth="200"/>
+                    <TableColumn fx:id="colContent" text="Contenu" prefWidth="300"/>
+                    <TableColumn fx:id="colImage" text="Image" prefWidth="150"/>
+                    <TableColumn fx:id="colCategory" text="Catégorie" prefWidth="150"/>
+                </columns>
+            </TableView>
+
+            <!-- Zone de traduction -->
+            <VBox spacing="15" styleClass="translation-container">
+                <Label text="Traduction" styleClass="section-title"/>
+                <HBox spacing="10">
+                    <Label text="Titre traduit :" styleClass="label"/>
+                    <Label fx:id="blogTitle" styleClass="translated-title"/>
+                </HBox>
+                <HBox spacing="10">
+                    <Label text="Contenu traduit :" styleClass="label"/>
+                    <TextArea fx:id="blogContent" prefWidth="400" prefHeight="80" styleClass="translated-content"/>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button text="Traduire" styleClass="btn-translate" onAction="#translateBlog"/>
+                </HBox>
+            </VBox>
+
+            <!-- Actions en bas -->
+            <HBox spacing="20" alignment="CENTER" styleClass="pagination-bar">
+                <Button fx:id="btnPrevious" text="← Précédent" styleClass="pagination-button" onAction="#previousPage"/>
+                <Label fx:id="lblPage" text="Page 1" styleClass="page-label"/>
+                <Button fx:id="btnNext" text="Suivant →" styleClass="pagination-button" onAction="#nextPage"/>
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button fx:id="btnDownloadPDF" text="Télécharger PDF" styleClass="button" onAction="#downloadPDF"/>
+                <Button fx:id="btnViewComments" text="Commenter" styleClass="button" onAction="#openCommentPage"/>
+                <Button text="Écouter" onAction="#handleListen" styleClass="button"/>
+            </HBox>
+        </VBox>
+    </HBox>
 </AnchorPane>

@@ -30,7 +30,7 @@
                 <Button text="Ajouter" onAction="#addCategory" styleClass="button, btn-success"/>
                 <Button text="Modifier" onAction="#updateCategory" styleClass="button, btn-secondary"/>
                 <Button text="Supprimer" onAction="#deleteCategory" styleClass="button, btn-danger"/>
-                <Button text="Retour à la page Blog" onAction="#handleBack"/>
+                <Button fx:id="btnRetour" text="Retour" onAction="#retourBlog" styleClass="button-return"/>
 
             </HBox>
         </GridPane>

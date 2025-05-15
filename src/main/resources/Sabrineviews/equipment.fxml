@@ -11,7 +11,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ed.sanarenovo.controllers.GestionEquipement.EquipmentController"
+      fx:controller="ed.sanarenovo.controllers.GestionEquipment.EquipmentController"
       spacing="20"
       style="-fx-padding: 25; -fx-background-color: #f5f7fa;"
       stylesheets="@/styles/equipment.css">

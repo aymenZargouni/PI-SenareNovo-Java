@@ -6,7 +6,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ed.sanarenovo.controllers.GestionEquipement.CalendarViewController"
+      fx:controller="ed.sanarenovo.controllers.GestionEquipment.CalendarViewController"
             fx:id="calendarContainer">
 
 

@@ -2,7 +2,8 @@
 @import "CommonStyle.css";
 
 /* Variables globales */
-* {
+{
+
     -fx-primary-color: #3a8bb7;
     -fx-secondary-color: #FF5722;
     -fx-grey-color: #b9b9b9;
@@ -144,8 +145,8 @@
 }
 
 .success-message {
-    -fx-text-fill: #28a745;
-    -fx-background-color: derive(#28a745, 90%);
+    -fx-text-fill: #35aadc;
+    -fx-background-color: derive(#1b305e, 90%);
 }
 
 .error-message {
@@ -303,4 +304,18 @@
 .comment-info {
     -fx-font-size: 14px;
     -fx-text-fill: #666;
-} 
+}
+.button-return {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20 10 20;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 6, 0, 2, 2);
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.button-return:hover {
+    -fx-background-color: #0056b3;
+}
