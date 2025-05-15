@@ -16,8 +16,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1100.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.ConsultationController"
-stylesheets="/Youssef_views/design.css">
+<AnchorPane prefHeight="700.0" prefWidth="1100.0" styleClass="main-pane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ed.sanarenovo.controllers.consultation.ConsultationController">
 
     <children>
         <!-- Sidebar -->
@@ -33,7 +32,7 @@ stylesheets="/Youssef_views/design.css">
                 <Button layoutX="14.0" layoutY="178.0" onAction="#redirectToDossierMedicale" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Gestion Dossier Médical" />
                 <Button layoutX="14.0" layoutY="220.0" onAction="#redirectTostat" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Statistiques" />
                 <Button layoutX="14.0" layoutY="262.0" onAction="#redirectToCalendar" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Calendrier" />
-                <Button layoutX="14.0" layoutY="300.0" onAction="#redirectTorv" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Liste Rendez-vous" />
+                <Button layoutX="14.0" layoutY="309.0" onAction="#redirectTorv" prefHeight="100.0" prefWidth="150.0" styleClass="primary-btn" text="Liste Rendez-vous" />
 
             </children>
         </Pane>

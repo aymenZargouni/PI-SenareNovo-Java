@@ -6,7 +6,7 @@
 <BorderPane prefHeight="600.0" prefWidth="1000.0"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.service.showsalle"
-            stylesheets="@/AymenViews/style.css">
+            stylesheets="@/mahdyviews/style.css">
 
     <!-- Sidebar -->
     <left>
@@ -24,7 +24,7 @@
             </HBox>
 
             <!-- Tableau -->
-            <TableView fx:id="tabl" prefHeight="250.0" styleClass="styled-table">
+            <TableView fx:id="tabl" prefHeight="250.0" styleClass="custom-table">
                 <columns>
                     <TableColumn fx:id="id" prefWidth="75.0" text="id"/>
                     <TableColumn fx:id="idsser" prefWidth="94.0" text="id service"/>
@@ -36,11 +36,11 @@
 
             <!-- Formulaire de modification -->
             <GridPane hgap="15" vgap="15">
-                <Label text="Type" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
+                <Label text="Type" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="section-title"/>
                 <TextField fx:id="type" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="form-field"/>
 
-                <Label text="État" GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="form-label"/>
-                <TextField fx:id="etat" GridPane.rowIndex="0" GridPane.columnIndex="3" styleClass="form-field"/>
+                <Label text="État" GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="section-title"/>
+                <TextField fx:id="etat" GridPane.rowIndex="0" GridPane.columnIndex="5" styleClass="form-field"/>
             </GridPane>
 
             <!-- Messages -->
@@ -53,8 +53,8 @@
             <HBox spacing="20" alignment="CENTER">
                 <Button fx:id="supp" text="Supprimer" onAction="#deleteSalle" styleClass="danger-button"/>
                 <Button fx:id="mod" text="Modifier" onAction="#updateSalle" styleClass="primary-button"/>
-                <Button fx:id="add2" text="Ajouter Salle" onAction="#navigations" styleClass="success-button"/> <!-- Appliqué success-button ici -->
-                <Button fx:id="servic" text="Services" onAction="#servicshow" styleClass="info-button"/> <!-- Appliqué info-button ici -->
+                <Button fx:id="add2" text="Ajouter Salle" onAction="#navigations" styleClass="primary-button"/> <!-- Appliqué success-button ici -->
+                <Button fx:id="servic" text="Services" onAction="#servicshow" styleClass="secondary-button"/> <!-- Appliqué info-button ici -->
             </HBox>
 
         </VBox>

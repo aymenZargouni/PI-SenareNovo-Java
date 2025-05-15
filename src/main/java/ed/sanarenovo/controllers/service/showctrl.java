@@ -205,8 +205,25 @@ public class showctrl {
             }
         });
 
+        // Charger la liste des services
         ObservableList<Service> list = FXCollections.observableArrayList(serviceManager.getServices());
         tabview.setItems(list);
+
+        // 👉 Ajouter le listener de sélection
+        tabview.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                nomField.setText(newValue.getNom());
+                chefField.setText(newValue.getChef_service());
+
+                capaciteField.setText(String.valueOf(newValue.getCapacite()));
+                etatField.setText(newValue.isEtat() ? "libre" : "reserver");
+            } else {
+                nomField.clear();
+                chefField.clear();
+                capaciteField.clear();
+                etatField.clear();
+            }
+        });
     }
 
     @FXML
@@ -215,7 +232,9 @@ public class showctrl {
 
         Service selected = tabview.getSelectionModel().getSelectedItem();
         message1.setText("");
-
+        message2.setText("");
+        message3.setText("");
+        message4.setText("");
         boolean valid = true;
 
 

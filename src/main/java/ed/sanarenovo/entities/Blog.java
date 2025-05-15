@@ -24,6 +24,12 @@ public class Blog {
         this.image = image;
         this.categories = categories;
     }
+    public Blog(String title, String content, List<Category> categories) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.categories = categories;
+    }
     public Blog(String title, String content, String image, List<Category> categories) {
         this.title = title;
         this.content = content;
@@ -109,4 +115,3 @@ public class Blog {
                 '}';
     }
 }
-

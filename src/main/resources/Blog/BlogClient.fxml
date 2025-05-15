@@ -22,6 +22,8 @@
             <Button fx:id="btnStatCovid" text="Stat. Covid" styleClass="sidebar-button" onAction="#OpenDashCovid"/>
             <Button fx:id="btnChatSante" text="Chat Santé" styleClass="sidebar-button" onAction="#OpenChatSante"/>
             <Button fx:id="btnChatBootAI" text="Chat AI" styleClass="sidebar-button" onAction="#OpenChatBootAI"/>
+            <!--<Button fx:id="btrRetour" text="Retour" onAction="#btrRetour" styleClass="sidebar-button"/> -->
+
         </VBox>
 
         <!-- 🧾 CONTENU PRINCIPAL -->
@@ -43,10 +45,9 @@
             <!-- Tableau des blogs -->
             <TableView fx:id="tableBlog" VBox.vgrow="ALWAYS" styleClass="blog-table">
                 <columns>
-                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
                     <TableColumn fx:id="colTitle" text="Titre" prefWidth="200"/>
                     <TableColumn fx:id="colContent" text="Contenu" prefWidth="300"/>
-                    <TableColumn fx:id="colImage" text="Image" prefWidth="150"/>
+                    <!--<TableColumn fx:id="colImage" text="Image" prefWidth="150"/>-->
                     <TableColumn fx:id="colCategory" text="Catégorie" prefWidth="150"/>
                 </columns>
             </TableView>

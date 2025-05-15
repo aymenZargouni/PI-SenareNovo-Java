@@ -65,12 +65,12 @@ public class BlogController implements Initializable {
     @FXML private TableColumn<Blog, Integer> colId;
     @FXML private TableColumn<Blog, String> colTitle;
     @FXML private TableColumn<Blog, String> colContent;
-    @FXML private TableColumn<Blog, String> colImage;
+    //@FXML private TableColumn<Blog, String> colImage;
     @FXML private TableColumn<Blog, String> colCategory;
 
     @FXML private TextField txtTitle;
     @FXML private TextArea  txtContent;
-    @FXML private TextField txtImage;
+    //@FXML private TextField txtImage;
     @FXML private TextField txtSearch;
     @FXML private Label lblPage;
     @FXML private ListView<Category> listCategories;
@@ -100,10 +100,10 @@ public class BlogController implements Initializable {
         colId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         colTitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTitle()));
         colContent.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContent()));
-        colImage.setCellValueFactory(new PropertyValueFactory<>("image")); // récupère juste le chemin ou URL de l'image
+        //colImage.setCellValueFactory(new PropertyValueFactory<>("image")); // récupère juste le chemin ou URL de l'image
 
         // Configuration de la colonne image pour afficher l'image elle-même
-        colImage.setCellFactory(column -> new TableCell<Blog, String>() {
+        /*colImage.setCellFactory(column -> new TableCell<Blog, String>() {
             private final ImageView imageView = new ImageView();
 
             {
@@ -141,7 +141,7 @@ public class BlogController implements Initializable {
                     }
                 }
             }
-        });
+        });*/
 
         // Configuration de la colonne catégorie
         colCategory.setCellValueFactory(cellData -> {
@@ -161,7 +161,7 @@ public class BlogController implements Initializable {
             if (newSelection != null) {
                 txtTitle.setText(newSelection.getTitle());
                 txtContent.setText(newSelection.getContent());
-                txtImage.setText(newSelection.getImage());
+                //txtImage.setText(newSelection.getImage());
 
                 // Remplir les catégories si tu veux aussi les charger
                 listCategories.getSelectionModel().clearSelection();
@@ -245,10 +245,10 @@ public class BlogController implements Initializable {
         // Récupère le texte des champs et supprime les espaces inutiles
         String title = txtTitle.getText().trim();
         String content = txtContent.getText().trim();
-        String image = txtImage.getText().trim();
+        //String image = txtImage.getText().trim();
         List<Category> selectedCategories = new ArrayList<>(listCategories.getSelectionModel().getSelectedItems());
 
-        if (title.isEmpty() || content.isEmpty() || image.isEmpty()){
+        /*if (title.isEmpty() || content.isEmpty() || image.isEmpty()){
             showAlert(Alert.AlertType.ERROR, "Champs requis", "Tous les champs doivent être remplis.");
             return;
         }
@@ -256,14 +256,14 @@ public class BlogController implements Initializable {
         if (title.length() < 3 || content.length() < 3 || image.length() < 3) {
             showAlert(Alert.AlertType.WARNING, "Champs invalide", "Les Champs doit contenir au moins 3 caractères.");
             return;
-        }
+        }*/
 
         /*if (!image.matches("^(http|https)?://.*\\.(jpg|jpeg|png|gif|bmp)$")) {
             showAlert(Alert.AlertType.WARNING, "URL de l'image invalide", "Veuillez entrer une URL valide d'image (jpg, png, etc).");
             return;
         }*/
 
-        Blog blog = new Blog(title, content, image, selectedCategories);
+        Blog blog = new Blog(title, content, selectedCategories);
         blog.setCategories(new ArrayList<>(selectedCategories)); // definit les categories
         blogService.addBlog(blog);
         refreshTable();
@@ -282,7 +282,7 @@ public class BlogController implements Initializable {
     private void clearFields() {
         txtTitle.clear(); // vider le champ titre
         txtContent.clear();
-        txtImage.clear();
+        //txtImage.clear();
         listCategories.getSelectionModel().clearSelection();
 
     }
@@ -293,7 +293,7 @@ public class BlogController implements Initializable {
         if (selected != null) {
             selected.setTitle(txtTitle.getText());
             selected.setContent(txtContent.getText());
-            selected.setImage(txtImage.getText());
+            //selected.setImage(txtImage.getText());
             List<Category> selectedCategories = listCategories.getSelectionModel().getSelectedItems();
             selected.setCategories(new ArrayList<>(selectedCategories));
             blogService.updateBlog(selected, selected.getId());
@@ -386,14 +386,14 @@ public class BlogController implements Initializable {
         fileChooser.setTitle("Choisir une image");
         // choisir uniquemment le fichier de type ...
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Fichiers d'image", ".png", ".jpg", ".jpeg", ".gif", "*.bmp")
+                new FileChooser.ExtensionFilter("Fichiers d'image", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
         );
 
         File selectedFile = fileChooser.showOpenDialog(null); // Afficher le fichier et recupere le fichier selectionné
 
-        if (selectedFile != null) {
+        /*if (selectedFile != null) {
             txtImage.setText(selectedFile.getAbsolutePath()); //affichier le chemin absolu du fich dans le champ txtImg
-        }
+        }*/
 
     }
 

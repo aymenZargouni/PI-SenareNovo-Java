@@ -21,23 +21,23 @@
          <Label text="Ajouter une salle" styleClass="section-title" />
 
          <GridPane hgap="15" vgap="15">
-            <Label text="ID Service" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-            <ComboBox fx:id="id_serv" GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-background-color: #ffffff; -fx-border-color: #4CAF50;" />
+            <Label text="ID Service" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="section-title" />
+            <ComboBox fx:id="id_serv" GridPane.rowIndex="0" GridPane.columnIndex="1"  styleClass="custom-table" />
 
-            <Label text="Type" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-            <TextField fx:id="type" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-background-color: #ffffff; -fx-border-color: #4CAF50;" />
+            <Label text="Type" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="section-title"/>
+            <TextField fx:id="type" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="custom-table" />
 
-            <Label text="État" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-            <ComboBox fx:id="etatcombo" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-background-color: #ffffff; -fx-border-color: #FF9800;" />
+            <Label text="État" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="section-title"/>
+            <ComboBox fx:id="etatcombo" GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="state-combo" />
          </GridPane>
 
          <!-- Messages d'erreur -->
-         <Label fx:id="message1" style="-fx-text-fill: #e74c3c;" />
-         <Label fx:id="message2" style="-fx-text-fill: #e74c3c;" />
+         <Label fx:id="message1" styleClass="error-message" />
+         <Label fx:id="message2" styleClass="error-message" />
 
          <!-- Boutons -->
          <HBox spacing="15" alignment="CENTER">
-            <Button fx:id="energ" text="Enregistrer" onAction="#addSalle" styleClass="add-button" />
+            <Button fx:id="energ" text="Enregistrer" onAction="#addSalle" styleClass="danger-button" />
             <Button fx:id="salo" text="Salles" onAction="#salshw" styleClass="primary-button" />
          </HBox>
 

@@ -8,7 +8,7 @@
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.service.showctrl"
-            stylesheets="@/AymenViews/style.css">
+            stylesheets="@/mahdyviews/style.css">
 
     <!-- 📚 SIDEBAR (à gauche) -->
     <left>
@@ -23,8 +23,9 @@
             </padding>
             <!-- 🔍 Barre de recherche -->
             <HBox spacing="10">
-                <TextField fx:id="searchField" promptText="Rechercher par ID" styleClass="custom-table" />
-                <Button text="Rechercher" onAction="#receherchesalle" styleClass="action-button"/>
+
+                <TextField fx:id="searchField" promptText="Rechercher par ID" styleClass="form-field" HBox.hgrow="ALWAYS" />
+                <Button text="Rechercher" onAction="#receherchesalle" styleClass="primary-button"/>
             </HBox>
 
             <!-- 📋 TableView -->
@@ -66,7 +67,7 @@
 
             <!-- 🎯 Boutons d’action -->
             <HBox spacing="10">
-                <Button fx:id="updat" text="Modifier" onAction="#updateService" styleClass="add-button"/>
+                <Button fx:id="updat" text="Modifier" onAction="#updateService" styleClass="primary-button"/>
                 <Button fx:id="supp" text="Supprimer" onAction="#deleteService" styleClass="danger-button"/>
             </HBox>
 
@@ -82,12 +83,12 @@
             <HBox spacing="20">
                 <Button fx:id="add3" text="Ajouter Service" onAction="#servicenav" styleClass="primary-button"/>
                 <Button fx:id="addsall" text="Ajouter Salle" onAction="#addsale" styleClass="secondary-button"/>
-                <Button fx:id="stat1" text="Statistiques" onAction="#stat" styleClass="action-button"/>
+                <Button fx:id="stat1" text="Statistiques" onAction="#stat" styleClass="secondary-button"/>
             </HBox>
 
             <HBox spacing="20">
                 <Button fx:id="pdf" text="Exporter PDF" onAction="#exportserviceToPDF" styleClass="secondary-button"/>
-                <Button fx:id="btnRecommande" text="Voir Recommandation" onAction="#ouvrirRecommandation" styleClass="sidebar-btn"/>
+
                 <Button fx:id="speakButton" text="🔊 Lire" onAction="#speakSelectedService" styleClass="danger-button"/>
             </HBox>
 

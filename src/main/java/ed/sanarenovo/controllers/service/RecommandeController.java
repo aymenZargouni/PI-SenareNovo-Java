@@ -92,7 +92,7 @@ public class RecommandeController {
 
     @FXML
     private void retour(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mahdyviews/affichage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mahdyviews/zenview.fxml"));
         Scene scene = new Scene(loader.load());
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

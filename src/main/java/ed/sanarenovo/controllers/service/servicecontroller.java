@@ -76,8 +76,8 @@ public class servicecontroller {
                 }
 
                 // Vérification que etat est "true" ou "false"
-                if (!etatText.equalsIgnoreCase("complet") && !etatText.equalsIgnoreCase("vide")) {
-                        messafe4.setText(" Le champ 'état' doit être 'true' ou 'false'.");
+                if (!etatText.equalsIgnoreCase("complet") && !etatText.equalsIgnoreCase("libre")) {
+                        messafe4.setText(" Le champ 'état' doit être 'libre' ou 'complet'.");
                         return;
                 }
 

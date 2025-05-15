@@ -6,7 +6,7 @@
 <BorderPane prefHeight="500.0" prefWidth="950.0"
             xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.service.servicecontroller"
-            stylesheets="@/AymenViews/style.css">
+            stylesheets="@/mahdyviews/style.css">
 
    <!-- Sidebar à gauche -->
    <left>
@@ -17,20 +17,20 @@
    <center>
       <AnchorPane styleClass="content-container">
          <children>
-            <Label layoutX="55.0" layoutY="63.0" text="Nom service" styleClass="form-label" />
-            <TextField fx:id="nom" layoutX="208.0" layoutY="59.0" styleClass="form-field"/>
+            <Label layoutX="55.0" layoutY="63.0" text="Nom service" styleClass="section-title" />
+            <TextField fx:id="nom" layoutX="208.0" layoutY="59.0" styleClass="custom-table"/>
 
-            <Label layoutX="68.0" layoutY="126.0" text="Nom chef service" styleClass="form-label"/>
-            <TextField fx:id="nomchef" layoutX="208.0" layoutY="122.0" styleClass="form-field"/>
+            <Label layoutX="68.0" layoutY="126.0" text="Nom chef service" styleClass="section-title"/>
+            <TextField fx:id="nomchef" layoutX="308.0" layoutY="122.0" styleClass="custom-table"/>
 
-            <Label layoutX="55.0" layoutY="186.0" text="Nombre de salles de service" styleClass="form-label"/>
-            <TextField fx:id="nbr_salles" layoutX="208.0" layoutY="182.0" styleClass="form-field"/>
+            <Label layoutX="55.0" layoutY="186.0" text="Nombre de salles de service" styleClass="section-title"/>
+            <TextField fx:id="nbr_salles" layoutX="408.0" layoutY="182.0" styleClass="custom-table"/>
 
-            <Label layoutX="68.0" layoutY="250.0" text="Capacité" styleClass="form-label"/>
-            <TextField fx:id="cap" layoutX="208.0" layoutY="246.0" styleClass="form-field"/>
+            <Label layoutX="68.0" layoutY="250.0" text="Capacité" styleClass="section-title"/>
+            <TextField fx:id="cap" layoutX="308.0" layoutY="246.0" styleClass="custom-table"/>
 
-            <Label layoutX="68.0" layoutY="310.0" text="État" styleClass="form-label"/>
-            <TextField fx:id="etat" layoutX="208.0" layoutY="315.0" styleClass="form-field"/>
+            <Label layoutX="68.0" layoutY="310.0" text="État" styleClass="section-title"/>
+            <TextField fx:id="etat" layoutX="308.0" layoutY="315.0" styleClass="custom-table"/>
 
             <Button fx:id="enregist" layoutX="85.0" layoutY="383.0" text="Enregistrer"
                     onAction="#addService" styleClass="primary-button"/>

@@ -1,40 +1,80 @@
-/* Main background remains the same */
-.main-pane {
+/* Color Palette */
+.root {
+    -fx-primary: #3a7bd5;       /* Calm blue */
+    -fx-secondary: #00d2ff;    /* Light teal */
+    -fx-accent: #45b649;       /* Healthy green */
+    -fx-light: #f8f9fa;        /* Light background */
+    -fx-dark: #2c3e50;         /* Dark blue-gray */
+    -fx-danger: #e74c3c;       /* Alert red */
+    -fx-warning: #f39c12;      /* Warning orange */
+}
+
+/* Main background */
+.main-pane, .main-container {
     -fx-background-color: #f0f8ff;
     -fx-padding: 20;
 }
 
-/* Text styles remain unchanged */
-.title-label, .text, .page-title {
+/* Content Container */
+.content-container {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 25;
+    -fx-spacing: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(58,123,213,0.08), 12, 0, 0, 6);
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+}
+
+/* Text styles */
+.title-label, .text, .page-title, .section-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: #2c3e50;
     -fx-padding: 0 0 10 0;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-/* Changed primary button from green to blue */
-.primary-btn {
-    -fx-background-color: #3498db; /* Changed from #2ecc71 to blue */
+.section-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: 800;
+    -fx-border-color: linear-gradient(to right, transparent, #3a7bd5, transparent);
+    -fx-border-width: 0 0 2 0;
+}
+
+/* Button Styles */
+.primary-btn, .primary-button {
+    -fx-background-color: #3498db, linear-gradient(to right, #3a7bd5, #00d2ff);
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-background-radius: 5;
+    -fx-background-radius: 5, 8;
     -fx-padding: 10 15;
-    -fx-effect: dropshadow(three-pass-box, rgba(52, 152, 219, 0.3), 10, 0, 0, 2); /* Updated shadow color */
+    -fx-font-size: 13px;
+    -fx-pref-height: 28px;
+    -fx-pref-width: 165px;
+    -fx-effect: dropshadow(three-pass-box, rgba(52, 152, 219, 0.3), 10, 0, 0, 2);
 }
 
-/* Other buttons remain the same */
-.secondary-btn {
-    -fx-background-color: #95a5a6;
+.secondary-btn, .secondary-button {
+    -fx-background-color: #95a5a6, linear-gradient(to right, #45b649, #a8e063);
     -fx-text-fill: white;
-    -fx-background-radius: 10;
+    -fx-background-radius: 10, 8;
     -fx-padding: 10 20;
+    -fx-font-size: 13px;
+    -fx-pref-height: 28px;
+    -fx-pref-width: 165px;
 }
 
-.danger-btn {
-    -fx-background-color: #e74c3c;
+.danger-btn, .danger-button {
+    -fx-background-color: #e74c3c, linear-gradient(to right, #e74c3c, #f39c12);
     -fx-text-fill: white;
-    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10, 8;
     -fx-padding: 10 20;
+    -fx-font-size: 13px;
+    -fx-pref-height: 28px;
+    -fx-pref-width: 165px;
 }
 
 .edit-btn {
@@ -42,20 +82,140 @@
     -fx-text-fill: white;
     -fx-background-radius: 10;
     -fx-padding: 10 20;
+    -fx-font-size: 13px;
+    -fx-pref-height: 28px;
+    -fx-pref-width: 165px;
 }
 
-/* Table header changed to blue */
-.table-view .column-header-background {
-    -fx-background-color: #d6eaf8; /* Lighter blue instead of #d1f2eb */
+.button, .primary-btn, .secondary-btn, .danger-btn, .edit-btn {
+    -fx-cursor: hand;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-/* Everything below remains exactly the same */
-.message-label {
+.button:hover, .primary-btn:hover, .secondary-btn:hover, .danger-btn:hover, .edit-btn:hover {
+    -fx-opacity: 0.9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 2);
+}
+
+/* Table styles */
+.table-view, .custom-table {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 10, 0, 0, 0);
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+}
+
+.table-view .column-header-background, .custom-table .column-header-background {
+    -fx-background-color: #d6eaf8, linear-gradient(to bottom, #3a7bd5, #00d2ff);
+    -fx-background-radius: 8 8 0 0;
+    -fx-padding: 1 0 1 0;
+}
+
+.table-view .column-header, .custom-table .column-header {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.table-view .table-row-cell, .custom-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #f0f0f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .table-row-cell:odd, .custom-table .table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-view .table-row-cell:selected, .custom-table .table-row-cell:selected {
+    -fx-background-color: #e3f2fd;
     -fx-text-fill: #2c3e50;
-    -fx-font-size: 12px;
-    -fx-padding: 5px 0;
 }
 
+.table-view .cell, .custom-table .table-cell {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 1 1;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* Sidebar Styles */
+.sidebar-container {
+    -fx-background-color: linear-gradient(to bottom, #1a2a3a, #2c3e50);
+    -fx-padding: 25 15;
+    -fx-spacing: 15;
+    -fx-border-radius: 0 12 12 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 4, 0);
+    -fx-border-color: rgba(0,210,255,0.1);
+    -fx-border-width: 0 1 0 0;
+    -fx-alignment: top-center;
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13.5px;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-padding: 14 20 14 25;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-graphic-text-gap: 12;
+    -fx-content-display: left;
+    -fx-transition: all 0.3s ease;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-border-color: #3a7bd5;
+    -fx-translate-x: 3px;
+    -fx-text-fill: #ffffff;
+}
+
+.sidebar-btn:focused, .sidebar-btn:selected, .sidebar-btn.active {
+    -fx-background-color: linear-gradient(to right, rgba(58,123,213,0.4), transparent);
+    -fx-border-color: #00d2ff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,210,255,0.3), 5, 0, 0, 1);
+}
+
+.sidebar-logo {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 6, 0, 0, 2);
+    -fx-padding: 0 0 15 0;
+}
+
+.version-label {
+    -fx-text-fill: rgba(255,255,255,0.5);
+    -fx-font-size: 11px;
+    -fx-padding: 15 0 5 0;
+    -fx-font-style: italic;
+}
+
+/* Status Indicators */
+.status-active {
+    -fx-text-fill: #45b649;
+    -fx-font-weight: bold;
+}
+
+.status-blocked {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
+
+/* Hover Effects */
+.hover-effect:hover {
+    -fx-background-color: #f0f8ff;
+    -fx-cursor: hand;
+}
+
+/* Common styles */
 VBox {
     -fx-background-color: #ffffff;
     -fx-background-radius: 10;
@@ -64,23 +224,10 @@ VBox {
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 10, 0, 0, 0);
 }
 
-.table-view {
-    -fx-background-color: white;
-    -fx-background-radius: 10;
-    -fx-padding: 5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 10, 0, 0, 0);
-}
-
-.table-view .cell {
-    -fx-font-size: 13px;
-    -fx-text-fill: #2c3e50;
-}
-
-.text {
-    -fx-font-size: 14px;
-    -fx-text-fill: #2c3e50;
-    -fx-font-weight: bold;
-    -fx-min-width: 130px;
+.message-label {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 11px;
+    -fx-padding: 0 0 5 140;
 }
 
 TextField, DatePicker {
@@ -88,15 +235,13 @@ TextField, DatePicker {
     -fx-font-size: 13px;
 }
 
-.primary-btn, .secondary-btn, .danger-btn, .edit-btn {
-    -fx-font-size: 13px;
-    -fx-pref-height: 28px;
-    -fx-pref-width: 165px;
-    -fx-background-radius: 6;
-}
+/* Responsive Design Adjustments */
+@media (max-width: 800px) {
+    .content-container {
+        -fx-padding: 15;
+    }
 
-.message-label {
-    -fx-font-size: 11px;
-    -fx-text-fill: #e74c3c;
-    -fx-padding: 0 0 5 140;
+    .button, .primary-btn, .secondary-btn, .danger-btn, .edit-btn {
+        -fx-padding: 8 12;
+    }
 }

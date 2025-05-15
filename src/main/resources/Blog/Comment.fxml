@@ -8,40 +8,41 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ed.sanarenovo.controllers.Blog.CommentClientController"
-            stylesheets="@/Blog/css/CommentStyle.css"
-            prefHeight="600.0" prefWidth="650.0">
+            fx:controller="ed.sanarenovo.controllers.Blog.CommentController"
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@/Blog/css/CommentStyle.css">
 
-    <VBox spacing="10.0" alignment="TOP_CENTER" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
-        <Label fx:id="lblBlogTitle" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+    <children>
+        <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20" styleClass="main-container">
+            <!-- Table des commentaires -->
+            <TableView fx:id="tableComments" styleClass="comment-table" VBox.vgrow="ALWAYS" prefHeight="200">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" styleClass="id-column" prefWidth="50"/>
+                    <TableColumn fx:id="colContent" text="Contenue" styleClass="content-column" prefWidth="300"/>
+                    <TableColumn fx:id="colUsername" text="Utilisateur" styleClass="user-column" prefWidth="150"/>
+                </columns>
+            </TableView>
 
-        <TableView fx:id="tableComment" prefHeight="200.0" prefWidth="600.0">
-            <columns>
-                <TableColumn fx:id="colId" text="ID" prefWidth="50.0"/>
-                <TableColumn fx:id="colContent" text="Contenue" prefWidth="300.0"/>
-                <TableColumn fx:id="colUserEmail" text="Utilisateur (Email)" prefWidth="250.0"/>
-            </columns>
-        </TableView>
+            <!-- Table des réponses -->
+            <Label text="Réponses au commentaire" styleClass="section-title"/>
+            <TableView fx:id="replyTable" styleClass="reply-table" VBox.vgrow="ALWAYS" prefHeight="150">
+                <columns>
+                    <TableColumn fx:id="colReplyContent" text="Contenu" styleClass="content-column" prefWidth="300"/>
+                    <TableColumn fx:id="colReplyAuthor" text="Auteur" styleClass="user-column" prefWidth="150"/>
+                    <TableColumn fx:id="colReplyDate" text="Date" styleClass="date-column" prefWidth="150"/>
+                </columns>
+            </TableView>
 
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <TextField fx:id="txtContent" promptText="Écrire un commentaire..." prefWidth="450.0"/>
-            <Button text="Envoyer" onAction="#addComment"/>
-            <Button fx:id="btnUpdate" text="Modifier" onAction="#updateComment"/>
-            <Button fx:id="btnDelete" text="Supprimer" onAction="#deleteComment"/>
-            <Button fx:id="btnReply" text="Repondre" onAction="#openReplyWindow"/>
-            <Button fx:id="btnRetour" text="Retour" onAction="#retourBlog" styleClass="button-return"/>
+            <Label fx:id="lblBlogTitle" text="Blog Title" styleClass="form-title"/>
+            <TextField fx:id="txtContent" promptText="Contenue" styleClass="comment-input"/>
 
-        </HBox>
-
-        <Label text="Réponses aux commentaires" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-
-        <TableView fx:id="replyTable" prefHeight="150.0" prefWidth="600.0">
-            <columns>
-                <TableColumn fx:id="colReplyContent" text="Contenu" prefWidth="300.0"/>
-                <TableColumn fx:id="colReplyAuthor" text="Auteur" prefWidth="150.0"/>
-                <TableColumn fx:id="colReplyDate" text="Date" prefWidth="150.0"/>
-            </columns>
-        </TableView>
-    </VBox>
-
+            <HBox spacing="10" styleClass="action-buttons">
+                <Button fx:id="btnAdd" text="Ajouter" onAction="#addComment" styleClass="button button-primary"/>
+                <Button fx:id="btnUpdate" text="Modifier" onAction="#updateComment" styleClass="button button-secondary"/>
+                <Button fx:id="btnDelete" text="Supprimer" onAction="#deleteComment" styleClass="button button-danger"/>
+                <Button fx:id="btnReply" text="Répondre" onAction="#openReplyWindow" styleClass="button button-primary"/>
+                <Button fx:id="btnDeleteReply" text="Supprimer Réponse" onAction="#deleteReply" styleClass="button button-danger"/>
+            </HBox>
+        </VBox>
+    </children>
 </AnchorPane>
