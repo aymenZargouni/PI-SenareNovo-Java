@@ -10,40 +10,39 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="ed.sanarenovo.controllers.Blog.CommentController"
             prefHeight="600.0" prefWidth="800.0"
-            stylesheets="@/Blog/css/CommonStyle.css">
+            stylesheets="@/Blog/css/CommentStyle.css">
 
     <children>
-        <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+        <VBox spacing="10" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20" styleClass="main-container">
             <!-- Table des commentaires -->
-            <TableView fx:id="tableComments" VBox.vgrow="ALWAYS" prefHeight="200">
+            <TableView fx:id="tableComments" styleClass="comment-table" VBox.vgrow="ALWAYS" prefHeight="200">
                 <columns>
-                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
-                    <TableColumn fx:id="colContent" text="Contenue" prefWidth="300"/>
-                    <TableColumn fx:id="colUsername" text="Utilisateur" prefWidth="150"/>
+                    <TableColumn fx:id="colId" text="ID" styleClass="id-column" prefWidth="50"/>
+                    <TableColumn fx:id="colContent" text="Contenue" styleClass="content-column" prefWidth="300"/>
+                    <TableColumn fx:id="colUsername" text="Utilisateur" styleClass="user-column" prefWidth="150"/>
                 </columns>
             </TableView>
 
             <!-- Table des réponses -->
-            <Label text="Réponses au commentaire" style="-fx-font-weight: bold;"/>
-            <TableView fx:id="replyTable" VBox.vgrow="ALWAYS" prefHeight="150">
+            <Label text="Réponses au commentaire" styleClass="section-title"/>
+            <TableView fx:id="replyTable" styleClass="reply-table" VBox.vgrow="ALWAYS" prefHeight="150">
                 <columns>
-                    <TableColumn fx:id="colReplyContent" text="Contenu" prefWidth="300"/>
-                    <TableColumn fx:id="colReplyAuthor" text="Auteur" prefWidth="150"/>
-                    <TableColumn fx:id="colReplyDate" text="Date" prefWidth="150"/>
+                    <TableColumn fx:id="colReplyContent" text="Contenu" styleClass="content-column" prefWidth="300"/>
+                    <TableColumn fx:id="colReplyAuthor" text="Auteur" styleClass="user-column" prefWidth="150"/>
+                    <TableColumn fx:id="colReplyDate" text="Date" styleClass="date-column" prefWidth="150"/>
                 </columns>
             </TableView>
 
-            <Label fx:id="lblBlogTitle" text="Blog Title" />
-            <TextField fx:id="txtContent" promptText="Contenue"/>
+            <Label fx:id="lblBlogTitle" text="Blog Title" styleClass="form-title"/>
+            <TextField fx:id="txtContent" promptText="Contenue" styleClass="comment-input"/>
 
-            <HBox spacing="10">
-                <Button fx:id="btnAdd" text="Ajouter" onAction="#addComment"/>
-                <Button fx:id="btnUpdate" text="Modifier" onAction="#updateComment"/>
-                <Button fx:id="btnDelete" text="Supprimer" onAction="#deleteComment"/>
-                <Button fx:id="btnReply" text="Répondre" onAction="#openReplyWindow"/>
-                <Button fx:id="btnDeleteReply" text="Supprimer Réponse" onAction="#deleteReply"/>
+            <HBox spacing="10" styleClass="action-buttons">
+                <Button fx:id="btnAdd" text="Ajouter" onAction="#addComment" styleClass="button button-primary"/>
+                <Button fx:id="btnUpdate" text="Modifier" onAction="#updateComment" styleClass="button button-secondary"/>
+                <Button fx:id="btnDelete" text="Supprimer" onAction="#deleteComment" styleClass="button button-danger"/>
+                <Button fx:id="btnReply" text="Répondre" onAction="#openReplyWindow" styleClass="button button-primary"/>
+                <Button fx:id="btnDeleteReply" text="Supprimer Réponse" onAction="#deleteReply" styleClass="button button-danger"/>
             </HBox>
         </VBox>
     </children>
 </AnchorPane>
-

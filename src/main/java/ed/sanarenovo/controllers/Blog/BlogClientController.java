@@ -56,7 +56,7 @@ public class BlogClientController {
     @FXML private ResourceBundle resources;
     @FXML private URL location;
     @FXML private TableView<Blog> tableBlog;
-    @FXML private TableColumn<Blog, Integer> colId;
+    //@FXML private TableColumn<Blog, Integer> colId;
     @FXML private TableColumn<Blog, String> colTitle;
     @FXML private TableColumn<Blog, String> colContent;
     @FXML private TableColumn<Blog, String> colImage;
@@ -73,7 +73,7 @@ public class BlogClientController {
 
     @FXML private TextField txtTitle;
     @FXML private TextField txtContent;
-    @FXML private TextField txtImage;
+    //@FXML private TextField txtImage;
     @FXML private TextField txtSearch;
     @FXML private Label lblPage;
 
@@ -87,13 +87,12 @@ public class BlogClientController {
 
     @FXML
     public void initialize() {
-        colId.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         colTitle.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getTitle()));
         colContent.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getContent()));
-        colImage.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getImage()));
+        /*colImage.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getImage()));*/
         
         // Configuration de la colonne image pour afficher l'image elle-même
-        colImage.setCellFactory(column -> new TableCell<Blog, String>() {
+        /*colImage.setCellFactory(column -> new TableCell<Blog, String>() {
             private final ImageView imageView = new ImageView();
             
             {
@@ -147,7 +146,7 @@ public class BlogClientController {
                     }
                 }
             }
-        });
+        });*/
 
         // Affichage les catégories
         colCategory.setCellValueFactory(cellData -> {
@@ -225,7 +224,7 @@ public class BlogClientController {
             }
         }
 
-        if (isAdmin) {
+        /*if (isAdmin) {
             btnAdd.setVisible(true);
             btnUpdate.setVisible(true);
             btnDelete.setVisible(true);
@@ -233,7 +232,7 @@ public class BlogClientController {
             btnAdd.setVisible(false);
             btnUpdate.setVisible(false);
             btnDelete.setVisible(false);
-        }
+        }*/
     }
 
     private void filterBlogsByCategory(Category category) {
@@ -528,4 +527,92 @@ public class BlogClientController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void openStatCategory() {
+        try {
+            // Chargement de la page des catégories
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/BlogStatsCategory.fxml"));
+            Parent root = loader.load();
+
+            // Récupération de la scène actuelle
+            Stage stage = (Stage) tableBlog.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la page des Statistiques catégories : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void OpenChatSante() {
+        try {
+            // Chargement de la page des catégories
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/ChatbootSante.fxml"));
+            Parent root = loader.load();
+
+            // Récupération de la scène actuelle
+            Stage stage = (Stage) tableBlog.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la page des Chat Sante : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void OpenChatBootAI() {
+        try {
+            // Chargement de la page des catégories
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/chatbot_view.fxml"));
+            Parent root = loader.load();
+
+            // Récupération de la scène actuelle
+            Stage stage = (Stage) tableBlog.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la page des Chat Boot AI : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void OpenDashCovid() {
+        try {
+            // Chargement de la page des catégories
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Blog/dashboard.fxml"));
+            Parent root = loader.load();
+
+            // Récupération de la scène actuelle
+            Stage stage = (Stage) tableBlog.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la page des Dashboard Covid19 : " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void btnRetour() {
+        try {
+            // Chargement de la page des catégories
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AymenViews/ShowMedecin.fxml"));
+            Parent root = loader.load();
+
+            // Récupération de la scène actuelle
+            Stage stage = (Stage) tableBlog.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir la Show Medecin : " + e.getMessage());
+        }
+    }
+
+
+
 }

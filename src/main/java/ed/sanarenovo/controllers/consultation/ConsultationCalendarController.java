@@ -3,6 +3,7 @@ import ed.sanarenovo.entities.consultation;
 import ed.sanarenovo.utils.MyConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.collections.FXCollections;
@@ -21,6 +22,8 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.geometry.Pos;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class ConsultationCalendarController implements Initializable {
@@ -215,20 +218,30 @@ public class ConsultationCalendarController implements Initializable {
         alert.showAndWait();
     }
 
-    @FXML
-    private void retour(ActionEvent event) {
+    public void BlogClient(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Youssef_views/cons.fxml"));
-            Scene scene = ((Button) event.getSource()).getScene();
-            scene.setRoot(root);
-            URL cssUrl = getClass().getResource("/Youssef_views/design.css");
+            Parent root = FXMLLoader.load(getClass().getResource("/Blog/BlogClient.fxml"));
+            Scene scene = new Scene(root);
+
+            URL cssUrl = getClass().getResource("/Blog/css/BlogClientStyle.css");
             if (cssUrl != null) {
                 scene.getStylesheets().add(cssUrl.toExternalForm());
             } else {
-                System.out.println("⚠️ CSS file not found: /design.css");
+                System.out.println("⚠️ CSS file not found: /BlogClientStyle.css");
             }
+
+            // Ouvrir dans une nouvelle fenêtre (évite les erreurs avec tableView null)
+            Stage stage = new Stage();
+            stage.setTitle("Blog Client");
+            stage.setScene(scene);
+            stage.show();
+
+            // Fermer la fenêtre actuelle
+            ((Node) actionEvent.getSource()).getScene().getWindow().hide();
+
         } catch (IOException e) {
-            showAlert("Erreur", "Erreur lors du retour: " + e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
     }
+
 }

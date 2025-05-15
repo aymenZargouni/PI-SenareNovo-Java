@@ -1,104 +1,236 @@
-.main-container {
-    -fx-background-color: #f4f8fb;
+/* Color Palette */
+.root {
+    -fx-primary: #3a7bd5;       /* Calm blue */
+    -fx-secondary: #00d2ff;    /* Light teal */
+    -fx-accent: #45b649;       /* Healthy green */
+    -fx-light: #f8f9fa;        /* Light background */
+    -fx-dark: #2c3e50;         /* Dark blue-gray */
+    -fx-danger: #e74c3c;       /* Alert red */
+    -fx-warning: #f39c12;      /* Warning orange */
 }
+
+/* Main Container */
+.main-container {
+    -fx-background-color: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+}
+
+/* Content Container */
 .content-container {
-    -fx-background-color: #ffffff;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
-    -fx-padding: 20;
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 25;
     -fx-spacing: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+    -fx-effect: dropshadow(three-pass-box, rgba(58,123,213,0.08), 12, 0, 0, 6);
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
 }
 
 .section-title {
-    -fx-font-size: 20px;
-    -fx-text-fill: #1e3a8a; /* deep blue */
-    -fx-font-weight: bold;
+    -fx-font-size: 22px;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: 800;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-padding: 0 0 10 0;
+    -fx-border-color: linear-gradient(to right, transparent, #3a7bd5, transparent);
+    -fx-border-width: 0 0 2 0;
 }
 
+/* Modern Table Design */
 .custom-table {
-    -fx-border-color: #e5e7eb;
-    -fx-border-radius: 5;
-    -fx-background-color: #f9fafb;
+    -fx-background-color: transparent;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 8;
+    -fx-padding: 5;
 }
 
-.primary-button {
-    -fx-background-color: #1d4ed8;
+.custom-table .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #3a7bd5, #00d2ff);
+    -fx-background-radius: 8 8 0 0;
+    -fx-padding: 8 0 8 0;
+}
+
+.custom-table .column-header {
+    -fx-background-color: transparent;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 8 14;
-    -fx-background-radius: 5;
+    -fx-font-size: 14px;
+}
+
+.custom-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #f0f0f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.custom-table .table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.custom-table .table-row-cell:selected {
+    -fx-background-color: #e3f2fd;
+    -fx-text-fill: #2c3e50;
+}
+
+.custom-table .table-cell {
+    -fx-padding: 10 8;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* Button Styles */
+.primary-button {
+    -fx-background-color: linear-gradient(to right, #3a7bd5, #00d2ff);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(three-pass-box, rgba(58,123,213,0.3), 5, 0, 0, 2);
 }
 
 .secondary-button {
-    -fx-background-color: #3b82f6;
+    -fx-background-color: linear-gradient(to right, #45b649, #a8e063);
     -fx-text-fill: white;
-    -fx-padding: 8 14;
-    -fx-background-radius: 5;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+    -fx-font-size: 14px;
 }
 
-
 .danger-button {
-    -fx-background-color: #dc3545;
+    -fx-background-color: linear-gradient(to right, #e74c3c, #f39c12);
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 8 20;
-    -fx-background-radius: 5;
+    -fx-padding: 10 20;
+    -fx-background-radius: 8;
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-cursor: hand;
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 .button:hover {
-    -fx-opacity: 0.85;
-    -fx-cursor: hand;
+    -fx-opacity: 0.9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 8, 0, 0, 2);
 }
 
-.add-button {
-    -fx-background-color: #28a745;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-padding: 8 20;
-    -fx-background-radius: 5;
-}
-
-.action-button {
-    -fx-background-color: #007bff;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-padding: 8 20;
-    -fx-background-radius: 5;
-}
-
-/* Sidebar container */
+/* Sidebar Styles */
 .sidebar-container {
-    -fx-background-color: #2c3e50;
-    -fx-padding: 20;
-    -fx-pref-width: 180;
-    -fx-alignment: TOP_CENTER;
-    -fx-spacing: 20;
-    -fx-border-radius: 0 10 10 0;
+    -fx-background-color: linear-gradient(to bottom, #2c3e50, #4a6491);
+    -fx-padding: 25 15;
+    -fx-spacing: 15;
+    -fx-border-radius: 0 12 12 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 4, 0);
 }
 
-/* Sidebar buttons */
 .sidebar-btn {
-    -fx-background-color: #34495e;
+    -fx-background-color: transparent;
     -fx-text-fill: #ecf0f1;
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
+    -fx-font-weight: 600;
     -fx-background-radius: 8;
-    -fx-padding: 10 15;
+    -fx-padding: 12 20;
+    -fx-alignment: CENTER_LEFT;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-color: transparent;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 .sidebar-btn:hover {
-    -fx-background-color: #1abc9c;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-border-color: #3a7bd5;
 }
 
-.hyperlink-label {
-    -fx-text-fill: #1d4ed8;
-    -fx-underline: true;
-    -fx-cursor: hand;
+.sidebar-btn:selected {
+    -fx-background-color: transparent;
+}
+
+/* Status Indicators */
+.status-active {
+    -fx-text-fill: #45b649;
     -fx-font-weight: bold;
 }
 
+.status-blocked {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
 
+/* Hover Effects */
+.hover-effect:hover {
+    -fx-background-color: #f0f8ff;
+    -fx-cursor: hand;
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 800px) {
+    .content-container {
+        -fx-padding: 15;
+    }
+
+    .button {
+        -fx-padding: 8 12;
+    }
+}
+
+/* Add these to your existing CSS file */
+
+/* Sidebar Logo */
+.sidebar-logo {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 6, 0, 0, 2);
+    -fx-padding: 0 0 15 0;
+}
+
+/* Sidebar Button Icons (you can add these using JavaFX FontAwesome or similar) */
+.sidebar-btn {
+    -fx-graphic-text-gap: 12;
+    -fx-content-display: left;
+    -fx-padding: 14 20 14 25;
+    -fx-font-size: 13.5px;
+    -fx-text-fill: #e0e0e0;
+}
+
+/* Active state for sidebar buttons */
+.sidebar-btn:focused, .sidebar-btn:selected {
+    -fx-background-color: linear-gradient(to right, rgba(58,123,213,0.3), transparent);
+    -fx-border-color: #00d2ff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Version label */
+.version-label {
+    -fx-text-fill: rgba(255,255,255,0.5);
+    -fx-font-size: 11px;
+    -fx-padding: 15 0 5 0;
+    -fx-font-style: italic;
+}
+
+/* Sidebar container enhancements */
+.sidebar-container {
+    -fx-background-color: linear-gradient(to bottom, #1a2a3a, #2c3e50);
+    -fx-border-color: rgba(0,210,255,0.1);
+    -fx-border-width: 0 1 0 0;
+    -fx-alignment: top-center;
+}
+
+/* Animation for sidebar buttons */
+.sidebar-btn {
+    -fx-transition: all 0.3s ease;
+}
+
+.sidebar-btn:hover {
+    -fx-translate-x: 3px;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: rgba(0,210,255,0.1);
+}
+
+.sidebar-btn.active {
+    -fx-background-color: linear-gradient(to right, rgba(58,123,213,0.4), transparent);
+    -fx-border-color: #00d2ff;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,210,255,0.3), 5, 0, 0, 1);
+}

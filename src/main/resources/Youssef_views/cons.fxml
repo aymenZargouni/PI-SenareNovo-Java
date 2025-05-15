@@ -86,6 +86,8 @@
                             <Button onAction="#updateConsultation" styleClass="edit-btn" text="Modifier" />
                             <Button onAction="#supprimerConsultation" styleClass="danger-btn" text="Supprimer" />
                             <Button onAction="#clearFields" styleClass="secondary-btn" text="Vider" />
+                            <Button onAction="#BlogClient" styleClass="secondary-btn" text="Blog Client" />
+
                         </HBox>
                     </VBox>
 

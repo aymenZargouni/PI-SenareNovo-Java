@@ -1,0 +1,79 @@
+/* Fond principal */
+.main-container {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 20;
+}
+
+/* Conteneur général */
+.content-container {
+    -fx-padding: 10;
+}
+
+/* Titre */
+.label-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0d6efd;
+}
+
+/* Zone de chat */
+.chat-container {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 2, 2);
+}
+
+/* Zone de texte affichée (chat log) */
+.chat-message {
+    -fx-font-size: 14px;
+    -fx-text-fill: #343a40;
+    -fx-background-color: #f1f3f5;
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+/* Champ de saisie */
+.chat-input {
+    -fx-font-size: 14px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-color: #ced4da;
+    -fx-padding: 8;
+    -fx-background-color: #ffffff;
+}
+
+/* Bouton envoyer */
+.btn, .btn-primary {
+    -fx-background-color: #0d6efd;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 2, 2);
+}
+
+.btn:hover, .btn-primary:hover {
+    -fx-background-color: #0b5ed7;
+}
+
+/* Bouton Retour */
+.button-return {
+    -fx-background-color: #6c757d;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-margin-top: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 4, 0, 2, 2);
+}
+
+.button-return:hover {
+    -fx-background-color: #495057;
+}

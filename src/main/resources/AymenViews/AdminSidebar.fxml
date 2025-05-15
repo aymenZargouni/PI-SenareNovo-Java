@@ -15,4 +15,6 @@
     <Button text="Gestion Patients" fx:id="btnPatients" styleClass="sidebar-btn" />
     <Button text="Gestion Blog" fx:id="btnBlogs" styleClass="sidebar-btn" />
     <Button text="Gestion Service" fx:id="btnServices" styleClass="sidebar-btn" />
+    <Button text="Blog Client" fx:id="btnBlogClient" styleClass="sidebar-btn" />
+
 </VBox>

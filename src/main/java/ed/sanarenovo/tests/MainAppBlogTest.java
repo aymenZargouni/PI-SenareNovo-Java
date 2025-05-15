@@ -97,6 +97,8 @@ public class MainAppBlogTest extends Application {
             System.err.println("Erreur lors du chargement de ChatBloot.fxml");
         }*/
 
+
+
     }
 
     public static void main(String[] args) {

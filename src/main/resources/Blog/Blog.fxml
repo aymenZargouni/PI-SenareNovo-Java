@@ -9,30 +9,34 @@
             xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/"
             fx:controller="ed.sanarenovo.controllers.Blog.BlogController"
-            stylesheets="@/Blog/css/BlogStyle.css">
+            stylesheets="@/Blog/css/BlogClientStyle.css, @/AymenViews/style.css">
 
    <top>
       <Label text="Gestion Blog" styleClass="main-title"
              BorderPane.alignment="CENTER"/>
    </top>
 
+   <left>
+      <fx:include source="/AymenViews/AdminSidebar.fxml" />
+   </left>
+
    <center>
-      <VBox spacing="15" styleClass="main-container">
+      <VBox spacing="15" styleClass="main-content">
          <!-- TableView for Blog Entries -->
          <SplitPane orientation="VERTICAL">
-         <TableView fx:id="tableBlog">
-            <columns>
-               <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
-               <TableColumn fx:id="colTitle" text="Titre" prefWidth="200"/>
-               <TableColumn fx:id="colContent" text="Contenu" prefWidth="300"/>
-               <TableColumn fx:id="colImage" text="Image" prefWidth="150"/>
-               <TableColumn fx:id="colCategory" text="Catégorie" prefWidth="150"/>
-            </columns>
-         </TableView>
-         </SplitPane>
+            <TableView fx:id="tableBlog" VBox.vgrow="ALWAYS" styleClass="blog-table">
+               <columns>
+                  <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                  <TableColumn fx:id="colTitle" text="Titre" prefWidth="200"/>
+                  <TableColumn fx:id="colContent" text="Contenu" prefWidth="300"/>
+              <!--<TableColumn fx:id="colImage" text="Image" prefWidth="150"/>-->
+           <TableColumn fx:id="colCategory" text="Catégorie" prefWidth="150"/>
+        </columns>
+     </TableView>
+  </SplitPane>
 
 
-         <!-- Form Layout for Adding/Editing Blogs -->
+  <!-- Form Layout for Adding/Editing Blogs -->
          <GridPane styleClass="form-container" hgap="10" vgap="10">
             <columnConstraints>
                <ColumnConstraints hgrow="NEVER" prefWidth="100"/>
@@ -56,11 +60,12 @@
             </HBox>
 
             <!-- Image -->
-            <Label text="Image :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <!--<Label text="Image :" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
             <HBox spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="1">
                <TextField fx:id="txtImage" promptText="Chemin de l'image" styleClass="image-path"/>
                <Button text="Parcourir" minWidth="100" onAction="#chooseImage" styleClass="secondary-button"/>
-            </HBox>
+            </HBox>-->
+
 
             <!-- Catégories -->
             <Label text="Catégories :" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
@@ -94,7 +99,7 @@
          </VBox>
 
          <!-- Translation Section -->
-         <VBox spacing="5" styleClass="translation-section">
+         <VBox spacing="5" styleClass="translation-container">
             <Label text="Traduction" styleClass="section-label"/>
             <Label text="Titre traduit :" styleClass="sub-label"/>
             <Label fx:id="blogTitle" text="..." styleClass="translated-text"/>
@@ -111,6 +116,8 @@
          <Button fx:id="btnNext" text="Suivant >" minWidth="100" onAction="#nextPage" styleClass="nav-button"/>
          <Button fx:id="btnCategories" text="Gérer les catégories" minWidth="150" onAction="#openCategoriesPage" styleClass="category-button"/>
          <Button fx:id="btnCommenter" text="Commenter" minWidth="100" onAction="#openCommentPage" styleClass="comment-button"/>
+         <Button fx:id="btnDashboardCovid" text="Statistique de Covid19" minWidth="100" onAction="#OpenDashCovid" styleClass="comment-button"/>
+
       </HBox>
    </bottom>
 </BorderPane>

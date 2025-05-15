@@ -29,6 +29,10 @@
             <Label text="Réponse :" style="-fx-font-size: 16px;"/>
             <TextArea fx:id="answerTextArea" prefHeight="400" wrapText="true" editable="false" />
         </VBox>
+        <HBox alignment="CENTER">
+            <Button fx:id="btnRetour" text="Retour" onAction="#retourBlog" styleClass="button-return"/>
+        </HBox>
 
     </VBox>
+
 </AnchorPane>

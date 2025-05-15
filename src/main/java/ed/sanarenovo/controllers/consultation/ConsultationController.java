@@ -46,6 +46,8 @@ public class ConsultationController implements Initializable {
     private TextField motifField;
     @FXML
     private DatePicker datePicker;
+
+
     @FXML
     private ComboBox<String> typeConsultationComboBox;
     @FXML
@@ -698,6 +700,25 @@ public class ConsultationController implements Initializable {
                 scene.getStylesheets().add(cssUrl.toExternalForm());
             } else {
                 System.out.println("⚠️ CSS file not found: /design.css");
+            }
+
+            Stage currentStage = (Stage) tableView.getScene().getWindow();
+            currentStage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void BlogClient(javafx.event.ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Blog/BlogClient.fxml"));
+            Scene scene = new Scene(root);
+
+            URL cssUrl = getClass().getResource("/Blog/css/BlogClientStyle.css");
+            if (cssUrl != null) {
+                scene.getStylesheets().add(cssUrl.toExternalForm());
+            } else {
+                System.out.println("⚠️ CSS file not found: /BlogClientStyle.css");
             }
 
             Stage currentStage = (Stage) tableView.getScene().getWindow();

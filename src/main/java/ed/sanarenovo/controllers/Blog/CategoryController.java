@@ -1,5 +1,6 @@
 package ed.sanarenovo.controllers.Blog;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
@@ -31,6 +32,8 @@ public class CategoryController {
     @FXML private Button btnUpdate;
     @FXML private Button btnDelete;
     @FXML private Button btnBackToBlogs;
+    @FXML
+    private Button btnRetour;
 
     private final CategoryServices categoryService = new CategoryServices();
 
@@ -204,5 +207,13 @@ public class CategoryController {
     public void setFullScreen() {
         Stage stage = (Stage) tableCategory.getScene().getWindow();
         stage.setFullScreen(true);
+    }
+
+    @FXML
+    private void retourBlog(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/Blog/Blog.fxml"));
+        Stage stage = (Stage) btnRetour.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }
