@@ -87,7 +87,7 @@
 
 
         <!-- TableView -->
-        <TableView fx:id="tableView" layoutX="750" layoutY="200.0" prefHeight="210.0" prefWidth="680.0">
+        <TableView fx:id="tableView" layoutX="720" layoutY="50.0" prefHeight="500.0" prefWidth="800.0">
             <columns>
                 <TableColumn fx:id="colId" prefWidth="40.0" text="ID" />
                 <TableColumn fx:id="colImc" prefWidth="80.0" text="IMC" />
