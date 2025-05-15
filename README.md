@@ -117,7 +117,7 @@ Ce projet est distribué sous la licence MIT.
 Consultez le fichier LICENSE pour plus d’informations.
 
 ## 🙏 Remerciements
-Ce projet a été réalisé sous la supervision de [Nom du professeur]
+Ce projet a été réalisé sous la supervision de **Karray Gargouri**
 à Esprit School of Engineering, dans le cadre du module PIDEV 3A.
 Merci à toute l’équipe pédagogique pour leur accompagnement.
 
