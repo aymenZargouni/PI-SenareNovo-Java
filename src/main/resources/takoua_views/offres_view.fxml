@@ -6,19 +6,19 @@
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.takoua.OffresController"
-            stylesheets="/takoua_views/OffreView.css">
+            stylesheets="@/takoua_views/style.css">
 
     <children>
 
-
         <!-- Champ de recherche -->
         <TextField fx:id="searchFieldOffres" promptText="Rechercher par titre..."
-                   AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+                   AnchorPane.topAnchor="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0"
+                   styleClass="content-container" />
 
         <!-- TableView des offres -->
         <TableView fx:id="tableOffres"
-                   AnchorPane.topAnchor="50.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.bottomAnchor="60.0"
-                   styleClass="table-view">
+                   AnchorPane.topAnchor="70.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.bottomAnchor="70.0"
+                   styleClass="custom-table">
             <columns>
                 <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
                 <TableColumn fx:id="colTitre" prefWidth="150.0" text="Titre" />
@@ -31,8 +31,8 @@
         <!-- Boutons -->
         <HBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="14.0">
             <children>
-                <Button fx:id="btnPostuler" text="Postuler" onAction="#handlePostuler" />
-                <Button fx:id="btnRetour" text="Retour" onAction="#handleRetour" />
+                <Button fx:id="btnPostuler" text="Postuler" onAction="#handlePostuler" styleClass="primary-button" />
+                <Button fx:id="btnRetour" text="Retour" onAction="#handleRetour" styleClass="secondary-button" />
             </children>
         </HBox>
 

@@ -1,176 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="ed.sanarenovo.controllers.takoua.RHController"
-            prefWidth="1200" prefHeight="800" stylesheets="@RH.css">
+            stylesheets="@/takoua_views/style.css"
+            prefWidth="1200" prefHeight="800">
+    <fx:define>
+        <ToggleGroup fx:id="menuToggleGroup"/>
+    </fx:define>
+    <!-- Sidebar -->
+    <left>
 
-    <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
-             AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+    </left>
 
-        <!-- Onglet Gestion des Offres -->
-        <Tab text="Gestion des Offres">
-            <ScrollPane fitToWidth="true" fitToHeight="true">
-                <content>
-                    <VBox spacing="20" styleClass="card-container">
-                        <!-- Contenu de la gestion des offres -->
-                        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="card-header">
-                            <Label text="Gestion des Offres d'Emploi" styleClass="section-title"/>
-                            <TextField fx:id="txtSearchOffres" promptText="Rechercher une offre..." styleClass="search-field"/>
-                        </HBox>
+    <!-- Main Content -->
+    <center>
+        <AnchorPane styleClass="main-container">
+            <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE"
+                     AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
+                     AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
 
-                        <TableView fx:id="tableOffres" styleClass="data-table">
-                            <columns>
-                                <TableColumn fx:id="colOffreId" text="ID" prefWidth="50" styleClass="table-column"/>
-                                <TableColumn fx:id="colOffreTitre" text="Titre" prefWidth="200" styleClass="table-column"/>
-                                <TableColumn fx:id="colOffreExpiration" text="Expiration" prefWidth="150" styleClass="table-column"/>
-                            </columns>
-                        </TableView>
+                <!-- Onglet Offres -->
+                <Tab fx:id="tabOffres" text="Offres">
+                    <ScrollPane fitToWidth="true" fitToHeight="true">
+                        <content>
+                            <VBox spacing="20" styleClass="content-container">
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <Label text="Gestion des Offres d'Emploi" styleClass="section-title"/>
+                                    <TextField fx:id="txtSearchOffres" promptText="Rechercher une offre..."/>
+                                </HBox>
 
-                        <HBox spacing="10" styleClass="card-actions">
-                            <Button fx:id="btnAddOffre" text="Ajouter" styleClass="button primary" onAction="#handleAddOffre"/>
-                            <Button fx:id="btnEditOffre" text="Modifier" styleClass="button secondary" onAction="#handleEditOffre"/>
-                            <Button fx:id="btnDeleteOffre" text="Supprimer" styleClass="button danger" onAction="#handleDeleteOffre"/>
-                        </HBox>
-                    </VBox>
-                </content>
-            </ScrollPane>
-        </Tab>
+                                <TableView fx:id="tableOffres" styleClass="custom-table">
+                                    <columns>
+                                        <TableColumn fx:id="colOffreId" text="ID" prefWidth="50"/>
+                                        <TableColumn fx:id="colOffreTitre" text="Titre" prefWidth="200"/>
+                                        <TableColumn fx:id="colOffreExpiration" text="Expiration" prefWidth="150"/>
+                                    </columns>
+                                </TableView>
 
-        <!-- Onglet Gestion des Candidatures -->
-        <Tab text="Gestion des Candidatures">
-            <ScrollPane fitToWidth="true" fitToHeight="true">
-                <content>
-                    <VBox spacing="20" styleClass="card-container">
-                        <!-- Contenu de la gestion des candidatures -->
-                        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="card-header">
-                            <Label text="Gestion des Candidatures" styleClass="section-title"/>
-                            <TextField fx:id="txtSearchCandidatures" promptText="Rechercher une candidature..." styleClass="search-field"/>
-                        </HBox>
-
-                        <TableView fx:id="tableCandidatures" styleClass="data-table">
-                            <columns>
-                                <TableColumn fx:id="colCandId" text="ID" prefWidth="50" styleClass="table-column"/>
-                                <TableColumn fx:id="colCandNom" text="Nom" prefWidth="100" styleClass="table-column"/>
-                                <TableColumn fx:id="colCandPrenom" text="Prénom" prefWidth="100" styleClass="table-column"/>
-                                <TableColumn fx:id="colCandEmail" text="Email" prefWidth="150" styleClass="table-column"/>
-                                <TableColumn fx:id="colCandDate" text="Date" prefWidth="100" styleClass="table-column"/>
-                                <TableColumn fx:id="colCandStatut" text="Statut" prefWidth="100" styleClass="table-column"/>
-                                <TableColumn fx:id="colCandScore" text="Score CV" prefWidth="80" styleClass="table-column"/>
-                            </columns>
-                        </TableView>
-
-                        <HBox spacing="10" styleClass="card-actions">
-                            <Button fx:id="btnDownloadCV" text="Télécharger CV" styleClass="button success" onAction="#handleDownloadCV"/>
-                            <Button fx:id="btnAnalyzeCV" text="Analyser CV" styleClass="button accent" onAction="#handleAnalyzeCV"/>
-                            <ComboBox fx:id="comboStatut" promptText="Modifier Statut" styleClass="combo-box"/>
-                            <Button fx:id="btnUpdateStatut" text="Mettre à jour" styleClass="button primary" onAction="#handleUpdateStatut"/>
-                        </HBox>
-                    </VBox>
-                </content>
-            </ScrollPane>
-        </Tab>
-
-        <!-- Onglet Statistiques -->
-        <Tab text="Statistiques">
-            <ScrollPane fitToWidth="true" fitToHeight="true">
-                <content>
-                    <VBox spacing="20" styleClass="card-container">
-                        <!-- Contenu des statistiques -->
-                        <HBox alignment="CENTER_LEFT" styleClass="card-header">
-                            <Label text="Statistiques des Candidatures" styleClass="section-title"/>
-                            <Button fx:id="btnRefreshStats" text="Actualiser" styleClass="button refresh-button" onAction="#handleRefreshStats"/>
-                        </HBox>
-
-                        <!-- Quick Stats -->
-                        <HBox spacing="15" styleClass="quick-stats-container">
-                            <!-- Total Card -->
-                            <VBox styleClass="stat-card total-card" alignment="CENTER" spacing="5">
-                                <StackPane fx:id="totalProgressPane">
-                                    <Label fx:id="lblTotalCandidats" text="0" styleClass="stat-value total-value"/>
-                                </StackPane>
-                                <Label text="TOTAL" styleClass="stat-label"/>
-                                <Label text="Candidatures" styleClass="stat-subtitle"/>
+                                <HBox spacing="10">
+                                    <Button fx:id="btnAddOffre" text="Ajouter" styleClass="primary-button" onAction="#handleAddOffre"/>
+                                    <Button fx:id="btnEditOffre" text="Modifier" styleClass="secondary-button" onAction="#handleEditOffre"/>
+                                    <Button fx:id="btnDeleteOffre" text="Supprimer" styleClass="danger-button" onAction="#handleDeleteOffre"/>
+                                </HBox>
                             </VBox>
+                        </content>
+                    </ScrollPane>
+                </Tab>
 
-                            <!-- New Card -->
-                            <VBox styleClass="stat-card new-card" alignment="CENTER" spacing="5">
-                                <StackPane fx:id="newProgressPane">
-                                    <Label fx:id="lblNouvellesCandidatures" text="0" styleClass="stat-value new-value"/>
-                                </StackPane>
-                                <Label text="NOUVELLES" styleClass="stat-label"/>
-                                <Label text="Cette semaine" styleClass="stat-subtitle"/>
+                <!-- Onglet Candidatures -->
+                <Tab fx:id="tabCandidatures" text="Candidatures">
+                    <ScrollPane fitToWidth="true" fitToHeight="true">
+                        <content>
+                            <VBox spacing="20" styleClass="content-container">
+                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                    <Label text="Gestion des Candidatures" styleClass="section-title"/>
+                                    <TextField fx:id="txtSearchCandidatures" promptText="Rechercher une candidature..."/>
+                                </HBox>
+
+                                <TableView fx:id="tableCandidatures" styleClass="custom-table">
+                                    <columns>
+                                        <TableColumn fx:id="colCandId" text="ID" prefWidth="50"/>
+                                        <TableColumn fx:id="colCandNom" text="Nom" prefWidth="100"/>
+                                        <TableColumn fx:id="colCandPrenom" text="Prénom" prefWidth="100"/>
+                                        <TableColumn fx:id="colCandEmail" text="Email" prefWidth="150"/>
+                                        <TableColumn fx:id="colCandDate" text="Date" prefWidth="100"/>
+                                        <TableColumn fx:id="colCandStatut" text="Statut" prefWidth="100"/>
+                                        <TableColumn fx:id="colCandScore" text="Score CV" prefWidth="80"/>
+                                    </columns>
+                                </TableView>
+
+                                <HBox spacing="10">
+                                    <Button fx:id="btnDownloadCV" text="Télécharger CV" styleClass="primary-button" onAction="#handleDownloadCV"/>
+                                    <Button fx:id="btnAnalyzeCV" text="Analyser CV" styleClass="secondary-button" onAction="#handleAnalyzeCV"/>
+                                    <ComboBox fx:id="comboStatut" promptText="Modifier Statut"/>
+                                    <Button fx:id="btnUpdateStatut" text="Mettre à jour" styleClass="primary-button" onAction="#handleUpdateStatut"/>
+                                </HBox>
                             </VBox>
+                        </content>
+                    </ScrollPane>
+                </Tab>
 
-                            <!-- Accepted Card -->
-                            <VBox styleClass="stat-card accepted-card" alignment="CENTER" spacing="5">
-                                <StackPane fx:id="acceptedProgressPane">
-                                    <Label fx:id="lblCandidaturesAcceptees" text="0" styleClass="stat-value accepted-value"/>
-                                </StackPane>
-                                <Label text="ACCEPTÉES" styleClass="stat-label"/>
-                                <Label fx:id="lblAcceptanceRate" text="Taux: 0%" styleClass="stat-trend-up"/>
+                <!-- Onglet Statistiques -->
+                <Tab fx:id="tabStats" text="Statistiques">
+                    <ScrollPane fitToWidth="true" fitToHeight="true">
+                        <content>
+                            <VBox spacing="20" styleClass="content-container">
+                                <HBox alignment="CENTER_LEFT">
+                                    <Label text="Statistiques des Candidatures" styleClass="section-title"/>
+                                    <Button fx:id="btnRefreshStats" text="Actualiser" styleClass="primary-button" onAction="#handleRefreshStats"/>
+                                </HBox>
+
+                                <HBox spacing="15">
+                                    <VBox spacing="5" alignment="CENTER">
+                                        <Label fx:id="lblTotalCandidats" text="0"/>
+                                        <Label text="TOTAL"/>
+                                    </VBox>
+                                    <VBox spacing="5" alignment="CENTER">
+                                        <Label fx:id="lblNouvellesCandidatures" text="0"/>
+                                        <Label text="NOUVELLES"/>
+                                    </VBox>
+                                    <VBox spacing="5" alignment="CENTER">
+                                        <Label fx:id="lblCandidaturesAcceptees" text="0"/>
+                                        <Label text="ACCEPTÉES"/>
+                                    </VBox>
+                                    <VBox spacing="5" alignment="CENTER">
+                                        <Label fx:id="lblCandidaturesRejetees" text="0"/>
+                                        <Label text="REJETÉES"/>
+                                    </VBox>
+                                </HBox>
+
+                                <HBox spacing="15">
+                                    <Label text="Filtrer par:"/>
+                                    <ComboBox fx:id="comboTimeFilter">
+                                        <items>
+                                            <FXCollections fx:factory="observableArrayList">
+                                                <String fx:value="7 derniers jours"/>
+                                                <String fx:value="30 derniers jours"/>
+                                                <String fx:value="3 derniers mois"/>
+                                                <String fx:value="Cette année"/>
+                                                <String fx:value="Toutes périodes"/>
+                                            </FXCollections>
+                                        </items>
+                                    </ComboBox>
+                                    <ComboBox fx:id="comboOfferFilter" promptText="Toutes les offres"/>
+                                    <Button fx:id="btnApplyFilter" text="Appliquer" styleClass="primary-button" onAction="#handleApplyFilter"/>
+                                </HBox>
+
+                                <BarChart fx:id="candidaturesChart" legendVisible="false" animated="true">
+                                    <xAxis>
+                                        <CategoryAxis fx:id="xAxis" label="Offres"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis fx:id="yAxis" label="Nombre de candidatures"/>
+                                    </yAxis>
+                                </BarChart>
                             </VBox>
+                        </content>
+                    </ScrollPane>
+                </Tab>
+            </TabPane>
+        </AnchorPane>
+    </center>
 
-                            <!-- Rejected Card -->
-                            <VBox styleClass="stat-card rejected-card" alignment="CENTER" spacing="5">
-                                <StackPane fx:id="rejectedProgressPane">
-                                    <Label fx:id="lblCandidaturesRejetees" text="0" styleClass="stat-value rejected-value"/>
-                                </StackPane>
-                                <Label text="REJETÉES" styleClass="stat-label"/>
-                                <Label fx:id="lblRejectionRate" text="Taux: 0%" styleClass="stat-trend-down"/>
-                            </VBox>
-                        </HBox>
+    <!-- Bas de page -->
+    <bottom>
+        <HBox alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
 
-                        <!-- Chart and Filters -->
-                        <VBox spacing="15">
-                            <HBox spacing="15" styleClass="filters-box">
-                                <Label text="Filtrer par:" styleClass="filter-label"/>
-                                <ComboBox fx:id="comboTimeFilter" styleClass="filter-combo">
-                                    <items>
-                                        <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="7 derniers jours"/>
-                                            <String fx:value="30 derniers jours"/>
-                                            <String fx:value="3 derniers mois"/>
-                                            <String fx:value="Cette année"/>
-                                            <String fx:value="Toutes périodes"/>
-                                        </FXCollections>
-                                    </items>
-                                </ComboBox>
-                                <ComboBox fx:id="comboOfferFilter" styleClass="filter-combo" promptText="Toutes les offres">
-                                    <items>
-                                        <FXCollections fx:factory="observableArrayList">
-                                            <String fx:value="Offre 1"/>
-                                            <String fx:value="Offre 2"/>
-                                            <String fx:value="Offre 3"/>
-                                        </FXCollections>
-                                    </items>
-                                </ComboBox>
-                                <Button fx:id="btnApplyFilter" text="Appliquer" styleClass="button filter-button" onAction="#handleApplyFilter"/>
-                            </HBox>
 
-                            <BarChart fx:id="candidaturesChart" styleClass="main-chart" legendVisible="false" animated="true">
-                                <xAxis>
-                                    <CategoryAxis fx:id="xAxis" label="Offres"/>
-                                </xAxis>
-                                <yAxis>
-                                    <NumberAxis fx:id="yAxis" label="Nombre de candidatures"/>
-                                </yAxis>
-                            </BarChart>
-                        </VBox>
-                    </VBox>
-                </content>
-            </ScrollPane>
-        </Tab>
-    </TabPane>
-
-    <!-- Navigation -->
-    <HBox alignment="CENTER_RIGHT" styleClass="navigation-box" AnchorPane.bottomAnchor="10" AnchorPane.rightAnchor="20">
-        <Button fx:id="btnRetour" text="Retour à l'accueil" styleClass="button retour-button" onAction="#handleRetour"/>
-    </HBox>
-</AnchorPane>
+            <Button fx:id="btnRetour" text="Retour à l'accueil" styleClass="secondary-button" onAction="#handleRetour"/>
+        </HBox>
+    </bottom>
+</BorderPane>

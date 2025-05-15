@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class ClaimController {
-
     private final ClaimService claimService = new ClaimService();
     private final EquipmentService equipmentService = new EquipmentService();
     private final TechnicienService technicienService = new TechnicienService();

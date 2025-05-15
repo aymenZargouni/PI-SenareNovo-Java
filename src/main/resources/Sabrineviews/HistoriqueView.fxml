@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.control.Tooltip?>
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.layout.*?>
+        <?import javafx.scene.text.*?>
+        <?import javafx.geometry.Insets?>
+        <?import javafx.scene.image.Image?>
+        <?import javafx.scene.image.ImageView?>
+
 <VBox xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="ed.sanarenovo.controllers.GestionEquipment.HistoriqueController"
       spacing="20"
-      style="-fx-padding: 25; -fx-background-color: #f5f7fa;"
-      stylesheets="@/styles/equipment.css">
+      stylesheets="@/Sabrineviews/style.css"
+      styleClass="content-container">x
 
     <!-- En-tête avec icône -->
     <HBox alignment="CENTER_LEFT" spacing="10">
@@ -22,17 +21,16 @@
                 <Image url="@icons/history.png"/>
             </image>
         </ImageView>
-        <Label text="Historique des Réparations" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <Label text="Historique des Réparations" styleClass="section-title"/>
     </HBox>
 
     <!-- TableView -->
-
-    <TableView fx:id="historiqueTable" styleClass="modern-table">
+    <TableView fx:id="historiqueTable" styleClass="custom-table">
         <columns>
-            <TableColumn fx:id="colId" text="ID" style="-fx-alignment: CENTER;" prefWidth="60"/>
-            <TableColumn fx:id="colEquipement" text="Équipement" prefWidth="180"/>
+            <TableColumn fx:id="colId" text="ID" prefWidth="60" styleClass="table-cell-center"/>
+            <TableColumn fx:id="colEquipement" text="Équipement" prefWidth="180" />
             <TableColumn fx:id="colModel" text="Modèle" prefWidth="150"/>
-            <TableColumn fx:id="colDate" text="Date Réparation" prefWidth="150" style="-fx-alignment: CENTER;"/>
+            <TableColumn fx:id="colDate" text="Date Réparation" prefWidth="150" styleClass="table-cell-center"/>
             <TableColumn fx:id="colDescription" text="Description" prefWidth="250"/>
         </columns>
         <columnResizePolicy>
@@ -41,9 +39,9 @@
     </TableView>
 
     <!-- Barre d'outils -->
-    <ToolBar style="-fx-background-color: transparent; -fx-padding: 10 0;">
+    <ToolBar styleClass="toolbar-transparent">
         <HBox spacing="15" alignment="CENTER_LEFT">
-            <Button text="Synchroniser" onAction="#onSyncHistorique" styleClass="tool-button">
+            <Button text="Synchroniser" onAction="#onSyncHistorique" styleClass="primary-button">
                 <graphic>
                     <ImageView fitWidth="20" fitHeight="20">
                         <image>
@@ -52,7 +50,7 @@
                     </ImageView>
                 </graphic>
             </Button>
-            <Button text="Rapport" onAction="#onGenerateReport" styleClass="tool-button">
+            <Button text="Rapport" onAction="#onGenerateReport" styleClass="secondary-button">
                 <graphic>
                     <ImageView fitWidth="20" fitHeight="20">
                         <image>

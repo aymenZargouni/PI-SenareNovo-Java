@@ -9,8 +9,8 @@ public class SmsService {
     //    public static final String ACCOUNT_SID = "ACab532677926f8de73dbf5b1d7c9a0239";
 //    public static final String AUTH_TOKEN = "54c93b48d197748d99aa3dda3c4ef09c";
 
-    public static final String ACCOUNT_SID = "AC0f89164d3785a717bfd4f81cd1096189";
-    public static final String AUTH_TOKEN = "4baa29db72a044ae3fedf34719831480";
+    public static final String ACCOUNT_SID = "ACc15a142471a04fd9a9ad6c4bdd0e1cb5";
+    public static final String AUTH_TOKEN = "e9cdc197059cc8825707ffd5e2e2c68d";
 
     public SmsService() {
         // Initialiser Twilio avec ton SID et Auth Token
@@ -19,7 +19,7 @@ public class SmsService {
 
     public void sendSms(String toPhoneNumber, String message) {
         // Numéro Twilio (doit être celui que tu as acheté sur Twilio)
-        String fromPhoneNumber = "+17156313625";
+        String fromPhoneNumber = "+18578323588";
 
         // Envoi du message via Twilio
         Message messageSent = Message.creator(

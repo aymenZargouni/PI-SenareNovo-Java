@@ -24,6 +24,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -72,6 +73,18 @@ public class RHController {
     private final ObservableList<Candidature> candidaturesList = FXCollections.observableArrayList();
     private ObservableList<Candidature> allCandidatures;
     @FXML private Label lblAcceptanceRate, lblRejectionRate;
+    @FXML private TabPane mainTabPane;
+    @FXML private Tab tabOffres, tabCandidatures, tabStats;
+
+    @FXML private ToggleButton btnGestionEmploi;
+    @FXML private ToggleButton btnGestionCandidat;
+    @FXML private ToggleButton btnStatistiques;
+
+    @FXML private AnchorPane paneEmploi;
+    @FXML private AnchorPane paneCandidat;
+    @FXML private AnchorPane paneStatistique;
+
+    @FXML private TabPane tabPane;
 
     // Animations
     private final DoubleProperty totalProgress = new SimpleDoubleProperty(0);
@@ -207,7 +220,7 @@ public class RHController {
             };
         }
 
-}
+    }
 
 
     // Initialize Offre table
@@ -551,15 +564,15 @@ public class RHController {
         }
     }
 
-   private void setupStats() {
-       // Example of stats setup
+    private void setupStats() {
+        // Example of stats setup
         updateStats(250, 45, 120, 85);
-   }
+    }
 
     private void updateStats(int total, int nouvelles, int acceptees, int rejetees) {
-       // Add stat display logic
-   }
-//    private void applyRowAnimations() {
+        // Add stat display logic
+    }
+    //    private void applyRowAnimations() {
 //        for (Node row : tableCandidatures.lookupAll("TableRow")) {
 //            TranslateTransition
 //            slideIn = new TranslateTransition(Duration.millis(500), row);

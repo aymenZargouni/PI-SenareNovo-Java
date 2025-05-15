@@ -77,7 +77,7 @@ public class CandidatureController {
     }
 
     public static String generateLettreMotivationAvecOpenRouter(String prompt) throws IOException {
-        String apiKey = "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"; // ← Mets ici ta vraie clé API OpenRouter
+        String apiKey = "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"; // ← Mets ici ta vraie clé API OpenRouter
         String model = "openai/gpt-3.5-turbo";
 
         URL url = new URL("https://openrouter.ai/api/v1/chat/completions");

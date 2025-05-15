@@ -7,9 +7,13 @@ import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 import ed.sanarenovo.entities.Claim;
+import ed.sanarenovo.entities.User;
 import ed.sanarenovo.services.ClaimService;
+import ed.sanarenovo.services.TechnicienService;
+import ed.sanarenovo.services.UserService;
 import ed.sanarenovo.utils.CredentialService;
 import ed.sanarenovo.utils.ReclamationIA;
+import ed.sanarenovo.utils.UserSession;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -45,7 +49,8 @@ public class TechnicienClaimsController {
     @FXML private TextArea descriptionTextArea;
 
     private final ClaimService claimService = new ClaimService();
-    private final int technicienId = 4; // Devrait être injecté
+    private  int technicienId;
+    private  int UserId;// Devrait être injecté
     private HostServices hostServices;
 
     // Setter pour l'injection de HostServices
@@ -58,7 +63,11 @@ public class TechnicienClaimsController {
         configureRadioButtons();
         configureTableColumns();
         configureStatusComboBox();
+        TechnicienService technicienService = new TechnicienService();
+        UserId = UserSession.getInstance().getUser().getId();
+        technicienId = technicienService.getTechnicienIdByUserId(UserId);
         loadClaims();
+
     }
 
     private void configureRadioButtons() {
@@ -222,7 +231,7 @@ public class TechnicienClaimsController {
             Parent root = loader.load();
 
             // Vous pouvez passer des paramètres au contrôleur si besoin
-            ed.sanarenovo.controllers.GestionEquipment.CalendarViewController controller = loader.getController();
+            CalendarViewController controller = loader.getController();
 
             Stage stage = new Stage();
             stage.setTitle("Calendrier des Réclamations");

@@ -3,52 +3,56 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="400.0"
+<AnchorPane prefHeight="550.0" prefWidth="520.0"
             xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="ed.sanarenovo.controllers.takoua.CandidatureController"
-            stylesheets="/takoua_views/formC.css">
+            stylesheets="@/takoua_views/style.css"
+            styleClass="main-container">
+
     <children>
-        <!-- Titre du formulaire -->
-        <Label layoutX="14.0" layoutY="14.0" text="Formulaire de Candidature" styleClass="title-label" />
+        <!-- Conteneur principal pour style uniforme -->
+        <VBox spacing="20" layoutX="14.0" layoutY="14.0" styleClass="content-container">
 
-        <!-- Label et champ pour Nom -->
-        <Label layoutX="14.0" layoutY="50.0" text="Nom:" styleClass="label" />
-        <TextField fx:id="txtNom" layoutX="14.0" layoutY="76.0" prefWidth="472.0" prefHeight="35.0" styleClass="text-field"/>
+            <!-- Titre -->
+            <Label text="Formulaire de Candidature" styleClass="section-title"/>
 
-        <!-- Label et champ pour Prénom -->
-        <Label layoutX="14.0" layoutY="121.0" text="Prénom:" styleClass="label" />
-        <TextField fx:id="txtPrenom" layoutX="14.0" layoutY="147.0" prefWidth="472.0" prefHeight="35.0" styleClass="text-field"/>
+            <!-- Nom -->
+            <Label text="Nom:" styleClass="label"/>
+            <TextField fx:id="txtNom" prefHeight="35.0" styleClass="text-field"/>
 
-        <!-- Label et champ pour Email -->
-        <Label layoutX="14.0" layoutY="192.0" text="Email:" styleClass="label" />
-        <TextField fx:id="txtEmail" layoutX="14.0" layoutY="218.0" prefWidth="472.0" prefHeight="35.0" styleClass="text-field"/>
+            <!-- Prénom -->
+            <Label text="Prénom:" styleClass="label"/>
+            <TextField fx:id="txtPrenom" prefHeight="35.0" styleClass="text-field"/>
 
-        <!-- Label et champ pour CV (PDF) -->
-        <Label layoutX="14.0" layoutY="263.0" text="CV (PDF):" styleClass="label" />
-        <HBox layoutX="14.0" layoutY="289.0" spacing="10">
-            <TextField fx:id="txtCVPath" prefWidth="350.0" prefHeight="35.0" editable="false" styleClass="text-field"/>
-            <Button fx:id="btnUploadCV" mnemonicParsing="false" text="Parcourir" onAction="#handleUploadCV" styleClass="button"/>
-        </HBox>
+            <!-- Email -->
+            <Label text="Email:" styleClass="label"/>
+            <TextField fx:id="txtEmail" prefHeight="35.0" styleClass="text-field"/>
 
-        <!-- Section Lettre de motivation améliorée -->
-        <Label layoutX="14.0" layoutY="334.0" text="Lettre de motivation:" styleClass="label" />
-        <VBox layoutX="14.0" layoutY="360.0" spacing="10">
-            <TextArea fx:id="txtLettreMotivation" prefWidth="472.0" prefHeight="150.0" styleClass="text-area"/>
-            <HBox spacing="10" alignment="CENTER_RIGHT">
-                <Button fx:id="btnGenerateMotivation"
-                        mnemonicParsing="false"
-                        text="Générer avec IA"
-                        onAction="#handleGenerateMotivation"
-                        styleClass="button" />
+            <!-- CV -->
+            <Label text="CV (PDF):" styleClass="label"/>
+            <HBox spacing="10">
+                <TextField fx:id="txtCVPath" prefHeight="35.0" editable="false" styleClass="text-field"/>
+                <Button fx:id="btnUploadCV" text="Parcourir" onAction="#handleUploadCV" styleClass="primary-button"/>
+            </HBox>
 
+            <!-- Lettre de motivation -->
+            <Label text="Lettre de motivation:" styleClass="label"/>
+            <VBox spacing="10">
+                <TextArea fx:id="txtLettreMotivation" prefHeight="150.0" styleClass="text-area"/>
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button fx:id="btnGenerateMotivation"
+                            text="Générer avec IA"
+                            onAction="#handleGenerateMotivation"
+                            styleClass="secondary-button"/>
+                </HBox>
+            </VBox>
+
+            <!-- Boutons -->
+            <HBox spacing="20" alignment="CENTER_RIGHT">
+                <Button fx:id="btnSubmit" text="Soumettre" onAction="#handleSubmit" styleClass="primary-button"/>
+                <Button fx:id="btnCancel" text="Annuler" onAction="#handleCancel" styleClass="danger-button"/>
             </HBox>
         </VBox>
-
-        <!-- Boutons de soumission et annulation -->
-        <HBox layoutX="14.0" layoutY="540.0" spacing="20.0">
-            <Button fx:id="btnSubmit" text="Soumettre" onAction="#handleSubmit" styleClass="submit-button"/>
-            <Button fx:id="btnCancel" text="Annuler" onAction="#handleCancel" styleClass="cancel-button"/>
-        </HBox>
     </children>
 </AnchorPane>

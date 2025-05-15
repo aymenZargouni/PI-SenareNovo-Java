@@ -11,24 +11,23 @@
 <VBox xmlns="http://javafx.com/javafx/11.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="ed.sanarenovo.controllers.GestionEquipment.ClaimController"
-      spacing="20"
-      style="-fx-padding: 25; -fx-background-color: #f4f4f4;"
-      stylesheets="@/styles/claims.css">
-    <fx:include source="/AymenViews/TopBar.fxml" />
+      styleClass="main-container"
+      stylesheets="@/Sabrineviews/style.css"
+      spacing="20">
+
     <!-- En-tête -->
-    <HBox alignment="CENTER_LEFT" spacing="10">
+    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="content-container">
         <ImageView fitWidth="32" fitHeight="32">
             <image>
                 <Image url="@icons/Claims.png"/>
             </image>
         </ImageView>
-        <Label text="Gestion des Réclamations Techniques" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <Label text="Gestion des Réclamations Techniques" styleClass="section-title"/>
     </HBox>
 
-
     <!-- Formulaire de création -->
-    <GridPane styleClass="form-pane" hgap="15" vgap="15">
-        <Label text="Nouvelle Réclamation" styleClass="section-label" GridPane.columnSpan="2"/>
+    <GridPane styleClass="content-container form-pane" hgap="15" vgap="15">
+        <Label text="Nouvelle Réclamation" styleClass="section-title" GridPane.columnSpan="2"/>
 
         <Label text="Équipement:" styleClass="form-label" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
         <ComboBox fx:id="equipmentCombo" GridPane.rowIndex="1" GridPane.columnIndex="1"
@@ -46,8 +45,7 @@
     <!-- Toolbar d'actions -->
     <ToolBar style="-fx-background-color: transparent; -fx-padding: 0 0 10 0;">
         <HBox spacing="15" alignment="CENTER_LEFT">
-            <!-- Créer -->
-            <Button text="Créer une réclamation" onAction="#handleCreateClaim" styleClass="tool-button">
+            <Button text="Créer une réclamation" onAction="#handleCreateClaim" styleClass="primary-button">
                 <tooltip><Tooltip text="Créer une réclamation"/></tooltip>
                 <graphic>
                     <ImageView fitWidth="20" fitHeight="20">
@@ -56,11 +54,7 @@
                 </graphic>
             </Button>
 
-            <!-- Annuler -->
-
-
-            <!-- Gérer Réclamations -->
-            <Button text="Gérer les réclamations" onAction="#handleOpenClaimsManagement" styleClass="tool-button">
+            <Button text="Gérer les réclamations" onAction="#handleOpenClaimsManagement" styleClass="secondary-button">
                 <tooltip><Tooltip text="Gérer les réclamations"/></tooltip>
                 <graphic>
                     <ImageView fitWidth="20" fitHeight="20">
@@ -72,9 +66,9 @@
     </ToolBar>
 
     <!-- Historique des réclamations -->
-    <VBox spacing="10">
-        <Label text="Historique des Réclamations" styleClass="section-label"/>
-        <TableView fx:id="claimTable" styleClass="data-table">
+    <VBox spacing="10" styleClass="content-container">
+        <Label text="Historique des Réclamations" styleClass="section-title"/>
+        <TableView fx:id="claimTable" styleClass="custom-table">
             <columns>
                 <TableColumn text="ID" style="-fx-alignment: CENTER;" prefWidth="60">
                     <cellValueFactory><PropertyValueFactory property="id"/></cellValueFactory>

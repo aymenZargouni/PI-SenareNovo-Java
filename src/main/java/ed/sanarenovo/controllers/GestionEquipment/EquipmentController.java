@@ -1,6 +1,5 @@
 package ed.sanarenovo.controllers.GestionEquipment;
 
-import ed.sanarenovo.controllers.GestionEquipment.ClaimController;
 import ed.sanarenovo.entities.Equipment;
 import ed.sanarenovo.services.EquipmentService;
 import ed.sanarenovo.utils.PriceTableCell;
